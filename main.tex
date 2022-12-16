@@ -1,0 +1,108 @@
+\documentclass{report}
+
+%% English
+\usepackage[english]{babel}
+\usepackage[english]{nomencl}
+%% For German uncomment following lines and remove above lines
+%\usepackage[ngerman]{babel}
+%\usepackage[german]{nomencl}
+%\usepackage[ansinew]{inputenc}  %% Eingabe mit deutscher Tastatur moeglich
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage[ngerman]{babel}
+
+\usepackage{url}
+\usepackage{eurosym} %Eurosymbol
+%\usepackage{subfigure} %% mehrere Bilder in eine figure-Umgebung
+\usepackage{subcaption} %% use subcaption package instead of subfigure
+\usepackage{geometry} %ersetzt obriges
+\usepackage{amsmath} %Formeln
+\usepackage{amssymb}
+\usepackage{graphicx} %Graphiken
+\usepackage{epstopdf}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{placeins}
+\usepackage{bm}
+\usepackage{epstopdf}
+\usepackage{cite}
+\usepackage{setspace} %Für den Zeilenabstand nötig
+\usepackage{tabularx}
+\usepackage{wallpaper}
+\usepackage[absolute]{textpos}
+\usepackage{float}
+
+\usepackage{pdfpages} %Einbinden von fertigen pdf-Seiten
+
+\usepackage[T1]{fontenc}         %versch. Schriftarten
+\newcommand*{\changefont}{%
+\fontfamily{ptm}\fontseries{m}\fontshape{n}\selectfont}
+
+%Schriftart ändern
+%\usepackage{avant}
+%\renewcommand{\familydefault}{\sfdefault}
+%\fontfamily{pag}\selectfont
+
+%verlinktes Inhaltsverzeichnis
+\usepackage[bookmarksopen = true, linkcolor = black, plainpages = false,hypertexnames = false,citecolor = black]{hyperref}
+
+\geometry{a4paper, top=22mm, left=25mm, right=25mm, bottom=30mm}
+
+
+%%%%%%%%%%%%%%%%%% Hier geht's los %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\pagenumbering{roman}
+\include{Titelseite}  % Titelblatt der Diplomarbeit
+%\include{vorwort}  % Vorwort hier einbinden, falls erwuenscht
+\ClearWallPaper
+
+\include{Innentitelseite}
+
+\onehalfspacing 
+\setcounter{page}{1}
+
+\include{Abstract} % english abstract
+\include{Kurzfassung} % german abstract
+
+\tableofcontents   % Inhaltsverzeichnis
+
+%verwendete Symbole und Zeichen
+\include{Symbols}
+
+
+\pagenumbering{arabic}
+%\include{Einleitung}
+\include{Chapter1_Introduction}
+
+\include{Chapter2_Theory}
+
+\include{Chapter3_Measurement}
+
+\include{Chapter4_Finite_Element_Simulation}
+
+\include{Chapter5_Results}
+
+\include{Chapter6_Summary}
+
+%\include{Kapitel_1}
+%\include{Kapitel_2}
+
+\clearpage
+\addcontentsline{toc}{chapter}{\listfigurename} %zum Hinzufügen zum Inhaltsverzeichnis
+\listoffigures
+
+\clearpage
+\addcontentsline{toc}{chapter}{\listtablename} %zum Hinzufügen zum Inhaltsverzeichnis
+\listoftables
+
+{\changefont
+\include{Literatur}  % Literaturverzeichnis
+}
+
+%\begin{appendix}
+%\include{Anhang_1}   %Anhang einfuegen, falls erwuenscht 
+%\end{appendix}
+
+\end{document}

@@ -1,0 +1,129 @@
+\section{Beispielausschnitt}
+
+Zum Abschluß noch ein kurzer Ausschnitt aus einer Diplomarbeit.
+
+\subsection{Bilineares Rechteckselement \label{Bilinear}}
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=9cm]{fig/pic_4_1}
+\caption{Zusammenhang: globales, lokales Koordinatensystem.}
+\label{fig:KoordSysteme}
+\end{center}
+\end{figure}
+
+Für den Zusammenhang zwischen globalem und lokalem Koordinatensystem (\ref{fig:KoordSysteme}) gilt
+
+\begin{equation}
+\vec{x}\left(\vec{\xi}\right)\,=\,
+\left( \begin{array}{c}
+x(\xi,\eta)\\
+y(\xi,\eta) \end{array} \right)
+\,=\,\sum_{i=1}^{4}
+\left( \begin{array}{c}
+N_i(\xi,\eta)x_i^e \\
+N_i(\xi,\eta)y_i^e \end{array} \right)\,.
+%\label{gllokKoord}
+\end{equation}
+
+Man verwendet den bilinearen Ansatz
+
+\begin{eqnarray}
+x(\xi,\eta)&=&\alpha_0\,+\,\alpha_1\xi\,+\,\alpha_2\eta\,+\,\alpha_3\xi\eta
+\nonumber\\
+y(\xi,\eta)&=&\beta_0\,+\,\beta_1\xi\,+\,\beta_2\eta\,+\,\beta_3\xi\eta\,.
+\end{eqnarray}
+
+Für jeden Eckpunkt $(x_i^e,y_i^e)$ eingesetzt, erhält man die
+Bestimmungsgleichungen für \linebreak $\alpha_0,\alpha_1,\alpha_2,\alpha_3$
+und $ \beta_0,\beta_1,\beta_2,\beta_3  $ aus
+
+\begin{eqnarray}
+ x(\xi_i,\eta_i)&=&x_i^e \nonumber\\
+ y(\xi_i,\eta_i)&=&y_i^e\,.
+\end{eqnarray}
+
+Nach Einsetzen der Lösung und Koeffizientenvergleich mit obiger Gleichung
+erhält man
+
+\begin{equation}
+N_i(\xi,\eta)\,=\,\frac{1}{4}\left(1+\xi_i\xi\right)\left(1+\eta_i\eta\right)\,.
+\end{equation}
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=4cm]{fig/pic_4_2}
+\caption{Ansatzfunktion für den i-ten Knoten.}
+\label{fig:Ansatzfunktion}
+\end{center}
+\end{figure}
+
+Das Element heißt isoparametrisch, wenn die selbe Ansatzfunktion $N_i$ für die
+Koordinatentransformation und die Lösungsfunktion verwendet wird
+(siehe auch \ref{fig:Ansatzfunktion}).
+
+\subsection{Ableitung der Formfunktion}
+
+Betrachtet wird die {\em semidiskretisierte Galerkin-Formulierung}.
+Für die Ermittlung der Leitfähigkeitsmatrix $\bf K$ mit
+
+\begin{eqnarray}
+K_{ij} &=& \int\limits_\Omega \left(\frac{\partial N_i}{\partial x}k\frac{\partial
+N_j}{\partial x}\,+\,\frac{\partial     N_i}{\partial y}k\frac{\partial
+N_j}{\partial y}\right)\,dxdy\,+\,\int\limits_{\Gamma_{\rm c}}N_i\alpha N_j\,d\Gamma
+\nonumber \\[2mm]
+&&1 \le \,i,j\, \le n_{\rm eq}
+\end{eqnarray}
+
+ist es erforderlich, die Ansatzfunktion $N_i$ nach den globalen Koordinaten
+$(x,y)$ abzuleiten.  Bei der Verwendung eines lokalen Koordinatensystems mit
+den Koordinaten $(\xi,\eta)$ wird die Ableitung
+wie folgt berechnet
+
+\begin{equation}
+\frac{\partial N_i}{\partial x}\,=\,\frac{\partial N_i}{\partial \xi}
+\frac{\partial \xi}{\partial x}\,+\,\frac{\partial N_i}{\partial \eta}
+\frac{\partial \eta}{\partial x}\,.
+\end{equation}
+
+Die Bestimmung der Funktion     $ \vec{\xi}(\vec{x}) $ ist mit
+erheblichem Aufwand verbunden. Da die Funktion $ \vec{x}(\vec{\xi}) $
+jedoch bekannt ist, hilft man sich auf folgende Weise
+
+\begin{eqnarray}
+\frac{\partial N_i}{\partial \xi}\,=\,\frac{\partial N_i}{\partial x}
+\frac{\partial x}{\partial \xi}\,+\,\frac{\partial N_i}{\partial y}
+\frac{\partial y}{\partial \xi} \nonumber \\[2mm]
+\frac{\partial N_i}{\partial \eta}\,=\,\frac{\partial N_i}{\partial x}
+\frac{\partial x}{\partial \eta}\,+\,\frac{\partial N_i}{\partial y}
+\frac{\partial y}{\partial \eta}\,.
+\end{eqnarray}
+
+Somit lassen sich die Ableitungen der Ansatzfunktion nach den globalen
+Koordinaten mit Hilfe der Jakobi Matrix $\bf J$
+
+\begin{equation}
+{\bf J}\,=\,
+\left(
+\begin{array}{cc}
+\displaystyle\frac{\partial x}{\partial \xi} &
+\displaystyle\frac{\partial y}{\partial \xi} \\[4mm]
+\displaystyle\frac{\partial x}{\partial \eta} &
+\displaystyle\frac{\partial y}{\partial \eta}
+\end{array} \right)
+\end{equation}
+
+wie folgt darstellen
+
+\begin{equation}
+\left( \begin{array}{c} \displaystyle\frac{\partial N_i}
+{\partial x} \\[4mm]
+\displaystyle\frac{\partial N_i}{\partial y}
+\end{array} \right)\,=\,{\bf J}^{-1}
+\left( \begin{array}{c} \displaystyle\frac{\partial N_i}
+{\partial \xi} \\[4mm]
+\displaystyle\frac{\partial N_i}{\partial \eta}
+\end{array} \right)\,.
+\end{equation}
+
+
