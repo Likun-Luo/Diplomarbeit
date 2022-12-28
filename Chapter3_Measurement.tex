@@ -4,6 +4,7 @@
 In order to be able to validate the results obtained from the latter finite element simulation, specific measurements have been carried out. In this chapter, the acoustic power measurement of sound source and the outer pressure field measurement around carbody are presented. The obtained sound power spectral of the omnidirectional loudspeaker provide simulation input for the finite element analysis in section \ref{section:boundary_conditions}. Furthermore, the measurement results of outer pressure field serve as validation for the finite element model in chapter \ref{chap:results}.
 
 \section{Characterisation of sound source}
+\label{section:SWL_measurement}
 
 Two important characteristics of a sound source are directivity and sound power. For the validation measurement, a dodecahedron loudspeaker of type Brüel \& Kjaer 4292-L is used as excitation, which can be treated as an omnidirectional sound source. Hence, only the sound power emmited by the loudspeaker is of interest. In the following, the acoustic power spectrum of the sound source is measured following ISO 9614-2 \cite{din19969614}.
 
@@ -40,12 +41,12 @@ Fig. \ref{fig:scanningmethod} shows the intensity measurement using scan method.
 \end{equation}
 where $\Vec{n}$ is the unit normal vector of the measurement surface. Each partial measurement surface is scanned twice, using vertical and horizotal scan path, respectively. The obtained result is the spatial-averaged intensity. The sound power of a single measurment surface is given by the product of the spatial average intensity and the surface area:
 \begin{equation}
-    P_i = \langle I_{ni}\rangle S_i
+    W_i = \langle I_{ni}\rangle S_i
 \end{equation}
 
 The total sound power of the enclosed sound source is given by:
 \begin{equation}
-    P_{total} = \sum_{i = 1}^{N} P_i
+    W_{total} = \sum_{i = 1}^{N} W_i
 \end{equation}
 
 % Beispiel für eine Grafik
@@ -119,6 +120,7 @@ The measurment is post-processed using the Brüel \& Kjaer type 2270 hand-held a
 
 
 \section{Pressure field measurement on a standing metro train}
+\label{sec:pressure_field_measurement}
 
 In this section, the sound pressure measurement on a standing UBX metro with controlled excitation has been carried out. The aim to perform measurements under standstill condition is to avoid the uncertainties introduced by the complex real sources (e.g. wheel-rail interaction) in dynamic conditions. In such wise, the quality of the finite element model can be better assessed.
 

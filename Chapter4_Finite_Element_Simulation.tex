@@ -1,22 +1,24 @@
 \chapter{Finite Element Modeling}
 \label{chap:FEM}
 
-In this chapter, the development of the finite element model of the UBX metro and the simulation setup are described. First, in section \ref{section:geometry}, the design of the model geometry and the mesh of the model are shown. Then, in section \ref{section:boundary_conditions}, the incorporation of boundary conditions into the finite element model is described. Finally, in section \ref{section:parametric_study}, a parametric study is carried out to investigate the influence of different simulation parameters on the solution of the initial finite element model. All these simulations are done with the acoustics module of the open-source FEM software openCFS \cite{opencfs}.
+This chapter outlines the development of the finite element model of the UBX metro and the simulation setup. First, in section \ref{section:geometry}, the design of the model geometry and the mesh of the model are shown. Consecutively, section \ref{section:boundary_conditions} describes the incorporation of boundary conditions into the finite element model. Finally, in section \ref{section:parametric_study}, a parametric study is carried out to investigate the influence of different simulation parameters on the solution of the initial finite element model. All these simulations are executed with the acoustics module of the open-source FEM software openCFS \cite{opencfs}.
 
 
 \section{Geometry and mesh}
 \label{section:geometry}
 
-As shown in sec. \ref{section:ubx_geometry}
-Due to the large dimension of the car body 
+Due to the large dimension of the car body, the computation of the complete model would be too extensive. Hence, the simulation model constitutes of the front bogie part only. The latter has been marked through a red box in fig. \ref{fig:red_box}. Furthermore, the outer pressure field measurement described in sec. \ref{sec:pressure_field_measurement} has been taken from the same area.
 
-a representative model has to be
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{fig/chap4/geometry/model_area.png}
-	\caption{Side view of UBX, red box marked the modeling area}
+	\caption{Side view of UBX, red box indicates the modeling area}
+	\label{fig:red_box}
 \end{figure}
+
+In order to reduce computational effort, the symmetry of the model is exploited. The quarter model is depicted in fig. \ref{fig:fourth_model}, whereas the equivalent model, namely the full model, is shown in fig. \ref{fig:full_model}. Both models are shown for more comprehensive illustration of the modeled underfloor components, but only the quarter model has been used in the simulation. For simplification of the geometry design, exclusively the most essential components have been included in the model. Starting with the squared car body (dark green), the bogie (purple), the wheel (pink), the air suspension (gray) and ending with the omnidirectional loudspeaker (bright green). This respective component has been placed underneath the car floor, between bogie and the wheel axle and is represented through a sphere with $35\,\text{cm}$ diameter.
+
 
 \begin{figure}[H]
 	\centering
@@ -24,27 +26,172 @@ a representative model has to be
 		\centering
 		\includegraphics[width=0.9\linewidth]{fig/chap4/geometry/one_fourth_model.png}
 		\caption{quarter model}
+		\label{fig:fourth_model}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{fig/chap4/geometry/initial_model_2.png}
 		\caption{full model}
+		\label{fig:full_model}
+	\end{subfigure}
+	\caption{Geometry of model}
+\end{figure}
+
+The quarter model has been cut out from a 
+
+is surrounded by pml to model the open infinite domain
+
+A mesh has been created from the 3d model.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{fig/chap4/mesh/propagation_domain.png}
+		\caption{3d view of the FE model}
+		\label{fig:propagation_domain}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{fig/chap4/mesh/mesh1.png}
+		\caption{mesh of the FE model}
+		\label{fig:mesh_model}
 	\end{subfigure}
 	\caption{Geometry of model}
 \end{figure}
 
 
 
-\subsection{Determination of simulation domain}
-\subsection{Computational Effort}
+
+\subsection*{Determination of simulation domain}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{fig/chap4/simulation_domain/0pt5m.png}
+		\caption{0.5 m}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{fig/chap4/simulation_domain/2m.png}
+		\caption{2 m}
+	\end{subfigure}
+	\caption{Models with different simulation domain size}
+\end{figure}
+
+
+\subsection*{Computational Effort}
 The aim of this section is 
+
+\begin{table}[H]
+	\caption{Computational effort for different 1/3-octave frequency band}
+	\begin{tabularx}{\textwidth}{|X|X|c|X|X|X|}
+		\hline
+		1/3-octave center frequency (Hz) & Lower/upper frequency (Hz) & Mesh used                       & Degree of freedoms            & Memory requirement (GB) & Solve time per 9 harmonic steps (hour) \\ \hline
+		100                              & 89/112                     & \multirow{10}{*}{1000 Hz 1.5 m} & \multirow{10}{*}{0.8 Million} & \multirow{10}{*}{20}    & \multirow{10}{*}{0.5}                  \\ \cline{1-2}
+		125                              & 112/141                    &                                 &                               &                         &                                        \\ \cline{1-2}
+		160                              & 141/178                    &                                 &                               &                         &                                        \\ \cline{1-2}
+		200                              & 178/224                    &                                 &                               &                         &                                        \\ \cline{1-2}
+		250                              & 224/283                    &                                 &                               &                         &                                        \\ \cline{1-2}
+		315                              & 283/356                    &                                 &                               &                         &                                        \\ \cline{1-2}
+		400                              & 356/449                    &                                 &                               &                         &                                        \\ \cline{1-2}
+		500                              & 449/565                    &                                 &                               &                         &                                        \\ \cline{1-2}
+		630                              & 565/713                    &                                 &                               &                         &                                        \\ \cline{1-2}
+		800                              & 713/897                    &                                 &                               &                         &                                        \\ \hline
+		1000                             & 897/1131                   & \multirow{2}{*}{1600 Hz 1 m}    & \multirow{2}{*}{2.3 Million}  & \multirow{2}{*}{70}     & \multirow{2}{*}{2}                     \\ \cline{1-2}
+		1250                             & 1131/1425                  &                                 &                               &                         &                                        \\ \hline
+		1600                             & 1425/1796                  & 2000 Hz 1 m                     & 4.4 Million                   & 150                     & 5.5                                    \\ \hline
+		2000                             & 1796/2262                  & 2300 Hz 1 m                     & 6.6 Million                   & 260                     & 12                                     \\ \hline
+	\end{tabularx}
+\end{table}
+
 
 \section{Boundary conditions and loads}
 \label{section:boundary_conditions}
-\subsection{Modeling of sound source}
 
-\section{General simulation setup}
+
+The 
+
+\begin{table}[H]
+	\centering
+	\caption{Material properties used for the simulation}
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{Properties} & \textbf{Value}                   \\ \hline
+		Density             &  $1.205\,\text{kg}\cdot \text{m}^{-3}$                     \\ \hline
+		Bulk modulus        &  $1.41767\cdot10^5\,\text{Pa}$ \\ \hline
+	\end{tabular}
+\end{table}
+
+\subsection*{Modeling of sound source}
+
+The loudspeaker sound source is modeled as a pulsating sphere radiating into free field, which is excited by a prescribed surface normal velocity $\hat{u}(a)$ at source radius $a$.
+
+The pressure amplitude of a spherical wave at radius $r$ from the source is given by
+\begin{equation}
+	\hat{p}(r) = \frac{A}{r}\cdot e^{-jkr}\text{,}
+\end{equation}
+where $A$ the monopole amplitude and $k$ the wave number of the propagating wave.
+
+The relationship between the pressure amplitude and the amplitude of particle velocity is described by the specific acoustic impedance, which is given by
+\begin{equation}
+	z(r) = \frac{\hat{p}(r)}{\hat{u}(r)} = \rho_0 c_0\frac{jkr}{1+jkr}\text{,} \label{eq:specific_impedance}
+\end{equation}
+where $\rho_0$ the density of the propagation medium and $c_0$ the speed of sound in the medium. The product $\rho_0 c_0 = z_0$ is also called the characteristic impedance of the propagation medium. (\ref{eq:specific_impedance}) shows that for spherical wave, the acoustic pressure and the particle velocity are not in phase. For very small distances or low frequencies, phases differ by nearly $90^{\circ}$ and in the acoustic far field ($kr >> 1$), the spherical wave can be approximated by plane wave propagation.
+
+For stationary sound field, the average power density or sound intensity is given by
+\begin{align}
+	\bar{I}(r) &= \frac{1}{2}\text{Re}\lbrace\hat{p}(r)\hat{u}^*(r)\rbrace \\
+	&=\frac{1}{2}\frac{|A|^2}{r^2z_0}\qquad \text{.}
+\end{align}
+
+The acoustic power of a steady sound source radiating into free field is obtained by integrating the sound intensity over a surface, which encloses the sound source and can be found as
+\begin{align}
+	W &= \oint_{\Gamma} \bar{I}(r) d\Gamma \\
+	  &= \bar{I}(r)\cdot 4\pi r^2 \\
+	  &= \frac{2\pi |A|^2}{z_0} \qquad \text{.} \label{eq:acoustic_power}
+\end{align}
+
+As apparent in (\ref{eq:acoustic_power}), the acoustic power is independent from the distance to the source.
+
+With the goal of assessing the acoustic power $W$, an expression for the monopole amplitude $A$ has to be determined and inserted into (\ref{eq:acoustic_power}). On the surface of the source, the pressure is given by the product of the surface normal velocity $\hat{u}(a)$ and the specific impedance $z(a)$ evaluated at the source radius and is found by
+\begin{equation}
+	\hat{p}(a) = \frac{A}{a}\cdot e^{-jka} = \hat{u}(a)\cdot z(a) \qquad \text{.}
+\end{equation}
+
+Upon bringing the monopole amplitude $A$ to one side of the equation
+\begin{equation}
+	A = a\cdot\hat{u}(a)\cdot z(a)\cdot e^{jka}\qquad\text{,}
+\end{equation}
+
+and inserting into (\ref{eq:acoustic_power}), the acoustic power can hence be expressed by the surface normal velocity
+
+\begin{equation}
+	W = 2\pi a^2\cdot|\hat{u}(a)|^2\cdot z_0 \cdot \frac{(ka)^2}{1+(ka)^2} \qquad\text{.}
+\end{equation}
+
+After solving for $\hat{u}(a)$
+
+\begin{equation}
+	|\hat{u}(a)| = \sqrt{\frac{W\cdot(1 + k^2a^2)}{2\pi z_0 k^2a^4}} \label{eq:input_velocity}
+\end{equation}
+
+the relationship between input surface normal velocity and the output acoustic power has been established. Through (\ref{eq:input_velocity}), the required surface normal velocity for a given source acoustic power can be calculated.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{fig/chap4/input_SVL.png}
+	\caption{Input surface normal velocity in dB ref. $5\cdot10^{-8}\,\text{m/s}$, calculated using \ref{eq:input_velocity}}
+\end{figure}
+
+
+
+
+%\section{General simulation setup}
 
 \section{Parametric study}
 \label{section:parametric_study}
@@ -101,15 +248,15 @@ The aim of this section is
 \end{table}
 
 \begin{equation}
-	\alpha = 1 - |r^2|
+	\alpha = 1 - |R^2|
 \end{equation}
 
 \begin{equation}
-	r = \frac{Z_s - Z_0}{Z_s + Z_0} = \frac{\frac{Z_s}{Z_0} - 1}{\frac{Z_s}{Z_0} + 1}
+	R = \frac{Z_s - Z_0}{Z_s + Z_0} = \frac{\frac{Z_s}{Z_0} - 1}{\frac{Z_s}{Z_0} + 1}
 \end{equation}
 
 \begin{equation}
-	\tilde{Z_s} = \frac{Z_s}{Z_0} = \tilde{R} + j\tilde{X}
+	\tilde{Z_s} = \frac{Z_s}{Z_0} = \tilde{R_s} + j\tilde{X_s}
 \end{equation}
 
 
