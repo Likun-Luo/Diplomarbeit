@@ -33,8 +33,7 @@ In the following, the results obtained from the finite element simulation using 
 	\label{fig:third_octave_over_height}
 \end{figure}
 
-In fig. \ref{fig:third_octave_over_height}, an example of 
-
+In fig. \ref{fig:third_octave_over_height}, the A-weighted sound pressure levels at measurement position a (10 cm away from vehicle) along the car body height in example one-third octave bands are shown. At each microphone position, the simulation result is compared with the measurement value. One can see that for 125 Hz and 400 Hz, the simulation fits the measured curves very well. Greater difference between the simulation and the measurement occurs for 1250 Hz and 2000 Hz, but the measured shape is still well approximated for both frequency bands. Other bands show similar results and the measured sound pressure level trends are captured well by the model.
 
 \begin{figure}[H]
 	\centering
@@ -52,6 +51,8 @@ In fig. \ref{fig:third_octave_over_height}, an example of
 	\label{fig:overall_SPL}
 \end{figure}
 
+The overall sound pressure level is a simple and direct parameter to quantify the sound level. For comparison, the A-weighted sound pressure levels of each one-third octave band from 100 Hz to 2000 Hz are added up. Fig. \ref{fig:overall_SPL} shows the overall A-weighted sound pressure level at three different measurement positions and the deviation between the simulated and measured results. As can be seen from the results, the predictions of overall sound pressure levels at the three distances from car body agree well with the measurement. For all three measurement positions, the maximum deviation between the simulation and measurement results occurs at 0.5 m, which is at the height of the bogie. At these locations, the simulation results are overestimated by 1.5 dB to 3 dB. In general, the approximation is getting better with increasing height. For area above 2m, the difference between the simulation and the measurement in terms of overall sound pressure is within 1 dB.
+
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
@@ -64,6 +65,8 @@ In fig. \ref{fig:third_octave_over_height}, an example of
 		\includegraphics{fig/chap5/initial_model/freq_spectrum/pos_10cm_1pt5m.png}
 		\caption{1.5 m}
 	\end{subfigure}
+\end{figure}
+\begin{figure}[H] \ContinuedFloat
 	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
 		\includegraphics{fig/chap5/initial_model/freq_spectrum/pos_10cm_2pt5m.png}
@@ -78,6 +81,25 @@ In fig. \ref{fig:third_octave_over_height}, an example of
 	\label{fig:freq_spectrum}
 \end{figure}
 
+Fig. \ref{fig:freq_spectrum} shows the spectra of the A-weighted sound pressure level in one third octave bands. The SPL spectra are evaluated at the measurement position a (10 cm away from vehicle) at different microphone locations. As can be seen from the results, the simulation fits the measured spectra well, the measured trend is well captured. Again, larger deviation between the simulated and measured results occurs at 0.5 m above ground and the approximation is getting better with increasing height.
+
+In order to have an idea of the model accuracy of each 1/3-octave band, the mean relative error between the simulation result and the measurement for each 1/3-octave band over all 27 microphone positions will be computed. To compute the mean relative error, the sound pressure level is first converted back to linear scaling
+
+\begin{equation}
+	p(\text{Pa}) = p_0 \cdot 10^{\frac{\text{SPL}}{20}} = 2\cdot10^{-5}\,\text{Pa} \cdot 10^{\frac{\text{SPL}}{20}}\text{.}
+\end{equation}
+
+The mean relative error (MRE) is then defined as
+
+\begin{equation}
+	\text{MRE}(p_{\text{measured}}, p_{\text{simulation}}) = \frac{1}{N} \sum_{i=0}^{N - 1} \frac{|p_{\text{simulation,}i} - p_{\text{measured,}i}|}{|p_{\text{measured,}i}|}
+\end{equation}
+
+The mean relative error can also be converted to decibel using the relation
+
+\begin{equation}
+	\text{MRE(dB)} = 20\cdot\log_{10}(1 + \text{MRE})\text{.}
+\end{equation}
 
 \begin{figure}[H]
 	\centering
@@ -85,27 +107,6 @@ In fig. \ref{fig:third_octave_over_height}, an example of
 	\caption{Mean relative error between simulation result and measurement for each 1/3-octave band over all 27 microphone positions}
 	\label{fig:gap_freq_spectrum}
 \end{figure}
-
-
-The mean relative error in terms of the sound pressure levels over all 27 microphone positions at each frequency band between the predictions and the measurements are shown in fig. \ref{fig:gap_freq_spectrum} and in tab. \ref{tab:MRE_spectra}.
-
-The sound pressure level is first converted to linear scaling:
-
-\begin{equation}
-	p(\text{Pa}) = p_0 \cdot 10^{\frac{\text{SPL}}{20}} = 2\cdot10^{-5}\,\text{Pa} \cdot 10^{\frac{\text{SPL}}{20}}
-\end{equation}
-
-Mean relative error:
-
-\begin{equation}
-	\text{MRE}(p_{\text{measured}}, p_{\text{simulation}}) = \frac{1}{N} \sum_{i=0}^{N - 1} \frac{|p_{\text{simulation,}i} - p_{\text{measured,}i}|}{|p_{\text{measured,}i}|}
-\end{equation}
-
-The mean relative error  can be converted to decibel:
-
-\begin{equation}
-	\text{MRE(dB)} = 20\cdot\log_{10}(1 + \text{MRE})
-\end{equation}
 
 \begin{table}[H]
 	\caption{Mean relative error of 1/3-octave frequency spectrum over all microphone positions}
@@ -116,8 +117,9 @@ The mean relative error  can be converted to decibel:
 	\label{tab:MRE_spectra}
 \end{table}
 
+The mean relative error in terms of the sound pressure levels over all 27 microphone positions at each frequency band between the predictions and the measurements are shown in fig. \ref{fig:gap_freq_spectrum} and in tab. \ref{tab:MRE_spectra}. As can be seen from the results, the best approximation occurs for 125 Hz band which has the smallest mean relative error among all 1/3 octave bands. Three frequency bands (160, 200 and 1000 Hz) have an error over 3 dB, and the maximum error is limited by 3.5 dB. Good approximation has also been shown for the frequency band from 250 to 800 Hz, for which the mean relative errors are within 2 dB. The average gap per frequency band is obtained by averaging the mean relative error spectrum over all 14 one-third octave bands. Following the same idea, the mean relative error in terms of overall sound pressure levels will also be used as a metric for model accuracy.
 
-The average gap per frequency band and the mean relative error of over sound pressure levels are shown in tab. \ref{tab:average_gap}.
+The average gap per frequency band and the mean relative error of overall sound pressure levels over all microphone positions are shown in tab. \ref{tab:average_gap}.
 
 
 \begin{table}[H]
@@ -130,7 +132,7 @@ The average gap per frequency band and the mean relative error of over sound pre
 	\label{tab:average_gap}
 \end{table}
 
-From these results it can be concluded that the finite element model is able to predict the sound transmission from the train underfloor adequately.
+The average difference per frequency band is 2.14 dB and the mean relative error of overall sound pressure level is 0.73 dB. From these results it can be concluded that the finite element model is able to predict the sound transmission from the train underfloor adequately.
 
 
 \section{Effect of geometric variation}
