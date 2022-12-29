@@ -1,1 +1,10 @@
 \chapter{Summary and future works}
+
+In this thesis, a finite element model that is capable to predict the noise propagation from underfloor area into the exterior is developed. Validation against outer field pressure measurement shows a good agreement between the numerical results and the measurement results. The mean relative error of the overall sound pressure levels of the FE model is about 0.7 dB and average gap per one third frequency band is about 2.4 dB. The necessary propagation domain size combining good accuracy and lower computational effort is determined. It can be showed that the domain width has a greater impact for higher frequency. 
+
+The computation time for all 14 one-third octave bands from 100 to 2000 Hz with 9 intermediate frequency steps is about 26 hours using 16 cores, whereby the computation of the highest frequency band takes almost half of the total computation time (12 hours). The peak memory requirement is about 260 GB.
+
+
+The number of included underfloor components in the geometry do affect the numerical results. The model without any underfloor components overestimates the overall sound pressure levels by about 1 dB compared to the model with all essential components.
+
+If the impedance characteristic of the surface is unknown, namely that only the normal incident absorption coefficient is given, the surface impedance can assume to be real. Same assumption has been used by Li et al. \cite{li_25d_2021} in their FE simulation.

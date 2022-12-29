@@ -38,7 +38,7 @@ In order to reduce computational effort, the symmetry of the model is exploited.
 	\caption{Geometry of model}
 \end{figure}
 
-The quarter model has been cut out from a 
+The quarter model has been cut out from an acoustic region, surrounded by a perfectly matched layer to simulate the free field condition.
 
 is surrounded by pml to model the open infinite domain
 
@@ -49,23 +49,25 @@ A mesh has been created from the 3d model.
 	\begin{subfigure}[b]{0.45\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{fig/chap4/mesh/propagation_domain.png}
-		\caption{3d view of the FE model}
+		\caption{Propagation region (green) surrounded by a PML (gray)}
 		\label{fig:propagation_domain}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.45\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{fig/chap4/mesh/mesh1.png}
-		\caption{mesh of the FE model}
+		\caption{mesh of the acoustic region}
 		\label{fig:mesh_model}
 	\end{subfigure}
-	\caption{Geometry of model}
+	\caption{Acoustic region}
 \end{figure}
 
 
 
 
 \subsection*{Determination of simulation domain}
+
+The goal of this section is to find an appropriate propagation domain size to achieve sufficient numerical accuracy while keeping the computational effort low. For the variation, the length and height of the propagation domain are kept constant while only the width of the domain is varied.
 
 \begin{figure}[H]
 	\centering
@@ -81,7 +83,10 @@ A mesh has been created from the 3d model.
 		\caption{2 m}
 	\end{subfigure}
 	\caption{Models with different simulation domain size}
+	\label{fig:domain_size_variation}
 \end{figure}
+
+The compared simulation domain size are 0.2 m, 0.5 m, 1 m, 1.5 m and 2m. For each setup, the pressure is evaluated at 0.1 m away from the vehicle along the height direction, and the result is compared to a , the model with 2 m domain size will be used as reference. Fig. \ref{fig:domain_size_variation} shows the model with 0.5 m domain size and the reference model with 2 m domain size. The evaluation position is marked by the red line.
 
 
 \subsection*{Computational Effort}
@@ -113,8 +118,21 @@ The aim of this section is
 \section{Boundary conditions and loads}
 \label{section:boundary_conditions}
 
+After the considerations of the geometrical model, the physical modeling aspects will be discussed. The dominating boundary condition in the finite element model of UBX is the Neumann type boundary condition, which specifies the acoustic particle velocity at the boundary.
 
-The 
+The concrete ground $\Gamma_{\text{ground}}$ and the wrapped surfaces of the vehicle components $\Gamma_{\text{vehicle}}$ are assumed to be fully reflective. This also applies to the both symmetry planes (X-Y and Z-Y plane) of the quarter air domain $\Gamma_{\text{symmetry}}$. Hence, the sound hard boundary condition is used for these surfaces
+
+\begin{equation}
+	\nabla p \cdot \vec{n} = 0\qquad\text{on}\qquad\Gamma_{\text{ground}}\,\cup\,\Gamma_{\text{vehicle}}\,\cup\,\Gamma_{\text{symmetry}}\text{.}
+\end{equation}
+
+
+To model the infinite domain, the three open surfaces of the propagation domain are surrounded by perfectly matched layers.
+
+
+A familiar example of a normal velocity boundary is a vibrating mechanical structure that produces sound waves into the surrounding medium
+
+
 
 \begin{table}[H]
 	\centering
@@ -135,7 +153,7 @@ The pressure amplitude of a spherical wave at radius $r$ from the source is give
 \begin{equation}
 	\hat{p}(r) = \frac{A}{r}\cdot e^{-jkr}\text{,}
 \end{equation}
-where $A$ the monopole amplitude and $k$ the wave number of the propagating wave.
+with $A$ being the monopole amplitude and $k$ being the wave number of the propagating wave.
 
 The relationship between the pressure amplitude and the amplitude of particle velocity is described by the specific acoustic impedance, which is given by
 \begin{equation}
@@ -174,7 +192,7 @@ and inserting into (\ref{eq:acoustic_power}), the acoustic power can hence be ex
 	W = 2\pi a^2\cdot|\hat{u}(a)|^2\cdot z_0 \cdot \frac{(ka)^2}{1+(ka)^2} \qquad\text{.}
 \end{equation}
 
-After solving for $\hat{u}(a)$
+After solving for $|\hat{u}(a)|$
 
 \begin{equation}
 	|\hat{u}(a)| = \sqrt{\frac{W\cdot(1 + k^2a^2)}{2\pi z_0 k^2a^4}} \label{eq:input_velocity}
@@ -187,6 +205,8 @@ the relationship between input surface normal velocity and the output acoustic p
 	\includegraphics{fig/chap4/input_SVL.png}
 	\caption{Input surface normal velocity in dB ref. $5\cdot10^{-8}\,\text{m/s}$, calculated using \ref{eq:input_velocity}}
 \end{figure}
+
+For the simulation, the sound power level of one single 1/3-octave band is divided into the 9 intermediate frequency steps by a 9.54 dB reduced sound power level for every single frequency within the band so that the sum of all frequencies results in the sound power level for the corresponding 1/3-octave band.
 
 
 
@@ -224,6 +244,12 @@ the relationship between input surface normal velocity and the output acoustic p
 \end{figure}
 
 \subsection{Inclusion of ground absorption}
+
+In the finite element formulation, the ground absorption is modeled by the surface impedance boundary condition. The surface impedance is complex valued. The phase information of the surface impedance is lost when converting to absorption coefficient. For most of the time, (in acoustic data bank) only the absorption coefficient is provided but not the full impedance characteristic. To have an idea how the missing phase information of the impedance could affect the results. It assumed that the phase of the surface impedance are 0°, 30°, 45° and 60°.
+
+In the initial simulation setup, the ground is modeled as a perfect reflecting plane. To have an idea how the unknown 
+
+Due to a missing ground absorption measurement
 
 \begin{figure}[H]
 	\centering
@@ -280,7 +306,7 @@ the relationship between input surface normal velocity and the output acoustic p
 		\centering
 		\includegraphics{fig/chap4/impedance/impedance_imag.png}
 	\end{subfigure}
-	\caption{Input impedance in one-third octave bands}
+	\caption{Input surface impedance in one-third octave bands calculated using (\ref{eq:impedance})}
 \end{figure}
 
 

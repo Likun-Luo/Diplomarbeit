@@ -5,6 +5,8 @@ In the following, the results obtained from the finite element simulation using 
 
 \section{Comparison of simulation and measurement results}
 
+
+
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
@@ -30,6 +32,8 @@ In the following, the results obtained from the finite element simulation using 
 	\caption{Sound distribution at measurement position a, comparison between predictions obtained from the initial finite element model with the measurements. A-weighted SPL in one-third octave bands, dBA ref 20 $\mu$Pa.}
 	\label{fig:third_octave_over_height}
 \end{figure}
+
+In fig. \ref{fig:third_octave_over_height}, an example of 
 
 
 \begin{figure}[H]
@@ -70,18 +74,20 @@ In the following, the results obtained from the finite element simulation using 
 		\includegraphics{fig/chap5/initial_model/freq_spectrum/pos_10cm_4pt5m.png}
 		\caption{4.5 m}
 	\end{subfigure}
-	\caption{Comparison of overall SPL in dBA ref 20 $\mu$Pa. Left: overall SPL as a function of height at various measurement positions (dashed curves: measurement; solid curves: simulation) Right: deviation between simulation and measurement results}
+	\caption{1/3-octave spectra of the A-weighted SPL for simulation and measurement data at selected microphone positions}
 	\label{fig:freq_spectrum}
 \end{figure}
-
 
 
 \begin{figure}[H]
 	\centering
 	\includegraphics{fig/chap5/initial_model/freq_spectrum/average_gap.png}
-	\caption{Mean relative error of 1/3-octave frequency}
+	\caption{Mean relative error between simulation result and measurement for each 1/3-octave band over all 27 microphone positions}
 	\label{fig:gap_freq_spectrum}
 \end{figure}
+
+
+The mean relative error in terms of the sound pressure levels over all 27 microphone positions at each frequency band between the predictions and the measurements are shown in fig. \ref{fig:gap_freq_spectrum} and in tab. \ref{tab:MRE_spectra}.
 
 The sound pressure level is first converted to linear scaling:
 
@@ -107,7 +113,12 @@ The mean relative error  can be converted to decibel:
 		Freq (Hz)           & 100  & 125  & 160  & 200  & 250  & 315  & 400  & 500  & 630  & 800  & 1000 & 1250 & 1600 & 2000 \\ \hline
 		MRE (dB) & 2.34 & 0.55 & 3.06 & 3.51 & 1.34 & 1.82 & 1.06 & 1.67 & 1.53 & 1.97 & 3.36 & 2.15 & 2.45 & 2.65
 	\end{tabular}
+	\label{tab:MRE_spectra}
 \end{table}
+
+
+The average gap per frequency band and the mean relative error of over sound pressure levels are shown in tab. \ref{tab:average_gap}.
+
 
 \begin{table}[H]
 	\centering
@@ -116,7 +127,10 @@ The mean relative error  can be converted to decibel:
 		Average gap per  frequency band (dB) & Mean relative error of overall SPL (dB) \\ \hline
 		$2.14\pm1$                               & $0.73\pm0.86$                             
 	\end{tabular}
+	\label{tab:average_gap}
 \end{table}
+
+From these results it can be concluded that the finite element model is able to predict the sound transmission from the train underfloor adequately.
 
 
 \section{Effect of geometric variation}
