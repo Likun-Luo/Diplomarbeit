@@ -137,6 +137,8 @@ The average difference per frequency band is 2.14 dB and the mean relative error
 
 \section{Effect of geometric variation}
 
+In this section, the results obtained by the variation analysis of underfloor geometry are shown. The geometrical models are illustrated and explained in section \ref{section:variation_geometry}.
+
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
@@ -159,9 +161,11 @@ The average difference per frequency band is 2.14 dB and the mean relative error
 		\includegraphics{fig/chap5/geometry_variation/third_octave_over_height/1000_Hz.png}
 		\caption{1000 Hz}
 	\end{subfigure}
-	\caption{Sound distribution at measurement position a, comparison between predictions obtained from the initial finite element model with the measurements. A-weighted SPL in one-third octave bands, dBA ref 20 $\mu$Pa.}
+	\caption{Sound distribution at measurement position a, comparison between different geometrical models with the measurements. A-weighted SPL in one-third octave bands, dBA ref 20 $\mu$Pa.}
 	\label{fig:third_octave_over_height_geometry_variation}
 \end{figure}
+
+Fig. \ref{fig:third_octave_over_height_geometry_variation} shows the A-weighted sound pressure level at measurement position a (10 cm away from vehicle) for different geometry variations in example one third octave bands. As can be seen from the results, at the lowest frequency band (100 Hz), there is almost no difference between the different models. This may due to the much larger wavelength (about 3.43 meter for 100 Hz) than the physical dimension of the geometry. At this frequency, all four models overestimates the sound pressure level by about 3 dB but are still able to capture the measured curve shape well. Large deviation between the models is found at 250 Hz, where the model without underfloor components shows an huge underestimation of the result and the model with additional structures tends to overestimate while the initial model and the model without air suspension are showing very good agreement with the measurement data. For 500 Hz and 1000 Hz, the model with additional structures and the model without air suspension are closest to the measurement data, respectively. In general, all models show similar shape as the measurement curves, the differences in terms of sound pressure level between the four models are within 10 dB. The same results are also observed for other frequency bands.
 
 \begin{figure}[H]
 	\centering
@@ -169,24 +173,25 @@ The average difference per frequency band is 2.14 dB and the mean relative error
 		\centering
 		\includegraphics[width=0.49\linewidth]{fig/chap5/geometry_variation/overall_SPL/pos_a.png}
 		\includegraphics[width=0.49\linewidth]{fig/chap5/geometry_variation/overall_SPL/pos_a_deviation.png}
-		\caption{10 cm away from carbody}
+		\caption{10 cm away from car body}
 	\end{subfigure}
 	\begin{subfigure}[b]{\textwidth}
 		\centering
 		\includegraphics[width=0.49\linewidth]{fig/chap5/geometry_variation/overall_SPL/pos_f.png}
 		\includegraphics[width=0.49\linewidth]{fig/chap5/geometry_variation/overall_SPL/pos_f_deviation.png}
-		\caption{50 cm away from carbody}
+		\caption{50 cm away from car body}
 	\end{subfigure}
-	\begin{subfigure}[b]{\textwidth}
-		\centering
-		\includegraphics[width=0.49\linewidth]{fig/chap5/geometry_variation/overall_SPL/pos_g.png}
-		\includegraphics[width=0.49\linewidth]{fig/chap5/geometry_variation/overall_SPL/pos_g_deviation.png}
-		\caption{100 cm away from carbody}
-	\end{subfigure}
-	\caption{Comparison of overall SPL in dBA ref 20 $\mu$Pa. Left: overall SPL as a function of height at various measurement positions (dashed curves: measurement; solid curves: simulation) Right: deviation between simulation and measurement results}
+	%\begin{subfigure}[b]{\textwidth}
+	%	\centering
+	%	\includegraphics[width=0.49\linewidth]{fig/chap5/geometry_variation/overall_SPL/pos_g.png}
+	%	\includegraphics[width=0.49\linewidth]{fig/chap5/geometry_variation/overall_SPL/pos_g_deviation.png}
+	%	\caption{100 cm away from car body}
+	%\end{subfigure}
+	\caption{Comparison of overall A-weighted SPL for different geometrical models. Left: overall SPL as a function of height at various measurement positions. Right: difference between simulation and measurement results.}
 	\label{fig:overall_SPL_geometry}
 \end{figure}
 
+Fig. \ref{fig:overall_SPL_geometry} shows the distribution of  A-weighted overall sound pressure level at different distances from car body for different geometrical models. The difference between the simulation and the measurement results are plotted in the figures right. As can be seen from the figures, all four models show similar results in the lower area (up to 2 m height), deviation between the models starts to grow with increasing height. Comparing the initial model and the model without air suspension, the model without air suspension shows greater overestimation of the overall SPL than the initial model, at the height of bogie (0.5 m). Up from 1.5 m height, both models show very good agreement with the measurement results and there is almost no difference between both models. One can also see, without including any underfloor components into the model, the overall SPL is overestimated at each measurement location due to a lack of attenuation of the acoustic wave by the underfloor components. The difference between the initial model and the model without underfloor components is about 1 to 1.5 dB depending on the measurement locations. The model with additional underfloor structures shows a similar result as the initial model at 0.5 m height, but in the higher region (up from 1.5 m), the result converges to that of the model without underfloor components.
 
 \begin{figure}[H]
 	\centering
@@ -195,9 +200,12 @@ The average difference per frequency band is 2.14 dB and the mean relative error
 	\label{fig:gap_freq_spectrum_geometry}
 \end{figure}
 
+Fig. \ref{fig:gap_freq_spectrum_geometry} shows the mean relative error spectra for the four geometrical models over all 27 microphone locations, the spectrum of the initial model has also been shown in fig. \ref{fig:gap_freq_spectrum}. As can be seen from the figure, all three geometry variations show greater maximum error than the initial model. For a large part of the frequency bands, the model without underfloor components has the greatest deviation among the models. At frequency band 100, 315, 400, 630 and 2000 Hz, the difference in terms of the mean relative error among the models is small and limited by 1 dB. The initial model and the model without air suspension share similar results, but at frequency band 800, 1000, 1600 and 2000 Hz, the latter model shows better approximation than the former.
+
 \begin{table}[H]
 	\centering
 	\caption{Average gap per frequency band and mean relative error in overall SPL for different geometry variations}
+	\label{tab:geometry_variation_MRE}
 	\begin{tabular}{c|c|c}
 		Geometry name              & Average gap per frequency band (dB) & MRE overall SPL (dB) \\ \hline
 		No underfloor components   & $3.12\pm1.74$                       & $1.78\pm0.91$        \\
@@ -207,6 +215,7 @@ The average difference per frequency band is 2.14 dB and the mean relative error
 	\end{tabular}
 \end{table}
 
+In order to quantify the difference between the geometry variations, the average gap per frequency band and the mean relative error in terms of overall SPL are computed and shown in tab. \ref{tab:geometry_variation_MRE}. The table is ordered by the complexity of the modeled geometry. As can be seen from results, the simplest model, namely the model without any underfloor components, shows the greatest average gap per frequency band as well as the largest mean relative error in terms of the overall sound pressure level. Both errors are reduced by almost 1 dB by including the most essential underfloor components (bogie and wheel) into the model. Taking the air suspension into account leads to a better approximation for the overall SPL, but a slightly increased average gap per frequency band, which may due to the sound hard assumption of the air suspension surface. Surprisingly, the model with additional structures shows a greater deviation in both metrics  compared to the initial model. It was expected that including more underfloor details will also lead to a better approximation of the measurement. It can be concluded from the results shown in this section that the number of modeled underfloor components do affect the prediction accuracy of the finite element model. To achieve better approximation of the measurement data, at least the bogie and the wheel should be taken into the geometrical model. Without modeling the underfloor components, the overall SPL is overestimated by about 1 dB compared to the model with underfloor components.
 
 \section{Effect of ground absorption}
 
