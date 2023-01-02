@@ -2,6 +2,113 @@
 \label{chap:Theory}
 
 \section{Governing equations and finite element formulation}
+
+\cite{heutschi_lecture_2016} \cite{kinsler_fundamentals_2000} \cite{bergman_computational_2018} \cite{kaltenbacher_computational_2018}
+\cite{fahy_foundations_2001} \cite{kaltenbacher_nonconforming_2018} \cite{kaltenbacher_numerical_2007}
+
+In this section, the governing equations for acoustics and the corresponding finite element formulation will be explained following Kaltenbacher \cite{kaltenbacher_numerical_2007, kaltenbacher_computational_2018}, Bergman \cite{bergman_computational_2018} and Heutschi \cite{heutschi_lecture_2016}.
+
+\subsection*{Linear acoustic wave equation}
+ Assuming an isentropic case, the basic equations of acoustics are based on the conservation of mass
+\begin{equation}
+	\frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \boldsymbol{u}) = 0\text{,} \label{eq:conservation_of_mass}
+\end{equation}
+which is also called the continuity equation and the conservation of momentum
+\begin{equation}
+	\rho\frac{\partial \boldsymbol{u}}{\partial t} + \rho \boldsymbol{u}\cdot\nabla\boldsymbol{u} = -\nabla p + \nabla\cdot\left[\tau\right] + \boldsymbol{f}\text{.} \label{eq:conservation_of_momentum}
+\end{equation}
+Here, $\rho$ denotes the fluid density, $p$ the fluid pressure, $\boldsymbol{u}$ the particle velocity, $\left[\tau\right]$ the viscous stress tensor and $\boldsymbol{f}$ an external force density. If air is used as the medium for sound propagation, it can be considered as an inviscid fluid due to its low viscosity. Hence, $\nabla\cdot\left[\tau\right]$ in (\ref{eq:conservation_of_momentum}) can be neglected. Moreover, the external force density $\boldsymbol{f}$ will also be neglected for non-viscous fluids.
+
+For linear acoustic wave propagation, the perturbation ansatz for the three acoustic quantities $\rho$, $p$ and $\boldsymbol{u}$ is used
+\begin{equation}
+	\rho = \rho_0 + \rho_a\text{;}\qquad p = p_0 + p_a\text{;}\qquad \boldsymbol{u} = \boldsymbol{u_0} + \boldsymbol{u_a}\text{,}
+\end{equation}
+whereby the quantities are split up in their mean $\square_0$ and alternating part $\square_a$. It is also assumed that the perturbations are small compared the mean parts
+\begin{equation}
+	\rho_a \ll \rho_0\text{;}\qquad p_a \ll p_0\text{;}\qquad \boldsymbol{u_a} \ll \boldsymbol{u_0}\text{.}
+\end{equation}
+Furthermore, it is assumed that the mean pressure $p_0$ and the mean density $\rho_0$ do not vary over space and time and a quiescent medium with no background flow ($\boldsymbol{u_0} = \boldsymbol{0}$) is considered. Applying the perturbation ansatz and all assumptions above to the conservation equations (\ref{eq:conservation_of_mass}), ( \ref{eq:conservation_of_momentum}) and neglecting all second order terms of the perturbations yields to
+\begin{align}
+	\frac{\partial \rho_a}{\partial t} + \rho_0\nabla\cdot\boldsymbol{u_a} &= 0\text{,} \label{eq:linearised_convervation_mass} \\ 
+	\rho_0\frac{\partial \boldsymbol{u_a}}{\partial t} + \nabla p_a &= \boldsymbol{0}\text{,} \label{eq:linearised_convervation_momentum}
+\end{align}
+which are the linearized conservation equations of mass and momentum. Next, by applying a time derivative to (\ref{eq:linearised_convervation_mass}), a space derivative to (\ref{eq:linearised_convervation_momentum}), combining both equations and using the linearized pressure-density relation
+\begin{equation}
+	\rho_a = \frac{p_a}{c_0^2}\text{,}
+\end{equation}
+the linear acoustic wave equation for a homogeneous medium is obtained
+\begin{equation}
+	\frac{1}{c_0^2}\frac{\partial^2 p_a}{\partial t^2} - \nabla\cdot\nabla p_a = 0\text{,} \label{eq:wave_equation}
+\end{equation}
+where $c_0$ denotes the speed of sound in the propagation medium and depends on the material properties, namely the bulk modulus $K_0$ and the density $\rho_0$. Thereby, following relation holds \cite{fahy_foundations_2001, kinsler_fundamentals_2000}
+\begin{equation}
+	c_0 = \sqrt{\frac{K_0}{\rho_0}}\text{.}
+\end{equation}
+
+For a sinusoidal wave, which is for example excited by a harmonic source, the solution of (\ref{eq:wave_equation}) can be represented as
+\begin{equation}
+	p_a(\boldsymbol{x},t) = Re\lbrace\hat{p}_a(\boldsymbol{x})e^{j\omega t}\rbrace \text{,}
+\end{equation}
+with $\hat{p}_a$ being the pressure amplitude and $\omega$ being the angular frequency of oscillation. With the restriction to sinusoidal time dependency, the acoustic wave equation can be simplified to
+\begin{equation}
+	\nabla\cdot\nabla\hat{p}_a + \frac{\omega^2}{c_0^2}\hat{p}_a = 0 \text{,} \label{eq:helmholtz_equation}
+\end{equation}
+which is the famous Helmholtz equation. The pressure amplitude $\hat{p}_a$ depends only on the position in space.
+
+\subsection*{Finite element formulation}
+
+The linear acoustic wave equation (\ref{eq:wave_equation}) is also called the strong formulation of the linear acoustic PDE. To obtain the weak form or the variational formulation of the equation, it is multiplied by an appropriate test function $p'$ and integrated over the whole computational domain $\Omega$. Thus, the weak form of the PDE reads as
+\begin{equation}
+	\int_{\Omega}p'\frac{1}{c_0^2}\frac{\partial^2 p_a}{\partial t^2}\text{d}\Omega - \int_{\Omega}p'\nabla\cdot\nabla p_a\text{d}\Omega = 0\text{.} \label{eq:weak_form_PDE}
+\end{equation}
+Using the product rule for the divergence
+\begin{equation}
+	\nabla\cdot(f\boldsymbol{g}) = f\nabla\cdot\boldsymbol{g} + \nabla f \cdot \boldsymbol{g}\text{,}
+\end{equation}
+the second term in (\ref{eq:weak_form_PDE}) can be expressed as
+\begin{equation}
+	\int_{\Omega}p'\nabla\cdot\nabla p_a\text{d}\Omega = - \int_{\Omega}\nabla p'\cdot\nabla p_a\text{d}\Omega + \int_{\Omega}\nabla\cdot(p'\nabla p_a)\text{d}\Omega \text{.} \label{eq:noname_1}
+\end{equation}
+Applying the divergence theorem \cite{kreyszig_advanced, wiley_mathematics_1995}
+\begin{equation}
+	\int_{\Omega} \nabla\cdot \boldsymbol{g}\,\text{d}\Omega = \oint_{\partial \Omega} \boldsymbol{g}\cdot\boldsymbol{n}\,\text{d}\Gamma \text{,}
+\end{equation}
+to the last term of (\ref{eq:noname_1}) and inserting the obtained expression into (\ref{eq:weak_form_PDE}) leads to
+\begin{equation}
+	\int_{\Omega}p'\frac{1}{c_0^2}\frac{\partial^2 p_a}{\partial t^2}\,\text{d}\Omega + \int_{\Omega}p'\nabla\cdot\nabla p_a\,\text{d}\Omega - \oint_{\partial\Omega} p'\nabla p_a \cdot \boldsymbol{n}\,\text{d}\Gamma = 0\text{,} \label{eq:noname_2}
+\end{equation}
+where $\partial \Omega$ is the enclosed surface of $\Omega$ and $\boldsymbol{n}$ the surface normal vector.
+
+In order to uniquely define the pressure $p_a$ in the domain $\Omega$, at least one boundary condition must be specified on the closed boundary surface $\partial \Omega$. A typical boundary condition in the acoustics is of Neumann type, which prescribes a normal traction
+\begin{equation}
+	\nabla p_a \cdot \boldsymbol{n} = p_n = -\rho_0\frac{\partial \boldsymbol{u_a}}{\partial t}\cdot\boldsymbol{n} = -\rho_0 a_n \label{eq:neumann_BC}
+\end{equation}
+at boundary $\Gamma_n$, where $a_n$ denotes the particle acceleration normal to $\Gamma_n$. The homogeneous Neumann boundary condition, i.e. $\nabla p_a \cdot \boldsymbol{n} = 0$, is also called sound hard boundary condition and can be used to model acoustic wall. For the inhomogeneous case ($p_n \neq 0$), it acts as an acoustic excitation on the boundary. Another boundary condition is of Dirichlet type, with prescribed pressure
+\begin{equation}
+	p_a = p_i \label{eq:dirichlet_BC}
+\end{equation}
+at boundary $\Gamma_i$. A homogeneous Dirichlet boundary condition ($p_i = 0$) is called sound soft boundary, which occurs mostly at a liquid-gas interface. Noticed that both sound hard and sound soft boundary conditions can lead to reflection of acoustic waves at the boundary.
+
+Incorporating the Neumann boundary condition (\ref{eq:neumann_BC}) into (\ref{eq:noname_2}), the final weak form is obtained, reading as
+\begin{equation}
+		\int_{\Omega}p'\frac{1}{c_0^2}\frac{\partial^2 p_a}{\partial t^2}\,\text{d}\Omega + \int_{\Omega}p'\nabla\cdot\nabla p_a\,\text{d}\Omega = \int_{\Gamma_n}p'p_n\,\text{d}\Gamma\text{,}
+\end{equation}
+which must be satisfied for all test functions $p'$ within the computational domain $\Omega$.
+
+With the same procedure, the weak form of the Helmholtz equation (\ref{eq:helmholtz_equation}) can also be obtained
+\begin{equation}
+	\int_{\Omega}k^2\hat{p}_a\,\text{d}\Omega - \int_{\Omega}\nabla p' \cdot \nabla\hat{p}_a\,\text{d}\Omega + \oint_{\partial\Omega} p'\nabla \hat{p}_a \cdot \boldsymbol{n}\,\text{d}\Gamma = 0 \text{,}
+\end{equation}
+where $k$ is the wave number, being the angular frequency divided by the speed of sound. Again, Neumann boundary condition
+\begin{equation}
+	\nabla\hat{p}_a \cdot\boldsymbol{n} = \hat{p}_n
+\end{equation}
+at boundary $\Gamma_n$ or the Dirichlet boundary condition
+\begin{equation}
+	\hat{p}_a = \hat{p}_i
+\end{equation}
+at boundary $\Gamma_i$ can be incorporated.
+
 \section{Perfectly Matched Layer}
 \section{Non-conforming grids}
 \section{Fundamentals of noise measurement}
