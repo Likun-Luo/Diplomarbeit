@@ -215,9 +215,11 @@ Fig. \ref{fig:gap_freq_spectrum_geometry} shows the mean relative error spectra 
 	\end{tabular}
 \end{table}
 
-In order to quantify the difference between the geometry variations, the average gap per frequency band and the mean relative error in terms of overall SPL are computed and shown in tab. \ref{tab:geometry_variation_MRE}. The table is ordered by the complexity of the modeled geometry. As can be seen from results, the simplest model, namely the model without any underfloor components, shows the greatest average gap per frequency band as well as the largest mean relative error in terms of the overall sound pressure level. Both errors are reduced by almost 1 dB by including the most essential underfloor components (bogie and wheel) into the model. Taking the air suspension into account leads to a better approximation for the overall SPL, but a slightly increased average gap per frequency band, which may due to the sound hard assumption of the air suspension surface. Surprisingly, the model with additional structures shows a greater deviation in both metrics  compared to the initial model. It was expected that including more underfloor details will also lead to a better approximation of the measurement. It can be concluded from the results shown in this section that the number of modeled underfloor components do affect the prediction accuracy of the finite element model. To achieve better approximation of the measurement data, at least the bogie and the wheel should be taken into the geometrical model. Without modeling the underfloor components, the overall SPL is overestimated by about 1 dB compared to the model with underfloor components.
+In order to quantify the difference between the geometry variations, the average gap per frequency band and the mean relative error in terms of overall SPL are computed and shown in tab. \ref{tab:geometry_variation_MRE}. The table is ordered by the complexity of the modeled geometry. As can be seen from results, the simplest model, namely the model without any underfloor components, shows the greatest average gap per frequency band as well as the largest mean relative error in terms of the overall sound pressure level. Both errors are reduced by almost 1 dB by including the most essential underfloor components (bogie and wheel) into the model. Taking the air suspension into account leads to a better approximation for the overall SPL, but a slightly increased average gap per frequency band, which may due to the sound hard assumption of the air suspension surface. Surprisingly, the model with additional structures shows a greater deviation in both metrics  compared to the initial model. It was expected that including more underfloor details will also lead to a better approximation of the measurement. It can be concluded from the results shown in this section that the number of modeled underfloor components do affect the prediction accuracy of the finite element model. To achieve better approximation of the measurement data, at least the bogie and the wheel should be taken into the geometrical model. Without modeling the underfloor components, the predicted overall SPL is about 1 dB higher compared to the prediction using model with underfloor components.
 
 \section{Effect of ground absorption}
+
+In this section, the simulation results obtained by the variation analysis of the surface impedance are shown. Noticed that all variation models have the same normal incident absorption coefficient and only differ in their impedance phase angle. Since the absorption data used for the simulation is fictive, the results are not compared to the validation measurement but to the initial model with fully reflective ground.
 
 \begin{figure}[H]
 	\centering
@@ -233,6 +235,8 @@ In order to quantify the difference between the geometry variations, the average
 		\includegraphics[width=0.49\textwidth]{fig/chap5/impedance/third_octave/deviation_1000_Hz.png}
 		\caption{1000 Hz}
 	\end{subfigure}
+\end{figure}
+\begin{figure}[H]\ContinuedFloat
 	\begin{subfigure}[b]{\textwidth}
 		\centering
 		\includegraphics[width=0.49\textwidth]{fig/chap5/impedance/third_octave/SPL_2000_Hz.png}
@@ -240,9 +244,11 @@ In order to quantify the difference between the geometry variations, the average
 		\caption{2000 Hz}
 	\end{subfigure}
 
-	\caption{Sound distribution at measurement position a, comparison between predictions obtained from the initial finite element model with the measurements. A-weighted SPL in one-third octave bands, dBA ref 20 $\mu$Pa.}
+	\caption{Sound distribution at measurement position a, comparison between the model with full reflective ground and the models with different impedance phase angles. Solid curves: positive phase angle. Dashed curves: negative phase angle.}
 	\label{fig:third_octave_over_height_impedance}
 \end{figure}
+
+Fig. \ref{fig:third_octave_over_height_impedance} shows the A-weighted sound pressure level at measurement position a (10 cm away from vehicle) along the car body height for models with different impedance phase angles in example one third octave bands. The simulation results are compared to the result obtained by the model without ground absorption (initial model) and the difference is also shown in the figures. The solid lines represent the results with positive phase angle and the dashed lines those of the negative phase angle, respectively. As can be seen from the results, for 100 Hz, there is almost no noticeable difference between the absorption models and the initial model due to the small absorption coefficient (2 percent) in the low frequency range. For frequencies with higher absorption coefficient, a decrease in sound pressure level due to absorption becomes more visible. One can see that the degree of absorption within a frequency band strongly depends on the phase angle of the complex surface impedance. In general, the greater the impedance angle the stronger the absorption. An exception exists for the model with zero phase angle, which contains only real part, its curve lays between those of positive and negative 45-degree angle. Also, it can be seen that the absorptance also depends on the sign of the impedance phase angle, the negative angle (dashed line) has a slightly stronger absorptance than its complex conjugate (solid line), and the difference between the complex conjugate pair grows with the absolute phase angle. For phase angles with same sign, they share the same curve shape and only differ in their absolute values.
 
 \begin{figure}[H]
 	\centering
@@ -252,6 +258,8 @@ In order to quantify the difference between the geometry variations, the average
 		\includegraphics[width=0.49\textwidth]{fig/chap5/impedance/overall_SPL/deviation_pos_a.png}
 		\caption{10 cm away from carbody}
 	\end{subfigure}
+\end{figure}
+\begin{figure}[H]\ContinuedFloat
 	\begin{subfigure}[b]{\textwidth}
 		\centering
 		\includegraphics[width=0.49\textwidth]{fig/chap5/impedance/overall_SPL/overall_SPL_pos_f.png}
@@ -265,19 +273,42 @@ In order to quantify the difference between the geometry variations, the average
 		\caption{100 cm away from carbody}
 	\end{subfigure}
 	
-	\caption{Sound distribution at measurement position a, comparison between predictions obtained from the initial finite element model with the measurements. A-weighted SPL in one-third octave bands, dBA ref 20 $\mu$Pa.}
+	\caption{Comparison of overall A-weighted sound pressure level between difference impedance phase angles.Solid curves: positive phase angle. Dashed curves: negative phase angle.}
 	\label{fig:overall_SPL_impedance}
 \end{figure}
+
+Very similar results are also observed in the overall sound pressure level distribution, which is shown in fig. \ref{fig:overall_SPL_impedance}. Again, the impedance phase angle dependency of absorption can be seen from the results. That is to say, the greater the phase angle, the greater the deviation to the full reflective model and hence, the higher the absorption. The greatest difference in terms of overall sound pressure level among the investigated phase angles is about 1 dB. Furthermore, for a complex conjugate pair with the same absolute impedance phase angle, that with negative phase angle (dashed line) shows higher absorptance than the positive one (solid line). And the deviation among the conjugate pair grows with the absolute phase angle. In case of zero phase angle, whose surface impedance contains only real part, its result lays between those of the 45-degree complex conjugate pair.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\linewidth]{fig/chap5/impedance/freq_spectrum/average_gap.png}
-	\caption{Mean relative error compared to full reflective model in 1/3-octave band}
+	\caption{Mean relative deviation in terms of sound pressure level compared to full reflective model in 1/3-octave band. Solid curves: positive phase angle. Dashed curves: negative phase angle.}
 	\label{fig:gap_freq_spectrum_impedance}
 \end{figure}
 
+Fig. \ref{fig:gap_freq_spectrum_impedance} shows the mean relative deviation spectra in terms of sound pressure level for different impedance phase angles compared to the initial model with fully reflective ground. As can be seen from the results, in low frequency region between 100 and 315 Hz, where the absorption coefficient is small (2 to 3 percent), the difference in results between the different phase angles is also small. With growing absorption coefficient, the deviation between the phase angles gets larger. The largest difference occurs in the high frequency region, in this case between 1000 Hz and 2000 Hz, where the deviation is about 1.5 dB.
+
+\begin{table}[H]
+	\centering
+	\caption{Mean deviation in overall SPL for different impedance phase angles}
+	\label{tab:mean_devaition_impedance}
+	\begin{tabular}{|c|c|}
+		\hline
+		$\text{arg}(\tilde{R_s} + j\tilde{X_s})$ [°] & Average deviation in overall SPL {[}dB{]} \\ \hline
+		0                         & 0.72                                      \\ \hline
+		30/-30                    & 0.46/0.55                                 \\ \hline
+		45/-45                    & 0.66/0.78                                 \\ \hline
+		60/-60                    & 1.15/1.34                                 \\ \hline
+	\end{tabular}
+\end{table}
+
+The average deviation in terms of overall sound pressure level compared to the full reflective model can be found in tab. \ref{tab:mean_devaition_impedance}. A larger deviation to full reflective model means a larger absorption of the sound pressure. One can see that the difference between the smallest and the largest absorption degree is about 1 dB. And the absorptance of 0-degree angle is the median of the result set.
+
+From the results shown in this section it can be concluded that for a given normal incident absorption coefficient spectrum, the actual absorption of the acoustic wave depends on the phase angle of the complex surface impedance. For the case that only absorption data is available, it can be assumed that the surface impedance contains only real part. In order to obtain a more accurate simulation result, not only the absorption spectrum of the material should be provided, but also the full impedance characteristic of the ground surface. This information can be obtained by for example an in-situ measurement of surface impedance using impedance tube method as described in \cite{hald_situ_2019, wolkesson_2013}.
 
 \section{Effect of varing frequency steps per 1/3-octave band}
+
+In this section, the simulation results obtained by variation analysis using different intermediate frequency steps in single 1/3-octave band are shown.
 
 \begin{figure}[H]
 	\centering
@@ -300,12 +331,15 @@ In order to quantify the difference between the geometry variations, the average
 		\centering
 		\includegraphics{fig/chap5/freq_steps/third_octave_over_height/2000_Hz.png}
 		\caption{2000 Hz}
+		\label{fig:curve_sink}
 	\end{subfigure}
 	
-	\caption{Sound distribution at measurement position a, comparison between predictions obtained from the initial finite element model with the measurements. A-weighted SPL in one-third octave bands, dBA ref 20 $\mu$Pa.}
+	\caption{A-weighted sound pressure level in example one-third octave bands at measurement position a. For different intermediate steps per one-third octave band.}
+	
 	\label{fig:third_octave_over_height_freq_steps}
 \end{figure}
 
+Fig. \ref{fig:third_octave_over_height_freq_steps} shows the sound distribution at measurement position a (10 cm away from vehicle) along the height direction for different frequency resolution of one-third octave band. As can be seen from the results, for 100 Hz, there is almost no noticeable difference in results between the different frequency steps due to its narrow bandwidth of about 23 Hz. With increasing one-third octave band frequency and hence an increasing bandwidth, using one single intermediate frequency step to resolve the one-third octave band is not enough. At 315 Hz, the predicted sound pressure level using only single step is about 5 dB lower than the results obtained with more frequency steps. In 630 and 2000 Hz band, when using only the center frequency to represent the one third octave band, destructive interference effect in the sound distribution can be observed. The sink in the sound pressure curve is smoothed out once more intermediate frequency steps are used to compute the one third octave band result. Except for the single step, results obtained by using 3, 5 and 9 intermediate steps are in the same range and agree well with the measurement.
 
 \begin{figure}[H]
 	\centering
@@ -319,6 +353,7 @@ In order to quantify the difference between the geometry variations, the average
 		\centering
 		\includegraphics[width=\linewidth]{fig/chap5/freq_steps/field_result_2000Hz.png}
 		\caption{2000 Hz}
+		\label{fig:field_2000Hz}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.3\textwidth}
@@ -326,5 +361,46 @@ In order to quantify the difference between the geometry variations, the average
 		\includegraphics[width=\linewidth]{fig/chap5/freq_steps/field_result_2245Hz.png}
 		\caption{2245 Hz}
 	\end{subfigure}
-	\caption{Pressure field of single frequency}
+	\caption{Pressure field of three frequencies in 2000 Hz one third octave band. The green line marks the evaluation position of the sound pressure level}
+	\label{fig:pressure_field_solution}
 \end{figure}
+
+Fig. \ref{fig:pressure_field_solution} shows the pressure field of three frequencies within the 2000 Hz one third octave band. The frequencies are corresponding to the lower band limit, the center frequency and the upper band limit of the one third octave band, respectively. The sink in the sound pressure level curve using only single step as shown in fig. \ref{fig:curve_sink} is due to the destructive interference of the acoustic wave, which can be seen in fig. \ref{fig:field_2000Hz}. The blue area at the middle of the car body wall indicates a sink in the acoustic pressure. If more intermediate frequency steps are used, the sink in the sound pressure level curve will get averaged out since no destructive interference occurs at the same location in the pressure field of other frequencies.
+
+\begin{figure}[H]
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=0.49\textwidth]{fig/chap5/freq_steps/overall_SPL/pos_a.png}
+		\includegraphics[width=0.49\textwidth]{fig/chap5/freq_steps/overall_SPL/pos_a_deviation.png}
+		\caption{10 cm away from car body}
+	\end{subfigure}
+\end{figure}
+\begin{figure}[H]\ContinuedFloat
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=0.49\textwidth]{fig/chap5/freq_steps/overall_SPL/pos_f.png}
+		\includegraphics[width=0.49\textwidth]{fig/chap5/freq_steps/overall_SPL/pos_f_deviation.png}
+		\caption{50 cm away from car body}
+	\end{subfigure}
+	\caption{Comparison of overall A-weighted sound pressure level using different intermediate frequency steps per one third octave}
+	\label{fig:overall_SPL_freq_steps}
+\end{figure}
+
+Fig. \ref{fig:overall_SPL_freq_steps} shows the overall A-weighted sound pressure level distribution obtained by using different intermediate frequency steps compared to the measurement. The overall SPL curves are shown in the figures left and the deviations to the measurement are shown in the figures right, respectively. As can be seen from the figures, at most of the microphone locations, the simulation using 9 frequency steps per one third octave band shows the closest fit to the measurement while the results obtained by using 3 or 5 intermediate steps are also in the same range, but with a slightly greater deviation. When using only one single frequency step, a noticeable difference to the measured SPL curve at 2 to 4 m height can be observed. This is also the range of height where for several one third octave band center frequencies the sinks in sound pressure level curves are located, as previously shown in fig. \ref{fig:third_octave_over_height}.
+
+\begin{table}[H]
+	\caption{Mean relative error in overall SPL and total computation time using different intermediate frequency steps per one third octave band}
+	\label{tab:freq_steps_MRE}
+	\begin{tabularx}{\columnwidth}{|X|c|c|}
+	\hline
+	\textbf{Intermediate step per one third octave band} & \textbf{MRE in overall SPL {[}dB{]}} & \textbf{Total computation time {[}hour{]}} \\ \hline
+	\hspace{65pt} 1                                                    & 1.10                                 & 4.5                                        \\ \hline
+	\hspace{65pt} 3                                                    & 0.82                                 & 10                                         \\ \hline
+	\hspace{65pt} 5                                                    & 0.76                                 & 15                                         \\ \hline
+	\hspace{65pt} 9                                                    & 0.73                                 & 27                                         \\ \hline
+	\end{tabularx}
+\end{table}
+
+Tab. \ref{tab:freq_steps_MRE} shows the mean relative error in terms of the overall A-weight sound pressure level to the measurement obtained by using different intermediate frequency steps per one third octave band. Further, the total computation time for all 14 one third octave bands covering 100 to 2000 Hz is also shown in the same table. As expected, the more intermediate steps per one third octave band are used, the better the approximation to the measured results. On the other hand, it can be seen that the convergence rate of the mean relative error is getting slower with increasing intermediate steps, which means upon a certain degree of frequency resolution, better approximation can not be achieved by simply using more intermediate frequency steps per one third octave band. Another important aspect of choosing the proper number of intermediate frequency steps is the total computation time of the simulation, which increases linearly with the number of frequency steps. For our finite element model, choosing 5 intermediate steps per one third octave band would be a good compromise between accuracy and computational effort, since it has a similar mean relative error in terms of overall sound pressure level as the initial setup with 9 intermediate steps but saves up almost 50 per cent of the computation time.
+
+From the results shown in this section it can be concluded that the number of intermediate frequency steps used per one third octave band do affect the prediction accuracy of the finite element model. At low frequency range, using one single frequency step to resolve the one third octave band is sufficient while with increasing frequency, more intermediate steps are needed to obtain good approximation to the measurement result. For the investigated finite element model, there is no noticeable difference in terms of overall sound pressure level between the simulation results obtain by using 3, 5 and 9 intermediate steps, respectively. All three setups show well agreement with the measurement data and differ in their total computation time. For the investigated frequency range from 100 to 2000 Hz, using 5 intermediate steps to resolve the one third octave band shows good compromise between simulation accuracy and computational effort. 
