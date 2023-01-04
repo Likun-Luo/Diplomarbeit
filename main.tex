@@ -17,7 +17,9 @@
 \usepackage{subcaption} %% use subcaption package instead of subfigure
 \usepackage{geometry} %ersetzt obriges
 \usepackage{amsmath} %Formeln
+\usepackage{ifthen}
 \usepackage{amssymb}
+\usepackage{commath}
 \usepackage{graphicx} %Graphiken
 \usepackage{epstopdf}
 \usepackage{multicol}
@@ -28,9 +30,12 @@
 \usepackage{cite}
 \usepackage{setspace} %Für den Zeilenabstand nötig
 \usepackage{tabularx}
+\usepackage{booktabs}
 \usepackage{wallpaper}
 \usepackage[absolute]{textpos}
 \usepackage{float}
+\usepackage{siunitx}
+
 
 \usepackage{pdfpages} %Einbinden von fertigen pdf-Seiten
 
@@ -44,7 +49,11 @@
 %\fontfamily{pag}\selectfont
 
 %verlinktes Inhaltsverzeichnis
-\usepackage[bookmarksopen = true, linkcolor = black, plainpages = false,hypertexnames = false,citecolor = black]{hyperref}
+\usepackage[bookmarksopen = true, linkcolor = black, plainpages = false,hypertexnames = false,citecolor = black,hidelinks]{hyperref}
+% add the hidelinks option to hyperref to hide the boxes for the printed version!
+\usepackage[capitalise,nameinlink]{cleveref} % for references to chapters, figures, etc using \cref (abbreviated) or \Cref (start of sentence)
+\crefname{table}{Tab.}{Tabs.} % abbreviate table references
+
 
 \geometry{a4paper, top=22mm, left=25mm, right=25mm, bottom=30mm}
 
