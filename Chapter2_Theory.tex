@@ -253,9 +253,36 @@ with $W_\text{ref} = 10^{-12}\,\text{W}$ being the reference sound power and $W_
 with $*$ denoting the conjugate complex.
 
 \newpage
-\subsection{Octave band filters}
+\subsection{Octaves and frequency bands}
 
-The human hearing 
+A noise signal is often analyzed in the frequency domain in order to assess its frequency content. The frequency spectrum is divided into various frequency bands covering the hearing range of human, which varies from \SIrange{20}{20000}{\hertz}. The most commonly used frequency bands in the acoustic measurement are octave band and one-third octave band.
+
+\subsubsection*{Octave band}
+An octave band has a frequency span ratio of 2:1, which means that the upper limit frequency $f_u$ of the band is twice its lower limit frequency $f_l$, reads as
+\begin{equation}
+	f_u = 2f_l\,.
+\end{equation}
+The center frequency $f_m$ of the octave band is then calculated by their geometric mean
+\begin{equation}
+	f_m = \sqrt{f_l f_u} = \sqrt{2}f_l\,.
+\end{equation}
+The bandwidth $\Delta f$ of the octave band is given by
+\begin{equation}
+	\Delta f = f_u - f_l = \frac{f_u}{2} = \frac{f_m}{\sqrt{2}}\,.
+\end{equation}
+For acoustic measurements, the human audible range is split into 10 octave bands, with center frequencies being 31.5, 63, 125, 250, 500, 1000, 2000, 4000, 8000 and 16000 Hz.
+
+\subsubsection*{Fractional octave bands}
+
+If more detailed information about the frequency content of the noise is needed, fractional octave bands with higher frequency resolution can be used. In general, for a 1/n-octave band, the relation between the upper and the lower frequency limit is defined as
+\begin{equation}
+	f_u = 2^{^\frac{1}{n}}f_l\,.
+\end{equation}
+And the center frequency of 1/n-octave band is given by
+\begin{equation}
+	f_m = \sqrt{f_l f_u} = 2^{^{\frac{1}{2n}}}f_l\,.
+\end{equation}
+One can see that for $n = 1$, same expressions as for the octave band are obtained.
 
 \begin{figure}[H]
 	\centering
@@ -271,27 +298,104 @@ The human hearing
 	\label{fig:octave_band_filters}
 \end{figure}
 
+\noindent A widely used fractional octave band in the acoustic measurement is the 1/3-octave band, which is obtained by splitting each of the octave bands into three parts. Example sound spectra given in octave bands and 1/3-octave bands are shown in \cref{fig:octave_band_filters}. It can be seen that the spectrum in 1/3-octave bands contains more frequency bands than that of the octave band, allowing a more detailed analysis of the frequency content of the noise. Other common narrower fractional octave bands are for example 1/6-octave, 1/12-octave and 1/24-octave band.
+
 \newpage
 \subsection{Frequency weighting}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{fig/frequency_weighting.png}
-	\caption{Frequency weighting (A, C and Z) \cite{Frquency_weighting}}
+	\caption{Frequency weighting (A, C and Z) \cite{Frquency_weighting}.}
 	\label{fig:weighting}
 \end{figure}
 
-Frequency filters serve to match meter readings with the sensitivity of the human ear
-and the relative loudness of various sounds. These are the simplest of the available
-rating metrics because they can be read directly on a typical sound level meter
-(SLM) with the respective filter.
-The A-weighted filter, for example, is most commonly used for measuring ambient
-community noise. A-weighted sound level is most frequently encountered in the
-evaluation and rating of outdoor environmental noise, but it also has application
-indoors for assessing potential annoyance in presence of background noise and in
-specifying limits for human exposure to high-level noise. SPL measurements made
-with this filter are expressed as A-weighted decibels, or dBA
+The human audible system does not respond equally to sound frequencies. It is more sensitive to frequencies between \SI{500}{\hertz} and \SI{8000}{\hertz} and less sensitive to lower-pitch and higher-pitch noises \cite{weighting_filters}. To match this frequency-dependent perception of sound loudness of the human ear, so-called frequency weighting filters have been defined, which can be seen as correction functions of the measured sound levels. However, the frequency response of the ear also depends on sound pressure level, at lower levels the effect is more pronounced than at higher levels \cite{heutschi_lecture_2016}. Therefore, several weighting filters have been defined. The most commonly used weighting functions are A-weighting and C-weighting, which are designed for low and high sound levels, respectively. If no weighting filter is applied to the measurement, it is also called Z-weighting. The response functions of the A, C and Z-weighting filters are shown in \cref{fig:weighting}.
+
+In the ambient noise measurement, the most frequently used weighting is A-weighting. It can be calculated by the weighting function \cite{IEC61672}
+\begin{equation}
+	 R_A(f) = {12194^2 f^4 \over \left(f^2 + 20.6^2\right)\ \sqrt{\left(f^2 + 107.7^2\right)\left(f^2 + 737.9^2\right)}\ \left(f^2 + 12194^2\right)}\,,
+\end{equation}
+with $f$ being the frequency in \SI{}{\hertz}, the amplitude response of A-filter results in
+\begin{equation}
+	\text{A-weighting}(f) = 20\log_{10}\left(R_A(f)\right) - 20\log_{10}\left(R_A(1000)\right) \,. \label{eq:a_weighting}
+\end{equation}
+The second term in \cref{eq:a_weighting} is to ensure that the amplitude of the weighting function is normalized to \SI{0}{\decibel} at \SI{1000}{\hertz}, which can also be seen in \cref{fig:weighting}. Sound level measurements with A-weighting filter applied are expressed as dBA, or dB(A).
 
 \newpage
-\section{UBX metro train}
+\section{X-Wagen metro train}
 \label{section:ubx_geometry}
+
+In this thesis, the finite element modeling approach of underfloor noise prediction is applied on the X-Wagen metro from Siemens Mobility. A brief overview of the metro train is presented in the following section in order to provide a better insight into the modeled vehicle.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{fig/ubx_wiener_linien.PNG}
+	\caption{X-Wagen metro train at Siemens Mobility Austria company location Leberstraße \cite{foto_ubx}.}
+	\label{fig:ubx_foto}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics{fig/UBX_front_view_with_label_smaller.PNG}
+		\caption{Front view}
+	\end{subfigure}
+
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics{fig/UBX_sketchup_model_side_view_with_label_2.PNG}
+		\caption{Side view}
+	\end{subfigure}
+	
+	\caption{Sketchup model of the UBX.}
+	\label{fig:ubx_sketup_model}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{fig/running_bogie_with_labels.PNG}
+	\caption{A non-driven bogie from the head car. Main components are numbered as follows; (1) bogie frame, (2) wheel and axle, (3) brake disc, (4) air suspension.}
+	\label{fig:bogie_foto}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics{fig/running_bogie_sketchup.PNG}
+		\caption{Perspective view}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{fig/running_bogie_sideview_with_labels.PNG}
+		\caption{Side view}
+		\label{fig:bogie_side_view}
+	\end{subfigure}
+	\caption{Sketchup model of the non-driven bogie.}
+\end{figure}
+
+\begin{table}[H]
+	\caption{Dimensions of metro car and bogie as shown in \cref{fig:ubx_sketup_model} and \cref{fig:bogie_side_view}.}
+	\centering
+	\begin{tabular}{lc}
+		\toprule
+		                       	&  Dimension (mm)    \\
+		\midrule
+		\textbf{Metro car} 				   & 		 \\
+		Width of car                       & 2,850   \\
+		Height of car  					   & 3,588   \\
+		Length of head car  			   & 19,125  \\
+		Length of intermediate car 		   & 18,250  \\
+		Floor height above top of rail     & 948     \\
+		Track gauge              		   & 1,435   \\
+		\textbf{Bogie} 					   & 		 \\
+		Length of bogie frame    		   & 3,076   \\
+		Wheel center distance 			   & 2,000   \\ 
+		Wheel diameter  				   & 850     \\ 
+		\bottomrule
+	\end{tabular}
+	\label{tab:vehicle_dimensions}
+\end{table}
