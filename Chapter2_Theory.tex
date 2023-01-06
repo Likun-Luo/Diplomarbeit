@@ -331,10 +331,11 @@ In this thesis, the finite element modeling approach of underfloor noise predict
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{fig/ubx_wiener_linien.PNG}
-	\caption{X-Wagen metro train at Siemens Mobility Austria company location Leberstraße \cite{foto_ubx}.}
+	\caption{The first X-Wagen metro train at Siemens Mobility plant Leberstraße \cite{foto_ubx}.}
 	\label{fig:ubx_foto}
 \end{figure}
 
+The metro train Type X, also known as the X-Wagen, was developed by Siemens and is manufactured at the Siemens Mobility plant in Vienna. The third generation of the Vienna metro system aims to replace the old metro model Silverpfeil, which has been in operation since 1972. Siemens delivered the first X-Wagen (\cref{fig:ubx_foto}) in 2020, and the last vehicle is scheduled for delivery at the end of 2030.
 
 \begin{figure}[H]
 	\centering
@@ -348,11 +349,14 @@ In this thesis, the finite element modeling approach of underfloor noise predict
 		\centering
 		\includegraphics{fig/UBX_sketchup_model_side_view_with_label_2.PNG}
 		\caption{Side view}
+		\label{fig:ubx_model_sideview}
 	\end{subfigure}
 	
-	\caption{Sketchup model of the UBX.}
+	\caption{3D model of the X-Wagen in its basic configuration.}
 	\label{fig:ubx_sketup_model}
 \end{figure}
+
+The basic configuration of the train, as shown in \cref{fig:ubx_foto} and \cref{fig:ubx_model_sideview}, consists of two metro cars, a non-motorized head car where the driver's cab is located, and a motorized intermediate car. One section of the metro car is about \SI{2.85}{\meter} in width and \SI{3.6}{\meter} in height and has a length of \SI{19.1}{\meter} for the head car and \SI{18.3}{\meter} for the intermediate car, respectively. The train has a standard track gauge of \SI{1.425}{\meter}, and the car floor is about \SI{0.95}{\meter} over top of the rail. In the operating configuration, the metro train is made up of 6 sections consisting of 2 head cars and 4 intermediate cars with a length of over \SI{110}{\meter}.
 
 \begin{figure}[H]
 	\centering
@@ -360,6 +364,9 @@ In this thesis, the finite element modeling approach of underfloor noise predict
 	\caption{A non-driven bogie from the head car. Main components are numbered as follows; (1) bogie frame, (2) wheel and axle, (3) brake disc, (4) air suspension.}
 	\label{fig:bogie_foto}
 \end{figure}
+
+The main components in the train underfloor are the bogies and other supporting units like air compressors, electrical transformers, etc.
+Each metro car is equipped with two bogies. While the bogies at the front car are non-driven, the intermediate car bogies are driven by traction motors. A non-driven bogie from the front car is shown in \cref{fig:bogie_foto} with the main components numbered. These are the bogie frame with length of about \SI{3}{\meter}, the wheels with \SI{0.85}{\meter} diameter and a distance of \SI{2}{\meter} to each other, the axles, and the air suspensions. Each axle is equipped with one brake disk and one brake caliper unit, and the brake components of both axles are arranged in an anti-symmetric order.
 
 \begin{figure}[H]
 	\centering
@@ -374,15 +381,19 @@ In this thesis, the finite element modeling approach of underfloor noise predict
 		\caption{Side view}
 		\label{fig:bogie_side_view}
 	\end{subfigure}
-	\caption{Sketchup model of the non-driven bogie.}
+	\label{fig:bogie_3d_model}
+	\caption{Simplified 3D model of the non-driven bogie containing the main components as described in \cref{fig:bogie_foto}.}
 \end{figure}
 
+A simplified 3D model of the non-driven bogie containing the mentioned main components is shown in \cref{fig:bogie_3d_model}. One can see that the brake components introduce asymmetry into the bogie geometry. If they are disregarded, the symmetry of the bogie can be exploited, and the full model can be represented by a one-fourth model, which is used in the latter finite element modeling in \cref{chap:FEM}.
+
+Finally, the mentioned dimensions of the metro car and of the bogie components in this section are summarized in \cref{tab:vehicle_dimensions}.
 \begin{table}[H]
 	\caption{Dimensions of metro car and bogie as shown in \cref{fig:ubx_sketup_model} and \cref{fig:bogie_side_view}.}
 	\centering
 	\begin{tabular}{lc}
 		\toprule
-		                       	&  Dimension (mm)    \\
+		Parameter                    	   &  Dimension (mm)    \\
 		\midrule
 		\textbf{Metro car} 				   & 		 \\
 		Width of car                       & 2,850   \\
