@@ -88,6 +88,11 @@ The goal of this section is to find an appropriate propagation domain size to ac
 
 The compared simulation domain size are 0.2 m, 0.5 m, 1 m, 1.5 m and 2m. For each setup, the pressure is evaluated at 0.1 m away from the vehicle along the height direction, and the result is compared to a , the model with 2 m domain size will be used as reference. Fig. \ref{fig:domain_size_variation} shows the model with 0.5 m domain size and the reference model with 2 m domain size. The evaluation position is marked by the red line.
 
+A fictitious excitation with uniform normal surface particle velocity of $u_s = 1\,mm/s$ is applied to the loudspeaker surface.
+
+The reference solution is computed by using a model with 2 m width and all errors are evaluated with respect to this reference.
+
+
 
 \subsection*{Computational Effort}
 The aim of this section is 
@@ -212,11 +217,13 @@ For the simulation, the sound power level of one single 1/3-octave band is divid
 
 
 %\section{General simulation setup}
-
+\newpage
 \section{Parametric study}
 \label{section:parametric_study}
 \subsection{Variation of underfloor geometry}
 \label{section:variation_geometry}
+
+In the initial geometric setup, the contemplated underfloor components in the finite element model are the bogie frame, the wheel with axle and the air suspension. In order to investigate the stability of simulation results to different underfloor geometrical setups, a parametric study with variation of the underfloor geometry is carried out in the following.
 
 \begin{figure}[H]
 	\centering
@@ -224,26 +231,33 @@ For the simulation, the sound power level of one single 1/3-octave band is divid
 		\centering
 		\includegraphics[width = 0.8\linewidth]{fig/chap4/geometry/no_underfloor_components_2.png}
 		\caption{No underfloor components}
+		\label{fig:no_underfloor_components}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
 		\includegraphics[width = 0.8\linewidth]{fig/chap4/geometry/no_air_suspension_2.png}
 		\caption{No air suspension}
+		\label{fig:no_air_suspension}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
 		\includegraphics[width = 0.8\linewidth]{fig/chap4/geometry/initial_model_2.png}
 		\caption{Initial model}
+		\label{fig:initial_model}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
 		\includegraphics[width = 0.8\linewidth]{fig/chap4/geometry/additional_structures.png}
 		\caption{Additional structures}
+		\label{fig:additional_structures}
 	\end{subfigure}
-
-	\caption{Used geometry}
+	\caption{Underfloor geometry with four variations.}
+	\label{fig:variation_underfloor}
 \end{figure}
 
+For the parametric study, four different variations of underfloor geometry including the initial finite element model as described in \cref{section:geometry} are prepared, which are shown in \cref{fig:variation_underfloor}, ordered by their complexity. Again, the full model of each geometry is shown for a better illustration, whereby the one-fourth model will be used for the simulation. The simplest model (\cref{fig:no_underfloor_components}) contains only the car body shell without any underfloor components, the blue or the green sphere beneath the car floor represents the omnidirectional loudspeaker. In the next more complex model (\cref{fig:no_air_suspension}), the bogie frame and the wheels are contemplated, and differs from the initial geometry (\cref{fig:initial_model}) only by the air suspension, that is why this variation is also named "no air suspension". Finally, the last geometrical model (\cref{fig:additional_structures}) is set up by attaching additional structures to the car floor, which represent the cable ducts beneath the car floor.
+
+\newpage
 \subsection{Inclusion of ground absorption}
 
 In the finite element formulation, the ground absorption is modeled by the surface impedance boundary condition. The surface impedance is complex valued. The phase information of the surface impedance is lost when converting to absorption coefficient. For most of the time, (in acoustic data bank) only the absorption coefficient is provided but not the full impedance characteristic. To have an idea how the missing phase information of the impedance could affect the results. It assumed that the phase of the surface impedance are 0°, 30°, 45° and 60°.
@@ -310,5 +324,29 @@ Due to a missing ground absorption measurement
 	\caption{Input surface impedance in one-third octave bands calculated using (\ref{eq:impedance})}
 \end{figure}
 
-
+\newpage
 \subsection{Variation of frequency steps per 1/3-octave band}
+
+In this thesis, the simulation and the measurement results will be compared in one third octave bands.
+In the initial simulation setup, each one third octave band is computed using nine intermediate frequency steps corresponding to the 1/24-octave center frequencies to ensure a sufficient frequency band resolution.
+However, the computation time of single one third octave band grows almost linearly with the number of intermediate frequency steps.
+As already shown in \cref{section:geometry}, the computation time of the highest frequency band \SI{2000}{Hz} using nine intermediate frequencies almost takes up half of the total simulation run time.
+Therefore, it would be of great interest to find a proper number of intermediate frequency steps per one third octave band, which can lower the computational effort of the simulation while providing a similar numerical accuracy.
+
+For the parametric study, each one third octave band is computed using one, three, five and nine intermediate frequency steps, respectively. Obviously, there are several possibilities to choose the frequencies used within the octave band. However, this study concentrates on the influence of the number of frequencies used on the simulation results but not the different selection of the frequencies. Therefore, for each number of steps, a rule for choosing the frequencies used within the one-third octave band will be defined. For single frequency step, the center frequency of the corresponding one third octave band is used. Next, for model using three intermediate steps, the lower and the upper frequency limits of the one third octave band are additionally used, which corresponds to the 1/6-octave center frequencies. Finally, the frequencies used for five steps and nine steps are equivalent to the 1/12-octave center frequencies and the 1/24-octave center frequencies within the one third octave frequency band, respectively. A example of the frequency selection for \SI{1000}{\hertz} one third octave band is shown in \cref{tab:variation_freq_steps}. The same selection criteria applies to other one third octave bands.
+
+\begin{table}[H]
+	\caption{Choice of frequencies used for different number of intermediate steps, example one-third octave band \SI{1000}{\hertz}.}
+	\centering
+	\begin{tabular}{ccc}
+		\toprule
+		Number of steps    &  Frequencies used (Hz) & Note  \\
+		\midrule
+		1    &  1000  & 1/3-octave center frequency\\
+		3  	 &  891, 1000, 1122 & 1/6-octave center frequencies \\
+		5  	 &  891, 944, 1000, 1059, 1122 & 1/12-octave center frequencies\\
+		9    &  891, 917, 944, 972, 1000, 1029, 1059, 1091, 1122 & 1/24-octave center frequencies \\
+		\bottomrule
+	\end{tabular}
+	\label{tab:variation_freq_steps}
+\end{table}
