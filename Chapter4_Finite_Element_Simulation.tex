@@ -223,7 +223,7 @@ For the simulation, the sound power level of one single 1/3-octave band is divid
 \subsection{Variation of underfloor geometry}
 \label{section:variation_geometry}
 
-In the initial geometric setup, the contemplated underfloor components in the finite element model are the bogie frame, the wheel with axle and the air suspension. In order to investigate the stability of simulation results to different underfloor geometrical setups, a parametric study with variation of the underfloor geometry is carried out in the following.
+In the initial geometric setup, the contemplated underfloor components in the finite element model are the bogie frame, the wheel with axle, and the air suspension. In order to investigate the stability of simulation results to different underfloor geometrical setups, a parametric study with a variation of the underfloor geometry is carried out in the following.
 
 \begin{figure}[H]
 	\centering
@@ -327,13 +327,13 @@ Due to a missing ground absorption measurement
 \newpage
 \subsection{Variation of frequency steps per 1/3-octave band}
 
-In this thesis, the simulation and the measurement results will be compared in one third octave bands.
-In the initial simulation setup, each one third octave band is computed using nine intermediate frequency steps corresponding to the 1/24-octave center frequencies to ensure a sufficient frequency band resolution.
-However, the computation time of single one third octave band grows almost linearly with the number of intermediate frequency steps.
+In this thesis, the simulation and the measurement results will be compared in one-third octave bands.
+In the initial simulation setup, each one-third octave band is computed using nine intermediate frequency steps corresponding to the 1/24-octave center frequencies to ensure a sufficient frequency band resolution.
+However, the computation time of single one-third octave band grows almost linearly with the number of intermediate frequency steps.
 As already shown in \cref{section:geometry}, the computation time of the highest frequency band \SI{2000}{Hz} using nine intermediate frequencies almost takes up half of the total simulation run time.
-Therefore, it would be of great interest to find a proper number of intermediate frequency steps per one third octave band, which can lower the computational effort of the simulation while providing a similar numerical accuracy.
+Therefore, it would be of great interest to find a proper number of intermediate frequency steps per one-third octave band, which can lower the computational effort of the simulation while providing a similar numerical accuracy.
 
-For the parametric study, each one third octave band is computed using one, three, five and nine intermediate frequency steps, respectively. Obviously, there are several possibilities to choose the frequencies used within the octave band. However, this study concentrates on the influence of the number of frequencies used on the simulation results but not the different selection of the frequencies. Therefore, for each number of steps, a rule for choosing the frequencies used within the one-third octave band will be defined. For single frequency step, the center frequency of the corresponding one third octave band is used. Next, for model using three intermediate steps, the lower and the upper frequency limits of the one third octave band are additionally used, which corresponds to the 1/6-octave center frequencies. Finally, the frequencies used for five steps and nine steps are equivalent to the 1/12-octave center frequencies and the 1/24-octave center frequencies within the one third octave frequency band, respectively. A example of the frequency selection for \SI{1000}{\hertz} one third octave band is shown in \cref{tab:variation_freq_steps}. The same selection criteria applies to other one third octave bands.
+For the parametric study, each one-third octave band is computed using one, three, five, and nine intermediate frequency steps, respectively. Obviously, there are several possibilities for choosing the frequencies used within the octave band. However, this study concentrates on the influence of the number of frequencies used on the simulation results but not the different selection of the frequencies. Therefore, a rule for choosing the frequencies used within the one-third octave band will be defined for each number of steps. For the single frequency step, the center frequency of the corresponding one-third octave band is used. Next, for the model using three intermediate steps, the lower and the upper frequency limits of the one-third octave band are additionally used, corresponding to the 1/6-octave center frequencies. Finally, the frequencies used for five steps and nine steps are equivalent to the 1/12-octave center frequencies and the 1/24-octave center frequencies within the one-third octave frequency band, respectively. An example of the frequency selection for \SI{1000}{\hertz} one-third octave band is shown in \cref{tab:variation_freq_steps}. The same selection criteria apply to other one-third octave bands.
 
 \begin{table}[H]
 	\caption{Choice of frequencies used for different number of intermediate steps, example one-third octave band \SI{1000}{\hertz}.}
