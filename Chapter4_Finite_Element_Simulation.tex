@@ -258,13 +258,38 @@ In the initial geometric setup, the contemplated underfloor components in the fi
 For the parametric study, four different variations of underfloor geometry including the initial finite element model as described in \cref{section:geometry} are prepared, which are shown in \cref{fig:variation_underfloor}, ordered by their complexity. Again, the full model of each geometry is shown for a better illustration, whereby the one-fourth model will be used for the simulation. The simplest model (\cref{fig:no_underfloor_components}) contains only the car body shell without any underfloor components, the blue or the green sphere beneath the car floor represents the omnidirectional loudspeaker. In the next more complex model (\cref{fig:no_air_suspension}), the bogie frame and the wheels are contemplated, and differs from the initial geometry (\cref{fig:initial_model}) only by the air suspension, that is why this variation is also named "no air suspension". Finally, the last geometrical model (\cref{fig:additional_structures}) is set up by attaching additional structures to the car floor, which represent the cable ducts beneath the car floor.
 
 \newpage
-\subsection{Inclusion of ground absorption}
+\subsection{Variation of ground surface impedance}
 
-In the finite element formulation, the ground absorption is modeled by the surface impedance boundary condition. The surface impedance is complex valued. The phase information of the surface impedance is lost when converting to absorption coefficient. For most of the time, (in acoustic data bank) only the absorption coefficient is provided but not the full impedance characteristic. To have an idea how the missing phase information of the impedance could affect the results. It assumed that the phase of the surface impedance are 0°, 30°, 45° and 60°.
+In the initial simulation setup, the ground is modeled as a fully reflective surface at which the homogeneous Neunmann (sound hard) boundary condition is applied.
+However, it would also be of interest to investigate the influence of including ground absorption on the simulation result.
+An absorbing surface is characterized by its absorption coefficient $\alpha$, which is frequency dependent in most cases.
+In the finite element formulation, the reflection and absorption of the incident acoustic wave at a surface is described by the surface impedance boundary condition, which can be related to the absorption coefficient of the surface. In the following, the relation between the absorption coefficient $\alpha$ and the surface impedance $Z_s$ is presented following Nedkov \cite{nedkov_impedance_2011}.
 
-In the initial simulation setup, the ground is modeled as a perfect reflecting plane. To have an idea how the unknown 
-
-Due to a missing ground absorption measurement
+The sound absorption coefficient $\alpha$ of a material is defined by the ratio of the absorbed acoustic power $W_{\text{absorbed}}$ and the power of incident wave $W_{\text{incident}}$, which for wave at normal incidence reads as
+\begin{equation}
+	\alpha = \frac{W_{\text{absorbed}}}{W_\text{incident}} = 1 - |R|^2\,, \label{eq:absorption_coefficient}
+\end{equation}
+with $R$ being the complex reflection coefficient, which can be represented as
+\begin{equation}
+	R = \frac{Z_s - Z_0}{Z_s + Z_0} = \frac{\frac{Z_s}{Z_0} - 1}{\frac{Z_s}{Z_0} + 1}\,, \label{eq:reflection_coefficient}
+\end{equation}
+where $Z_0 = \rho_0 c_0$ is the characteristic impedance of the propagation medium and $Z_s$ is the specific acoustic impedance of the absorbing surface.
+The impedance ratio $\frac{Z_s}{Z_0}$ is also called the normalized surface impedance
+\begin{equation}
+	\tilde{Z_s} = \frac{Z_s}{Z_0} = \tilde{R_s} + j\tilde{X_s}\,,
+\end{equation}
+which can be slit into a real part $\tilde{R_s}$ and an imaginary part $\tilde{X_s}$. By inserting \cref{eq:reflection_coefficient} into \cref{eq:absorption_coefficient}, the absorption coefficient $\alpha$ can be related to the complex surface impedance by
+\begin{equation}
+	\alpha = \frac{4\tilde{R_s}}{\tilde{R_s}^2+\tilde{X_s}^2 + 2\tilde{R_s} + 1} \,. \label{eq:absorption_coefficient_2}
+\end{equation}
+In order to uniquely define the surface impedance $\tilde{Z_s}$ of the absorbing surface for a given normal incident absorption coefficient $\alpha$, the phase of the complex surface impedance also has to be known, which is given by
+\begin{equation}
+	 \varphi = \arctan{\frac{\tilde{X_s}}{\tilde{R_s}}}\,. \label{eq:impedance_phase_angle}
+\end{equation}
+The impedance characteristic of a ground surface can be determined for example by an in-situ measurement using impedance tube method \cite{wolkesson_2013,Seybert2008MeasurementOP}.
+For the case that a measurement is not accessible, the absorption data can be retrieved e.g. from a acoustic data bank, which, in most cases, provides only the absorption coefficient spectrum in stead of the complex surface impedance.
+However, it has been shown that also the phase has to be provided to uniquely define the surface impedance for a given absorption coefficient.
+In order to have an idea how the missing information of the impedance phase angle affects the simulation result, surface impedance boundary condition is prescribed at the ground of the finite element model using varying impedance phase angle.
 
 \begin{figure}[H]
 	\centering
@@ -273,55 +298,34 @@ Due to a missing ground absorption measurement
 	\label{fig:ground_absorption}
 \end{figure}
 
+Due to a missing ground absorption measurement, the absorption spectrum from the pavement absorption measurement carried out by Seybert et al. \cite{Seybert2008MeasurementOP} is used, which is shown in \cref{fig:ground_absorption}.
+The values of the absorption coefficients are estimated from the graph and are listed in \cref{tab:absorption_coefficient} since these were not provided in the paper. For frequencies lower than \SI{315}{\hertz}, the absorption coefficient is set to 0.02. The complex normalized surface impedance can then be calculated by solving the system of equations consists of \cref{eq:absorption_coefficient_2} and \cref{eq:impedance_phase_angle}. Thereby, the impedance phase angle $\varphi$ is assumed to be \SI{0}{\degree} (only real part), $\pm$\SI{30}{\degree}, $\pm$\SI{45}{\degree}, and $\pm$\SI{60}{\degree}, respectively. The obtained normalized surface impedance spectra for different impedance phase angles are shown in \cref{fig:input_impedance}.
+
 \begin{table}[H]
-	\caption{Estimated absorption coefficient from fig. \ref{fig:ground_absorption}, the values for frequency lower than 315 Hz are chosen arbitrary}
-	\begin{tabular}{c|ccccccc}
-		Freq (Hz)           & 100  & 125  & 160  & 200  & 250  & 315  & 400 \\ \hline
-		$\alpha$ & 0.02 & 0.02 & 0.02 & 0.02 & 0.02 & 0.035 & 0.055
-	\end{tabular}
-	\newline
-	\vspace*{10pt}
-	\newline
-	\begin{tabular}{c|ccccccc}
-		Freq (Hz)  &  500  & 630  & 800  & 1000 & 1250 & 1600 & 2000 \\ \hline
-		$\alpha$ & 0.05 & 0.065 & 0.065 & 0.08 & 0.095 & 0.105 & 0.105
+	\centering
+	\caption{Estimated absorption coefficient from \cref{fig:ground_absorption}, for frequencies lower than 315 Hz the values are set to 0.02.}
+	\label{tab:absorption_coefficient}
+	\begin{tabular}{cccc}
+		\toprule
+		Frequency (Hz) & $\alpha$ & Frequency (Hz) & $\alpha$ \\
+		\midrule
+		100 & 0.02 & 500 & 0.05 \\
+		125 & 0.02 & 630 & 0.065 \\
+		160 & 0.02 & 800 & 0.065 \\
+		200 & 0.02 & 1000 & 0.08 \\
+		250 & 0.02 & 1250 & 0.095 \\
+		315 & 0.035 & 1600 & 0.105 \\
+		400 & 0.055 & 2000 & 0.105 \\
+		\bottomrule
 	\end{tabular}
 \end{table}
 
-\begin{equation}
-	\alpha = 1 - |R^2|
-\end{equation}
-
-\begin{equation}
-	R = \frac{Z_s - Z_0}{Z_s + Z_0} = \frac{\frac{Z_s}{Z_0} - 1}{\frac{Z_s}{Z_0} + 1}
-\end{equation}
-
-\begin{equation}
-	\tilde{Z_s} = \frac{Z_s}{Z_0} = \tilde{R_s} + j\tilde{X_s}
-\end{equation}
-
-
-
-\begin{equation}
-	\begin{cases}
-		\frac{4\tilde{R_s}}{\tilde{R_s}^2+\tilde{X_s}^2 + 2\tilde{R_s} + 1} = \alpha\\
-		\arctan{\frac{\tilde{X_s}}{\tilde{R_s}}} = \varphi
-	\end{cases}	
-	\label{eq:impedance}
-\end{equation}
-
-
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}[b]{0.8\textwidth}
-		\centering
-		\includegraphics{fig/chap4/impedance/impedance_real.png}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.8\textwidth}
-		\centering
-		\includegraphics{fig/chap4/impedance/impedance_imag.png}
-	\end{subfigure}
-	\caption{Input surface impedance in one-third octave bands calculated using (\ref{eq:impedance})}
+	\includegraphics{fig/chap4/impedance/impedance_real.png}
+	\includegraphics{fig/chap4/impedance/impedance_imag.png}
+	\caption{Real and imaginary part of the surface impedance normalized by $Z_0 = \rho_0 c_0$ calculated by solving \cref{eq:absorption_coefficient_2} and \cref{eq:impedance_phase_angle}.}
+	\label{fig:input_impedance}
 \end{figure}
 
 \newpage
