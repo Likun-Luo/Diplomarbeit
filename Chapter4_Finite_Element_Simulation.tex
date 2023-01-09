@@ -73,8 +73,8 @@ The goal of this section is to find an appropriate propagation domain size to ac
 	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{fig/chap4/simulation_domain/0pt5m.png}
-		\caption{0.5 m}
+		\includegraphics[width=\linewidth]{fig/chap4/simulation_domain/0pt2m.png}
+		\caption{0.2 m}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.45\textwidth}
@@ -119,102 +119,81 @@ The aim of this section is
 	\end{tabularx}
 \end{table}
 
-
+\newpage
 \section{Boundary conditions and loads}
 \label{section:boundary_conditions}
 
-After the considerations of the geometrical model, the physical modeling aspects will be discussed. The dominating boundary condition in the finite element model of UBX is the Neumann type boundary condition, which specifies the acoustic particle velocity at the boundary.
-
-The concrete ground $\Gamma_{\text{ground}}$ and the wrapped surfaces of the vehicle components $\Gamma_{\text{vehicle}}$ are assumed to be fully reflective. This also applies to the both symmetry planes (X-Y and Z-Y plane) of the quarter air domain $\Gamma_{\text{symmetry}}$. Hence, the sound hard boundary condition is used for these surfaces
-
-\begin{equation}
-	\nabla p \cdot \vec{n} = 0\qquad\text{on}\qquad\Gamma_{\text{ground}}\,\cup\,\Gamma_{\text{vehicle}}\,\cup\,\Gamma_{\text{symmetry}}\text{.}
-\end{equation}
-
-
-To model the infinite domain, the three open surfaces of the propagation domain are surrounded by perfectly matched layers.
-
-
-A familiar example of a normal velocity boundary is a vibrating mechanical structure that produces sound waves into the surrounding medium
-
-
-
-\begin{table}[H]
+\begin{figure}
 	\centering
-	\caption{Material properties used for the simulation}
-	\begin{tabular}{|c|c|}
-		\hline
-		\textbf{Properties} & \textbf{Value}                   \\ \hline
-		Density             &  $1.205\,\text{kg}\cdot \text{m}^{-3}$                     \\ \hline
-		Bulk modulus        &  $1.41767\cdot10^5\,\text{Pa}$ \\ \hline
-	\end{tabular}
-\end{table}
-
-\subsection*{Modeling of sound source}
-
-The loudspeaker sound source is modeled as a pulsating sphere radiating into free field, which is excited by a prescribed surface normal velocity $\hat{u}(a)$ at source radius $a$.
-
-The pressure amplitude of a spherical wave at radius $r$ from the source is given by
-\begin{equation}
-	\hat{p}(r) = \frac{A}{r}\cdot e^{-jkr}\text{,}
-\end{equation}
-with $A$ being the monopole amplitude and $k$ being the wave number of the propagating wave.
-
-The relationship between the pressure amplitude and the amplitude of particle velocity is described by the specific acoustic impedance, which is given by
-\begin{equation}
-	z(r) = \frac{\hat{p}(r)}{\hat{u}(r)} = \rho_0 c_0\frac{jkr}{1+jkr}\text{,} \label{eq:specific_impedance}
-\end{equation}
-where $\rho_0$ the density of the propagation medium and $c_0$ the speed of sound in the medium. The product $\rho_0 c_0 = z_0$ is also called the characteristic impedance of the propagation medium. (\ref{eq:specific_impedance}) shows that for spherical wave, the acoustic pressure and the particle velocity are not in phase. For very small distances or low frequencies, phases differ by nearly $90^{\circ}$ and in the acoustic far field ($kr >> 1$), the spherical wave can be approximated by plane wave propagation.
-
-For stationary sound field, the average power density or sound intensity is given by
-\begin{align}
-	\bar{I}(r) &= \frac{1}{2}\text{Re}\lbrace\hat{p}(r)\hat{u}^*(r)\rbrace \\
-	&=\frac{1}{2}\frac{|A|^2}{r^2z_0}\qquad \text{.}
-\end{align}
-
-The acoustic power of a steady sound source radiating into free field is obtained by integrating the sound intensity over a surface, which encloses the sound source and can be found as
-\begin{align}
-	W &= \oint_{\Gamma} \bar{I}(r) d\Gamma \\
-	  &= \bar{I}(r)\cdot 4\pi r^2 \\
-	  &= \frac{2\pi |A|^2}{z_0} \qquad \text{.} \label{eq:acoustic_power}
-\end{align}
-
-As apparent in (\ref{eq:acoustic_power}), the acoustic power is independent from the distance to the source.
-
-With the goal of assessing the acoustic power $W$, an expression for the monopole amplitude $A$ has to be determined and inserted into (\ref{eq:acoustic_power}). On the surface of the source, the pressure is given by the product of the surface normal velocity $\hat{u}(a)$ and the specific impedance $z(a)$ evaluated at the source radius and is found by
-\begin{equation}
-	\hat{p}(a) = \frac{A}{a}\cdot e^{-jka} = \hat{u}(a)\cdot z(a) \qquad \text{.}
-\end{equation}
-
-Upon bringing the monopole amplitude $A$ to one side of the equation
-\begin{equation}
-	A = a\cdot\hat{u}(a)\cdot z(a)\cdot e^{jka}\qquad\text{,}
-\end{equation}
-
-and inserting into (\ref{eq:acoustic_power}), the acoustic power can hence be expressed by the surface normal velocity
-
-\begin{equation}
-	W = 2\pi a^2\cdot|\hat{u}(a)|^2\cdot z_0 \cdot \frac{(ka)^2}{1+(ka)^2} \qquad\text{.}
-\end{equation}
-
-After solving for $|\hat{u}(a)|$
-
-\begin{equation}
-	|\hat{u}(a)| = \sqrt{\frac{W\cdot(1 + k^2a^2)}{2\pi z_0 k^2a^4}} \label{eq:input_velocity}
-\end{equation}
-
-the relationship between input surface normal velocity and the output acoustic power has been established. Through (\ref{eq:input_velocity}), the required surface normal velocity for a given source acoustic power can be calculated.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics{fig/chap4/input_SVL.png}
-	\caption{Input surface normal velocity in dB ref. $5\cdot10^{-8}\,\text{m/s}$, calculated using \ref{eq:input_velocity}}
+	\includegraphics{fig/chap4/region_labels.png}
+	\caption{Boundary surfaces of the finite element model.}
+	\label{fig:boundary_conditions}
 \end{figure}
 
-For the simulation, the sound power level of one single 1/3-octave band is divided into the 9 intermediate frequency steps by a 9.54 dB reduced sound power level for every single frequency within the band so that the sum of all frequencies results in the sound power level for the corresponding 1/3-octave band.
+After the considerations of the geometrical model in the previous section, the physical modeling aspects will be now discussed. In the finite element model of the X-Wagen, two boundary conditions of Neumann type are used, which are the sound hard boundary condition and the normal velocity boundary condition, respectively. The boundary surfaces of the model are shown in \cref{fig:boundary_conditions}. The concrete ground $\Gamma_{\text{ground}}$ and the wrapped surfaces of the car body shell and the bogie components $\Gamma_{\text{vehicle}}$ are assumed to be fully reflective. This also applies to the both symmetry planes (X-Y and Z-Y plane) of the quarter model $\Gamma_{\text{symmetry}}$. Hence, the sound hard boundary condition is used for these surfaces
+\begin{equation}
+	\nabla p_a \cdot \boldsymbol{n} = 0\qquad\text{on}\qquad\Gamma_{\text{ground}}\,\cup\,\Gamma_{\text{vehicle}}\,\cup\,\Gamma_{\text{symmetry}}\,.
+\end{equation}
+The acoustic excitation of the computational model comes from the loudspeaker, at which a normal velocity boundary condition is defined on its surface $\Gamma_{\text{excitation}}$, which reads as
+\begin{equation}
+	\boldsymbol{u_a} \cdot \boldsymbol{n} = u_{n}\qquad\text{on}\qquad\Gamma_{\text{excitation}}\,.
+\end{equation}
+However, the sound source characterization measurement from \cref{section:SWL_measurement} results in a acoustic power spectrum, which can not be directly applied to the finite element model. Therefore, a modeling approach of the sound source has to be found that can relate the surface normal velocity with the acoustic power.
 
+\subsection*{Modeling of the sound source}
 
+In the following, the modeling approach of the sound source is explained. Thereby, the loudspeaker sound source is modeled as a pulsating sphere radiating into free field, which is excited by a prescribed surface normal velocity with amplitude $\hat{u}_s = \hat{u}_a(a)$ with $a$ being the radius of the sphere. The pressure amplitude of the spherical wave at a distance $r$ from the sound source is given by
+\begin{equation}
+	\hat{p}_a(r) = \frac{\hat{A}}{r}\,e^{-jkr}\,, \label{eq:sound_pressure}
+\end{equation}
+with $\hat{A}$ being the monopole amplitude and $k$ being the wave number of the propagating wave. The relationship between the pressure amplitude and the amplitude of the particle velocity is described by the specific acoustic impedance, which for spherical wave computes by
+\begin{equation}
+	Z(r) = \frac{\hat{p}_a(r)}{\hat{u}_a(r)} = \rho_0 c_0\frac{jkr}{1+jkr}\,, \label{eq:specific_impedance}
+\end{equation}
+where $\rho_0$ is the density of the propagation medium and $c_0$ is the speed of sound in the medium. The product $Z_0 = \rho_0 c_0$ is also called the characteristic impedance of the propagation medium. The particle velocity of the spherical wave can then be expressed by
+\begin{equation}
+	\hat{u}_a(r) = \frac{\hat{p}_a(r)}{Z(r)} = \frac{\hat{A}}{r Z_0}\,e^{-jkr}\left(1+\frac{1}{jkr}\right)\,. \label{eq:sound_velocity}
+\end{equation}
+For stationary sound field, the average power density or the sound intensity is given by
+\begin{equation}
+	I(r) = \frac{1}{2}\text{Re}\lbrace\hat{p}_a(r)\hat{u}_a^*(r)\rbrace\,, \label{eq:sound_intensity}
+\end{equation}
+where $()^*$ denotes the complex conjugate. By inserting \cref{eq:sound_pressure} and \cref{eq:sound_velocity} into the expression of the sound intensity, one obtains
+\begin{align}
+	I(r) &= \frac{1}{2}\text{Re}\lbrace \frac{\hat{A}\hat{A}^*}{r^2 Z_0}\,e^{-jkr}\,e^{jkr}\left(1+j\frac{1}{kr}\right)\rbrace \\
+		 &=\frac{1}{2}\frac{|\hat{A}|^2}{r^2Z_0}\,.
+\end{align}
+Furthermore, the acoustic power $W$ of a steady sound source radiating into free field is obtained by integrating the sound intensity $I(r)$ over a surface $\Gamma$ enclosing the sound source and can be found as
+\begin{align}
+	W &= \oint_{\Gamma} I(r) \dif\Gamma \\
+	  &= \bar{I}(r)\,4\pi r^2 \\
+	  &= \frac{2\pi |\hat{A}|^2}{Z_0}\,. \label{eq:acoustic_power}
+\end{align}
+As apparent in \cref{eq:acoustic_power}, the acoustic power is independent from the distance to the sound source and can be related to the monopole amplitude $\hat{A}$. Assume a sound source has a radius of $a$, the pressure amplitude on the sound source surface $\hat{p}_s = \hat{p}_a(a)$ can be expressed by the product of the surface normal velocity $\hat{u}_s = \hat{u}_a(a)$ and the specific impedance $Z(a)$ evaluated at the source surface and is found by
+\begin{equation}
+	\hat{p}_s = \hat{p}(a) = \hat{u}_s Z(a) = \frac{\hat{A}}{a}\,e^{-jka}\,.
+\end{equation}
+Upon bringing the monopole amplitude $\hat{A}$ to one side of the equation, and evaluating \cref{eq:specific_impedance} at the source radius $a$, one obtains
+\begin{align}
+	\hat{A} &= a\hat{u}_s Z(a)\,e^{jka} \\
+			&= a\hat{u}_s Z_0 \frac{jka}{1+jka}\,e^{jka}\,. \label{eq:monopole_amplitude}
+\end{align}
+By inserting \cref{eq:monopole_amplitude} into \cref{eq:acoustic_power}, the acoustic power $W$ can hence be expressed by the surface normal velocity $\hat{u}_s$, which reads as
+\begin{equation}
+	W = 2\pi a^2 Z_0 \left|\hat{u}_s\right|^2\frac{(ka)^2}{1+(ka)^2} \,.
+\end{equation}
+Assuming that the surface normal velocity contains only real part i.e. $\left|\hat{u}_s\right| = \hat{u}_s$, one obtains
+\begin{equation}
+	\hat{u}_s = \sqrt{\frac{W(1 + k^2a^2)}{2\pi Z_0 k^2a^4}}\,. \label{eq:input_velocity}
+\end{equation}
+Through \cref{eq:input_velocity}, the required normal velocity at the loudspeaker surface $\Gamma_{\text{excitation}}$ for a given acoustic power can be calculated. Therefore, the measured acoustic power spectrum of the sound source (see \cref{fig:average_SWL}) can be converted into a surface normal velocity spectrum, which is shown in \cref{fig:input_SVL}.
 
+\begin{figure}
+	\centering
+	\includegraphics{fig/chap4/input_SVL.png}
+	\caption{SVL spectrum of the surface normal velocity in dB ref. $5\cdot10^{-8}\,\text{m/s}$, calculated from the measured acoustic power spectrum (\cref{fig:average_SWL}) using \cref{eq:input_velocity}.}
+	\label{fig:input_SVL}
+\end{figure}
 
 %\section{General simulation setup}
 \newpage
