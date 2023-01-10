@@ -172,7 +172,7 @@ Inserting the operator \cref{eq:operator} into the Helmholtz equation \cref{eq:h
 
 In the following, the damping function $\sigma_i$ will be discussed in more detail. The performance of the PML is depending on the choice of the damping function. Different damping functions are shown in \cite{kaltenbacher_numerical_2007}. However, it can be proven that using a function that is zero at the interface between the propagation region and PML region and grows towards infinity with $\tilde{x}\rightarrow L$ works optimally for the Helmholtz equation \cite{kaltenbacher_numerical_2007,KALTENBACHER_PML_2013}. Such function is called inverse distance function and can be written as
 \begin{equation}
-	\sigma_x = \frac{c_0}{L - \tilde{x}}\text{.}
+	\sigma_x = \frac{c_0}{L - \tilde{x}}\,. \label{eq:inverse_dis}
 \end{equation}
 Here, $c_0$ denotes the speed of sound in the propagation domain, $L$ denotes the thickness of the PML and the PML coordinate $\tilde{x}$ is zero at the domain interface and $L$ at the end of the layer. The speed of sound in the numerator is used for eliminating the dependency on $c_0$ in the damping term, which has the form $e^{-\sigma_x kx} = e^{-\sigma_x \frac{\omega}{c_0} x}$ (see \cref{eq:noname_3}). Another possibility besides using a constant damping function
 \begin{equation}
@@ -381,11 +381,11 @@ Each metro car is equipped with two bogies. While the bogies at the front car ar
 		\caption{Side view}
 		\label{fig:bogie_side_view}
 	\end{subfigure}
-	\label{fig:bogie_3d_model}
 	\caption{Simplified 3D model of the non-driven bogie containing the main components as described in \cref{fig:bogie_foto}.}
+	\label{fig:bogie_model}
 \end{figure}
 
-A simplified 3D model of the non-driven bogie containing the mentioned main components is shown in \cref{fig:bogie_3d_model}. One can see that the brake components introduce asymmetry into the bogie geometry. If they are disregarded, the symmetry of the bogie can be exploited, and the full model can be represented by a one-fourth model, which is used in the latter finite element modeling in \cref{chap:FEM}.
+A simplified 3D model of the non-driven bogie containing the mentioned main components is shown in \cref{fig:bogie_model}. One can see that the brake components introduce asymmetry into the bogie geometry. If they are disregarded, the symmetry of the bogie can be exploited, and the full model can be represented by a one-fourth model, which is used in the latter finite element modeling in \cref{chap:FEM}.
 % kein Absatz ....
 Finally, the mentioned dimensions of the metro car and of the bogie components in this section are summarized in \cref{tab:vehicle_dimensions}.
 \begin{table}[H]

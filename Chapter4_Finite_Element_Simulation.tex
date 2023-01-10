@@ -1,75 +1,139 @@
 \chapter{Finite Element Modeling}
 \label{chap:FEM}
 
-This chapter outlines the development of the finite element model of the UBX metro and the simulation setup. First, in section \ref{section:geometry}, the design of the model geometry and the mesh of the model are shown. Consecutively, section \ref{section:boundary_conditions} describes the incorporation of boundary conditions into the finite element model. Finally, in section \ref{section:parametric_study}, a parametric study is carried out to investigate the influence of different simulation parameters on the solution of the initial finite element model. All these simulations are executed with the acoustics module of the open-source FEM software openCFS \cite{opencfs}.
+This chapter outlines the development of the finite element model of the X-Wagen metro and the simulation setup. First, in section \ref{section:geometry}, the design of the model geometry and the mesh of the computational model are shown. Consecutively, section \ref{section:boundary_conditions} describes the incorporation of boundary conditions into the finite element model and the modeling approach of the loudspeaker sound source. Finally, in section \ref{section:parametric_study}, a parametric study is carried out to investigate the influence of different simulation parameters on the solution of the initial finite element model. All these simulations are executed with the acoustics module of the open-source FEM software openCFS \cite{opencfs}.
 
 
 \section{Geometry and mesh}
 \label{section:geometry}
 
-Due to the large dimension of the car body, the computation of the complete model would be too extensive. Hence, the simulation model constitutes of the front bogie part only. The latter has been marked through a red box in fig. \ref{fig:red_box}. Furthermore, the outer pressure field measurement described in sec. \ref{sec:pressure_field_measurement} has been taken from the same area.
+Due to the large dimension of the vehicle (about \SI{19}{\meter} long per metro car), a simulation on the complete metro train would be too extensive from the computational point of view. Hence, the modeling domain has to be confined to a selected section of the car, which constitutes of the front non-driven bogie at the head car of the metro only. The latter has been marked through a red box in \cref{fig:red_box}. Furthermore, the outer pressure field measurement described in \cref{sec:pressure_field_measurement} has been taken from the same area.
 
-
-\begin{figure}[H]
+\begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{fig/chap4/geometry/model_area.png}
-	\caption{Side view of UBX, red box indicates the modeling area}
+	\caption{Side view of the X-Wagen 3D model, red box indicates the modeling area.}
 	\label{fig:red_box}
 \end{figure}
 
-In order to reduce computational effort, the symmetry of the model is exploited. The quarter model is depicted in fig. \ref{fig:fourth_model}, whereas the equivalent model, namely the full model, is shown in fig. \ref{fig:full_model}. Both models are shown for more comprehensive illustration of the modeled underfloor components, but only the quarter model has been used in the simulation. For simplification of the geometry design, exclusively the most essential components have been included in the model. Starting with the squared car body (dark green), the bogie (purple), the wheel (pink), the air suspension (gray) and ending with the omnidirectional loudspeaker (bright green). This respective component has been placed underneath the car floor, between bogie and the wheel axle and is represented through a sphere with $35\,\text{cm}$ diameter.
+The geometry of the modeled car section consists of the car body shell and the non-driven bogie. The dimension parameters of the modeled components are measured from the 3D model of the X-Wagen (see \cref{fig:ubx_sketup_model} and \cref{fig:bogie_model}). It has been shown in \cref{section:ubx_geometry}, if the brake disc and the brake caliper are disregarded, the symmetry of the bogie can be exploited. Furthermore, due to the symmetry of the car body shell in its width and length direction, only one-fourth of the car section is modeled in order to reduce computational effort. The quarter model of the car section is depicted in \Cref{fig:fourth_model}, whereas the equivalent model, namely the full model, is shown in \cref{fig:full_model}. Both models are shown for more comprehensive illustration of the model geometry, but only the quarter model has been used in the simulation. For simplification of the geometry design, exclusively the most essential components have been included in the model. As shown in \Cref{fig:fourth_model}, the contemplated components are the squared car body shell (dark green), the bogie frame (purple), the wheel with axle (pink) and the air suspension (gray). The omnidirectional loudspeaker (bright green) is represented through a sphere with \SI{35}{\centi\meter} and is placed at the exact same position as in the validation measurement (see \cref{fig:loudspeakerposition}). 
 
-
-\begin{figure}[H]
+\begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.4\textwidth}
 		\centering
 		\includegraphics[width=0.9\linewidth]{fig/chap4/geometry/one_fourth_model.png}
-		\caption{quarter model}
+		\caption{One-fourth model.}
 		\label{fig:fourth_model}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{fig/chap4/geometry/initial_model_2.png}
-		\caption{full model}
+		\caption{Full model.}
 		\label{fig:full_model}
 	\end{subfigure}
-	\caption{Geometry of model}
+	\caption{Geometry of the modeled car section. The full model is shown for better illustration. The one-fourth model has been used for the simulation.}
 \end{figure}
 
-The quarter model has been cut out from an acoustic region, surrounded by a perfectly matched layer to simulate the free field condition.
+After the car section geometry is designed, the actual computational model (see \cref{fig:regions}) used for the acoustic simulation is obtained by cutting the car section model out of a acoustic fluid (in this case, air) volume. Likewise, only one fourth of the volume is considered due to the symmetry of the problem. Since the radiation of the underfloor noise into the free field around the vehicle is of interest, the acoustic region is surrounded by a perfectly matched layer ($\Omega_{\text{PML}}$) to model the open domain. To reduce the effort of the latter meshing process of the model geometry, the propagation region is divided into two subregions, namely the region that contains the cut out bogie components ($\Omega_1$) and the main propagation region ($\Omega_2$), respectively. The main propagation region has the same length as the one-fourth car section model of \SI{2.6}{\meter} and a height of \SI{4.52}{\meter} so that the upper boundary of the acoustic region is about \SI{1}{\meter} above the car roof. The choice of the propagation domain width needs to be well-considered. While using a insufficient domain width i.e. with the PML being placed very close to the acoustic source would cause nonphysical reflection of the acoustic wave at the regions interface, setting the domain width too large would increase the computational effort of the simulation extensively. According to several PML usage guidelines \cite{PML_comsol, PML_quickwave, PML_3ds}, a minimum distance of half of the simulation frequency wavelength ($\lambda/2$) to the radiating source is recommended. This criteria is fulfilled for the domain height (\SI{4.52}{\meter}) and the length (\SI{2.6}{\meter}) using the lowest simulation frequency of \SI{100}{\hertz} ($\lambda / 2 = 1.71\,\text{m}$). The actual domain width used for the simulation will be determined in a latter parameter study.
 
-is surrounded by pml to model the open infinite domain
-
-A mesh has been created from the 3d model.
-
-\begin{figure}[H]
+\begin{figure}
 	\centering
-	\begin{subfigure}[b]{0.45\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{fig/chap4/mesh/propagation_domain.png}
-		\caption{Propagation region (green) surrounded by a PML (gray)}
-		\label{fig:propagation_domain}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[b]{0.45\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{fig/chap4/mesh/mesh1.png}
-		\caption{mesh of the acoustic region}
-		\label{fig:mesh_model}
-	\end{subfigure}
-	\caption{Acoustic region}
+	\includegraphics{fig/chap4/mesh/region_small.png}
+	\caption{Computational model consists of a acoustic fluid (air) volume surrounded by a PML domain ($\Omega_{\text{PML}}$). The acoustic domain is divided into two subregions $\Omega_1$ and $\Omega_2$ for a easier meshing of the geometry. Thereby, $\Omega_1$ is displayed semi-transparently to illustrate the outlines of the cut out bogie components.}
+	\label{fig:regions}
+\end{figure}
+% mesh element type
+Subsequently, a mesh of the model geometry (see \cref{fig:mesh}) was created using Coreform Cubit \cite{cubit} mesh generator, which offers several advanced semi-automatic meshing techniques that can extensively lower the effort of the meshing process. The subregion $\Omega_1$ contains complex outlines of the bogie components, and is therefore meshed using tetrahedral elements, which are perfectly suitable for meshing complex geometries but are more computationally expensive than the hexahedral elements. To lower the computational cost of the model, the main propagation region $\Omega_2$ is meshed using hexahedral elements. For both regions, second-order (quadratic) element type is used (p-refinement) to reduce discretization errors, which is computationally more efficient than using a smaller element size (h-refinement) \cite{Kuo_2007_prefinement}.
+% non-conforming interface
+Special care needs to be taken if a hex-tet mesh combination is used. Thereby, the subregions $\Omega_1$ and $\Omega_2$ are coupled by non-conforming interfaces $\Gamma_\text{NC}$, which allow different element types to be used in the same mesh. For the simulation, the default setup of the non-conforming interface in openCFS is used, which if of type Nitsche. For detailed information of non-conforming interfaces, one can refer to e.g. Roppert et al. 2020 \cite{Roppert_2020_nc_interface}.
+% PML region
+For the PML region $\Omega_{\text{PML}}$, Kaltenbacher \cite{KALTENBACHER_PML_2013} recommended using a least four linear elements and two quadratic elements in the PML thickness direction and using the same spatial discretization as of the acoustic domain. For the sake of enhancing the stability of the performance of the PML, three quadratic hexahedral elements are used in the mesh of the finite element model. The damping function used in the PML region is the inverse distance damping (see \cref{eq:inverse_dis}), which is default in openCFS.
+% mesh size
+Through a preliminary study of the problem, the frequency analysis range of the simulation is set to \SIrange{100}{2000}{\hertz} in one-third octave bands, resulting 14 frequency bands in the given range, which are shown in \cref{tab:third_octave_bands_used}. As can be read from the table, the lower and the upper limit of the frequency analysis are 89 Hz and 2262 Hz, respectively. Due to the broad range of the analyzed frequencies, using a constant mesh size covering the entire range would be challenging. On the one hand, using a mesh size corresponding to the highest simulation frequency for all frequencies would be computational too expensive, on the other hand, using a mesh size that is designed for lower frequency bands would increase discretization errors in higher frequency bands, since the wavelength would be resolved insufficiently. The solution of this problem is to choose a mesh discretization depending on the analysis frequency band. For the finite element simulation of the X-Wagen, four different grids as shown in \cref{tab:grid_size} are prepared. The discretization size is chosen so that the wavelength corresponding to the upper cutoff frequency of the analyzed one-third octave band is resolved by at least 6 elements i.e. $h = \lambda_{f_u} / 6$, which also means for any frequencies lower, the discretization is getting finer. The bogie components contain complex and more importantly small surfaces that require a fine discretization size of the surface mesh, which is not fulfilled for low frequency band like 100 Hz ($\lambda_{\text{\SI{100}{\hertz}}} / 6 = 0.57\,\text{m}$). It has been shown hat using a discretization size corresponding to the wavelength of 1000 Hz (h = \SI{0.057}{\meter}) could mesh the surfaces adequately. Hence, this grid size is used for the one-third octave bands from \SIrange{100}{800}{\hertz}. Since the upper frequency limit of the \SI{1000}{\hertz} band is greater than \SI{1000}{\hertz}, a finer grid size would be necessary so that the mentioned discretization criteria still holds. Hence, the \SI{1000}{\hertz} band and the \SI{1250}{\hertz} band share the same grid size of \SI{0.036}{\meter}. For the highest frequency bands \SI{1600}{\hertz} and \SI{2000}{\hertz}, individual grid sizes are used, respectively.
+The above mentioned parameters of the mesh of the finite element model as well as the material parameters used for the acoustic domain are summarized in \cref{tab:model_parameters}.
+
+\begin{figure}
+	\centering
+	\includegraphics{fig/chap4/mesh/Mesh_with_labels_small.png}
+	\caption{Mesh of the computational model. The acoustic subregions $\Omega_1$ and $\Omega_2$ are meshed with tetrahedral and hexahedral elements, respectively. Both subregions are coupled with non-conforming interfaces $\Gamma_\text{NC}$ of Nitsche type. For the PML region $\Omega_{\text{PML}}$, a constant number of three quadratic hexahedral elements along the thickness direction are used. All regions $\Omega_1$, $\Omega_2$, $\Omega_{\text{PML}}$ share the same maximum element size, which is frequency-dependent as shown in \cref{tab:grid_size}.}
+	\label{fig:mesh}
 \end{figure}
 
+\begin{table}
+	\centering
+	\caption{Parameters of the computational model.}
+	\label{tab:model_parameters}
+	\begin{tabular}{lc}
+		\toprule
+		Parameter & Value \\
+		\midrule
+		\textbf{Propagation region} & \\
+		Element type $\Omega_1$ & quadratic tetrahedral element \\
+		Element type $\Omega_2$ & quadratic hexahedral element \\
+		Maximum element size $\Omega_1$, $\Omega_2$ & frequency-dependent, see \cref{tab:grid_size}\\
+		\textbf{PML region} & \\
+		Number of PML elements along thickness direction & 3 \\
+		PML element type & quadratic hexhedral element \\
+		PML element size & same as $\Omega_1$, $\Omega_2$\\
+		Damping function type & inverse distance damping, see \cref{eq:inverse_dis} \\
+		\textbf{Non-conforming interface} & \\
+		Master domain & $\Omega_1$ \\
+		Slave domain & $\Omega_2$ \\
+		Type of mortaring & Nitsche (OpenCFS defalut) \\
+		Penalization-parameter & 100 (OpenCFS default) \\
+		\textbf{Material (air at \SI{20}{\degreeCelsius})} & \\
+		Density $\rho_0$ & \SI{1.204}{\kilogram\per\cubic\meter} \\
+		Bulk modulus $K$ & \SI{142}{\kilo\pascal} \\
+		Speed of sound $c_0$ & \SI{343.21}{\meter\per\second} \\
+		Characteristic acoustic impedance $Z_0$ & \SI{413.3}{\pascal\second\per\meter}  \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{table}
+	\centering
+	\caption{One-third octave bands used for the simulation. The quantities $f_{\text{c}}$, $f_{\text{l}}$, $f_{\text{u}}$ denote the center frequency, the lower cutoff frequency and the upper cutoff frequency of the corresponding frequency band, respectively.}
+	\label{tab:third_octave_bands_used}
+	\begin{tabular}{cccccc}
+		\toprule
+		Band & $f_{\text{c}}$ (Hz) & $f_{\text{l}}$ - $f_{\text{u}}$ (Hz) & Band & $f_{\text{c}}$ (Hz) & $f_{\text{l}}$ - $f_{\text{u}}$ (Hz) \\
+		\midrule
+		1 & 100 & 89 - 112 & 8 & 500 & 449 - 565 \\
+		2 & 125 & 112 - 141 & 9 & 630 & 565 - 713 \\
+		3 & 160 & 141 - 178 & 10 & 800 & 713 - 897 \\
+		4 & 200 & 178 - 224 & 11 & 1000 & 897 - 1131 \\
+		5 & 250 & 224 - 283 & 12 & 1250 & 1131 - 1425 \\
+		6 & 315 & 283 - 356 & 13 & 1600 & 1425 - 1796 \\
+		7 & 400 & 356 - 449 & 14 & 2000 & 1796 - 2262 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
 
 
+\begin{table}
+	\centering
+	\caption{Frequency-dependent discretization size of computational grids.}
+	\label{tab:grid_size}
+	\begin{tabular}{ccc}
+		\toprule
+			& Used for one-third octave bands (Hz) & Discretization size h (m) \\
+		\midrule
+		Grid 1 & 100, 125, 160, 200, 250, 315, 400, 500, 630, 800 & 0.057 \\
+		Grid 2 & 1000, 1250 & 0.036 \\
+		Grid 3 & 1600 & 0.029 \\
+		Grid 4 & 2000 & 0.025 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
 
-\subsection*{Determination of simulation domain}
+
+\subsection*{Variation of the simulation domain width}
 
 The goal of this section is to find an appropriate propagation domain size to achieve sufficient numerical accuracy while keeping the computational effort low. For the variation, the length and height of the propagation domain are kept constant while only the width of the domain is varied.
 
-\begin{figure}[H]
+\begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
 		\centering
@@ -82,15 +146,9 @@ The goal of this section is to find an appropriate propagation domain size to ac
 		\includegraphics[width=\linewidth]{fig/chap4/simulation_domain/2m.png}
 		\caption{2 m}
 	\end{subfigure}
-	\caption{Models with different simulation domain size}
+	\caption{Models with different propagation domain widths. The domain width is defined as the distance between lower edge of the car body wall and the region outer boundary. The acoustic pressure is evaluated at \SI{10}{\centi\meter} away from the car body along the height direction, which is indicated by the vertical red line.}
 	\label{fig:domain_size_variation}
 \end{figure}
-
-The compared simulation domain size are 0.2 m, 0.5 m, 1 m, 1.5 m and 2m. For each setup, the pressure is evaluated at 0.1 m away from the vehicle along the height direction, and the result is compared to a , the model with 2 m domain size will be used as reference. Fig. \ref{fig:domain_size_variation} shows the model with 0.5 m domain size and the reference model with 2 m domain size. The evaluation position is marked by the red line.
-
-A fictitious excitation with uniform normal surface particle velocity of $u_s = 1\,mm/s$ is applied to the loudspeaker surface.
-
-The reference solution is computed by using a model with 2 m width and all errors are evaluated with respect to this reference.
 
 \begin{figure}
 	\centering
@@ -105,7 +163,7 @@ The reference solution is computed by using a model with 2 m width and all error
 		\includegraphics{fig/chap4/simulation_domain/width_0pt5m.png}
 		\caption{Domain width \SI{0.5}{\meter}.}
 	\end{subfigure}
-
+	
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
 		\includegraphics{fig/chap4/simulation_domain/width_1m.png}
@@ -117,35 +175,39 @@ The reference solution is computed by using a model with 2 m width and all error
 		\includegraphics{fig/chap4/simulation_domain/width_1pt5m.png}
 		\caption{Domain width \SI{1.5}{\meter}.}
 	\end{subfigure}
-	\caption{Relative error spectrum for different domain widths.}
+	\caption{Relative error for different domain widths.}
 \end{figure}
 
+The compared simulation domain size are 0.2 m, 0.5 m, 1 m, 1.5 m and 2m. For each setup, the pressure is evaluated at 0.1 m away from the vehicle along the height direction, and the result is compared to a , the model with 2 m domain size will be used as reference. Fig. \ref{fig:domain_size_variation} shows the model with 0.5 m domain size and the reference model with 2 m domain size. The evaluation position is marked by the red line.
+
+A fictitious excitation with uniform normal surface particle velocity of $u_s = 1\,mm/s$ is applied to the loudspeaker surface.
+
+The reference solution is computed by using a model with 2 m width and all errors are evaluated with respect to this reference.
 
 
-\subsection*{Computational Effort}
-The aim of this section is 
+
+
+\newpage
+\subsection*{Computational effort of the finite element model}
+The aim of this section is
 
 \begin{table}[H]
-	\caption{Computational effort for different 1/3-octave frequency band}
-	\begin{tabularx}{\textwidth}{|X|X|c|X|X|X|}
-		\hline
-		1/3-octave center frequency (Hz) & Lower/upper frequency (Hz) & Mesh used                       & Degree of freedoms            & Memory requirement (GB) & Solve time per 9 harmonic steps (hour) \\ \hline
-		100                              & 89/112                     & \multirow{10}{*}{1000 Hz 1.5 m} & \multirow{10}{*}{0.8 Million} & \multirow{10}{*}{20}    & \multirow{10}{*}{0.5}                  \\ \cline{1-2}
-		125                              & 112/141                    &                                 &                               &                         &                                        \\ \cline{1-2}
-		160                              & 141/178                    &                                 &                               &                         &                                        \\ \cline{1-2}
-		200                              & 178/224                    &                                 &                               &                         &                                        \\ \cline{1-2}
-		250                              & 224/283                    &                                 &                               &                         &                                        \\ \cline{1-2}
-		315                              & 283/356                    &                                 &                               &                         &                                        \\ \cline{1-2}
-		400                              & 356/449                    &                                 &                               &                         &                                        \\ \cline{1-2}
-		500                              & 449/565                    &                                 &                               &                         &                                        \\ \cline{1-2}
-		630                              & 565/713                    &                                 &                               &                         &                                        \\ \cline{1-2}
-		800                              & 713/897                    &                                 &                               &                         &                                        \\ \hline
-		1000                             & 897/1131                   & \multirow{2}{*}{1600 Hz 1 m}    & \multirow{2}{*}{2.3 Million}  & \multirow{2}{*}{70}     & \multirow{2}{*}{2}                     \\ \cline{1-2}
-		1250                             & 1131/1425                  &                                 &                               &                         &                                        \\ \hline
-		1600                             & 1425/1796                  & 2000 Hz 1 m                     & 4.4 Million                   & 150                     & 5.5                                    \\ \hline
-		2000                             & 1796/2262                  & 2300 Hz 1 m                     & 6.6 Million                   & 260                     & 12                                     \\ \hline
-	\end{tabularx}
+	\centering
+	\caption{Computational effort of the final model.}
+	\label{tab:computational_effort}
+	\begin{tabular}{ccccc}
+		\toprule
+		& Domain width & Total unknowns & Required RAM & Solve time (9 harmonic steps) \\
+		\midrule
+		Grid 1 & \SI{1.5}{\meter} & 0.8 Million & 20 GB & 0.5 hours \\
+		Grid 2 & \SI{1}{\meter} & 2.3 Million & 70 GB & 2 hours \\
+		Grid 3 & \SI{1}{\meter} & 4.4 Million & 150 GB & 5.5 hours \\
+		Grid 4 & \SI{1}{\meter} & 6.6 Million & 260 GB & 12 hours \\
+		\bottomrule
+	\end{tabular}
 \end{table}
+
+
 
 \newpage
 \section{Boundary conditions and loads}
