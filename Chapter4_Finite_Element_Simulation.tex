@@ -131,7 +131,15 @@ The above mentioned parameters of the mesh of the finite element model as well a
 
 \subsection*{Variation of the simulation domain width}
 
-The aim of this parameter study is to find an appropriate simulation domain size that provides sufficient numerical accuracy while keeping the computational effort in a adequate range. Thereby, the length and the height of the main propagation region $\Omega_2$ are kept constant while varying only the width of the domain. In what follows, the domain width is defined as the distance between the lower edge of the car body wall and the outer boundary of the main propagation region $\Omega_2$, as depicted in \cref{fig:domain_width_2m}. The domain widths used in the parameter study are \SI{0.2}{\meter}, \SI{0.5}{\meter}, \SI{1}{\meter}, \SI{1.5}{\meter} and \SI{2}{\meter}, respectively. 
+The aim of this parameter study is to find an appropriate simulation domain size that provides sufficient numerical accuracy while keeping the computational effort of the simulation in a adequate range. Thereby, the length and the height of the main propagation region $\Omega_2$ are kept constant while varying only the width of the domain. In what follows, the domain width is defined as the distance between the lower edge of the car body wall and the outer boundary of the main propagation region $\Omega_2$, as depicted in \cref{fig:domain_width_2m}. For the parameter study, 5 different domain widths are used, which are \SI{0.2}{\meter}, \SI{0.5}{\meter}, \SI{1}{\meter}, \SI{1.5}{\meter} and \SI{2}{\meter}, respectively. The model with the smallest and the largest width are shown in \cref{fig:domain_size_variation}, respectively. According to several PML usage guidelines \cite{PML_3ds, PML_comsol, PML_quickwave}, placing the PML at a distance of half of the wavelength to the radiating source would be sufficient for most of the cases. For our simulation, it would be \SI{1.71}{\meter}, which is the half of the wavelength corresponding to the lowest analysis frequency \SI{100}{\hertz}. Hence, the reference solution is computed by using the model with \SI{2}{\meter} width and all errors are evaluated with respect to this reference. For the simulation, a fictitious excitation with uniform normal surface particle velocity of $u_s$ = \SI{1}{\milli\meter\per\second} is applied to the loudspeaker surface. And the acoustic pressure is evaluated at \SI{0.1}{\meter} away from the vehicle along the height direction as indicated by the vertical red lines in \cref{fig:domain_width_0pt2m} and \cref{fig:domain_width_2m}. Along the height direction, the evaluation points of the acoustic pressure are \SI{0.05}{\meter} from each other, starting from \SI{0}{\meter} and ending with \SI{4.5}{\meter}, resulting 91 evaluation positions in total. At each evaluation point, the relative error of the acoustic pressure value $\hat{p}_{a,i}$ (real part and imaginary part) to the reference solution $\hat{p}_{a,\text{ref},i}$ is computed by
+\begin{equation}
+	E_{p_a,i} = \left(\frac{\left| \hat{p}_{a,i} - \hat{p}_{a,\text{ref},i} \right|}{\left|\hat{p}_{a,\text{ref},i}\right|}\right)100\,\% \,,
+\end{equation}
+with $i$ being the evaluation position and $i \in \left[1\dots91\right]$. The simulation is carried out with the one-third octave center frequencies from \SIrange{100}{2000}{\hertz}, using the computational grids as displayed in \cref{tab:grid_size}.
+
+The relative error $E_{p_a,i}$ along the domain height direction using different domain widths for frequency \SI{100}{\hertz} and \SI{2000}{\hertz} are shown in \cref{fig:relative_error_over_height}. As can be seen for both frequencies, the smallest domain width has the largest error among all domain widths, and the magnitude of the relative error decreases with increasing domain width. For the same domain width, the relative error depends on the evaluation points and increases with the height, which is due to a decreasing width to height ratio. It can be seen that although the smallest domain width \SI{0.2}{\meter} has a quite large relative error in the higher area (up from \SI{2}{\meter}), for the area below \SI{1}{\meter}, it has a similar level of error as the larger domain. Which means, if only the acoustic pressure at the lower area, for example in the underfloor area of the metro, is of interest, the domain boundary can be set very close to the car body, reducing the computational effort extensively. Same behavior of the relative error has also been shown for other frequencies.
+
+To find a suitable domain width for our finite element model, the maximum relative error $E_{p_a,\text{max}}$ and the average relative error $E_{p_a,\text{max}}$ over all 91 evaluation positions are computed for each one-third octave center frequency. The obtained results are shown in \cref{fig:relative_error_spectrum}, additionally, the concrete values are summarized in \cref{tab:computed_errors}. As can be seen from the results, both maximum error and average error decrease with increasing domain width. Up from the domain width of \SI{1}{\meter}, the maximum relative error among all frequencies is limited by \SI{10}{\percent}, and in terms of the average error, the error is limited by \SI{1.5}{\percent}. Setting a average error limit to \SI{2}{\percent}, which corresponds to a deviation of \SI{0.17}{\decibel} in the sound pressure level, choosing \SI{1}{\meter} to be the domain width of our finite element model would be adequately when considering the rising computational effort using a larger domain width. It has been shown by the simulation that the computational effort using the coarsest grid (Grid 1) with \SI{1.5}{\meter} domain width is still in a good range. Hence, for the computational grid for lower frequency bands (\SIrange{100}{800}{\hertz}) a domain width of \SI{1.5}{\meter} is used to further increase the numerical accuracy of the model.
 
 \begin{figure}
 	\centering
@@ -139,6 +147,7 @@ The aim of this parameter study is to find an appropriate simulation domain size
 		\centering
 		\includegraphics[width=\linewidth]{fig/chap4/simulation_domain/0pt2m.png}
 		\caption{0.2 m}
+		\label{fig:domain_width_0pt2m}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.45\textwidth}
@@ -147,7 +156,7 @@ The aim of this parameter study is to find an appropriate simulation domain size
 		\caption{2 m}
 		\label{fig:domain_width_2m}
 	\end{subfigure}
-	\caption{Models with different propagation domain widths. The domain width is defined as the distance between lower edge of the car body wall and the region outer boundary. The acoustic pressure is evaluated at \SI{10}{\centi\meter} away from the car body along the height direction, which is indicated by the vertical red line.}
+	\caption{Computational models with different propagation domain widths, which are defined as the distance between lower edge of the car body wall and the region outer boundary. The vertical red lines indicate the evaluation position of the acoustic pressure, which is at \SI{10}{\centi\meter} away from the lower car body edge.}
 	\label{fig:domain_size_variation}
 \end{figure}
 
@@ -155,42 +164,82 @@ The aim of this parameter study is to find an appropriate simulation domain size
 	\centering
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
+		\includegraphics{fig/chap4/simulation_domain/error_100_Hz.png}
+		\caption{\SI{100}{\hertz}}
+		\label{fig:relative_error_over_height_100Hz}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics{fig/chap4/simulation_domain/error_2000_Hz.png}
+		\caption{\SI{2000}{\hertz}}
+		\label{fig:relative_error_over_height_2000Hz}
+	\end{subfigure}
+	\caption{Relative error $E_{p_a}$ over the domain height for frequency \SI{100}{\hertz} and \SI{2000}{\hertz}.}
+	\label{fig:relative_error_over_height}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
 		\includegraphics{fig/chap4/simulation_domain/width_0pt2m.png}
-		\caption{Domain width \SI{0.2}{\meter}.}
+		\caption{\SI{0.2}{\meter}}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
 		\includegraphics{fig/chap4/simulation_domain/width_0pt5m.png}
-		\caption{Domain width \SI{0.5}{\meter}.}
+		\caption{\SI{0.5}{\meter}}
 	\end{subfigure}
 	
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
 		\includegraphics{fig/chap4/simulation_domain/width_1m.png}
-		\caption{Domain width \SI{1}{\meter}.}
+		\caption{\SI{1}{\meter}}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.48\textwidth}
 		\centering
 		\includegraphics{fig/chap4/simulation_domain/width_1pt5m.png}
-		\caption{Domain width \SI{1.5}{\meter}.}
+		\caption{\SI{1.5}{\meter}}
 	\end{subfigure}
-	\caption{Relative error for different domain widths.}
+	\caption{The maximum relative error $E_{p_a,\text{max}}$ and the mean relative error $E_{p_a,\text{mean}}$ of one-third octave center frequencies for different domain widths.}
+	\label{fig:relative_error_spectrum}
 \end{figure}
 
-The compared simulation domain size are 0.2 m, 0.5 m, 1 m, 1.5 m and 2m. For each setup, the pressure is evaluated at 0.1 m away from the vehicle along the height direction, and the result is compared to a , the model with 2 m domain size will be used as reference. Fig. \ref{fig:domain_size_variation} shows the model with 0.5 m domain size and the reference model with 2 m domain size. The evaluation position is marked by the red line.
-
-A fictitious excitation with uniform normal surface particle velocity of $u_s = 1\,mm/s$ is applied to the loudspeaker surface.
-
-The reference solution is computed by using a model with 2 m width and all errors are evaluated with respect to this reference.
-
-
+\begin{table}
+	\centering
+	\caption{Computed errors (in \%) in the acoustic pressure for different domain widths.}
+	\label{tab:computed_errors}
+	\begin{tabular}{crrrrrrrr}
+		\toprule
+		 & \multicolumn{2}{c}{\SI{0.2}{\meter}} & \multicolumn{2}{c}{\SI{0.5}{\meter}} & \multicolumn{2}{c}{\SI{1}{\meter}} & \multicolumn{2}{c}{\SI{1.5}{\meter}} \\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9}
+		 Frequency (Hz)& $E_{p_a,\text{max}}$  & $E_{p_a,\text{mean}}$ & $E_{p_a,\text{max}}$ & $E_{p_a,\text{mean}}$ & $E_{p_a,\text{max}}$ & $E_{p_a,\text{mean}}$ & $E_{p_a,\text{max}}$ & $E_{p_a,\text{mean}}$ \\
+		 \midrule
+		 100 & 22.40 & 4.67 & 7.72 & 1.54 & 1.77 & 0.33 & 0.44 & 0.08 \\ 
+		 125 & 17.36 & 3.81 & 6.02 & 1.36 & 1.49 & 0.32 & 0.40 & 0.08 \\ 
+		 160 & 20.35 & 5.17 & 5.21 & 1.02 & 0.76 & 0.13 & 0.19 & 0.04 \\ 
+		 200 & 33.01 & 11.89 & 11.73 & 3.42 & 2.45 & 0.57 & 0.70 & 0.17 \\ 
+		 250 & 45.14 & 13.32 & 11.40 & 2.59 & 1.36 & 0.25 & 0.34 & 0.08 \\ 
+		 315 & 28.48 & 9.11 & 8.91 & 2.20 & 1.44 & 0.30 & 0.48 & 0.13 \\ 
+		 400 & 20.19 & 5.87 & 5.38 & 1.93 & 1.85 & 0.45 & 0.67 & 0.15 \\ 
+		 500 & 38.88 & 13.65 & 12.67 & 3.51 & 2.55 & 0.54 & 0.65 & 0.23 \\ 
+		 630 & 58.67 & 17.33 & 20.67 & 6.31 & 4.77 & 1.38 & 2.80 & 0.60 \\ 
+		 800 & 36.81 & 11.71 & 9.89 & 2.46 & 1.39 & 0.28 & 1.96 & 0.34 \\ 
+		 1000 & 34.36 & 10.98 & 9.63 & 2.36 & 1.47 & 0.33 & 3.94 & 0.39 \\ 
+		 1250 & 36.77 & 10.86 & 9.79 & 2.18 & 2.70 & 0.91 & 1.63 & 0.45 \\ 
+		 1600 & 21.59 & 6.71 & 25.76 & 4.85 & 9.34 & 1.50 & 2.49 & 0.56 \\ 
+		 2000 & 67.73 & 22.74 & 25.95 & 8.66 & 4.67 & 1.26 & 3.62 & 0.76 \\
+		 \bottomrule		
+	\end{tabular}
+\end{table}
 
 
 \newpage
 \subsection*{Computational effort of the finite element model}
-The aim of this section is
+
+During the domain width parameter study, the computational effort of the finite element model used for the acoustic simulation of the X-Wagen was also evaluated. In the final model setup, a domain width of \SI{1.5}{\meter} is applied to the computational grid for frequency bands \SIrange{100}{800}{\hertz}, while the other grids for higher frequency bands have a domain width of \SI{1}{\meter}. In the simulation setup, each frequency band is resolved by 9 intermediate frequencies i.e. 9 harmonic steps have to be computed per analyzed one-third octave band. In this thesis, all computations were performed on the Sessanta server of the Institute of Mechanics and Mechatronics of TU Wien, which is equipped with 1 Terabyte RAM and two AMD EPYC 7542 32-core processors. The simulations were run with openCFS using 32 physical cores and the obtained computational efforts of the final design of the finite element model are listed in \cref{tab:computational_effort}. As can be read from the results, the computational effort of the model consisting of the required memory the computation time increase with the total unknowns i.e. nodes in the computational grid. While the computation time for the coarsest grid is only half an hour, the highest frequency band needs almost 24-fold the time to compute. The total computation time of the model is calculated as $10\times 0.5\,\text{h} + 2\times 2\,\text{h} + 5.5\,\text{h} + 12\,\text{h} = 24.5\,\text{h}$. One can see that almost half of the total computation time was spent on the computation of the highest frequency band. The total computation time was obtained by running the simulation jobs in a sequential order, the actual computation time can be shorten if the jobs are executed in a parallel manner. If the computation time is not considered, the upper limit of the frequency band that can be analyzed is restricted by the required memory, since this is rising with the degrees of freedom in the computational mesh. In a three-dimensional acoustic problem, a doubling of the analyzed frequency while keeping the same discretization size would leads to a 8 times larger degrees of freedom in the system, since the number of elements is also doubled in each spatial direction. That means, with a given amount of the memory, the size of the acoustic domain needs to be more confined if a analysis using higher frequency bands is of interest. For our finite element model, the required memory for the highest frequency band is about \SI{260}{\giga\byte}, without making the acoustic domain much smaller, it is not possible to increase the frequency range of interest.
 
 \begin{table}[H]
 	\centering
