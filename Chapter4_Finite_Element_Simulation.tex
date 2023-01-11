@@ -131,7 +131,7 @@ The above mentioned parameters of the mesh of the finite element model as well a
 
 \subsection*{Variation of the simulation domain width}
 
-The goal of this section is to find an appropriate propagation domain size to achieve sufficient numerical accuracy while keeping the computational effort low. For the variation, the length and height of the propagation domain are kept constant while only the width of the domain is varied.
+The aim of this parameter study is to find an appropriate simulation domain size that provides sufficient numerical accuracy while keeping the computational effort in a adequate range. Thereby, the length and the height of the main propagation region $\Omega_2$ are kept constant while varying only the width of the domain. In what follows, the domain width is defined as the distance between the lower edge of the car body wall and the outer boundary of the main propagation region $\Omega_2$, as depicted in \cref{fig:domain_width_2m}. The domain widths used in the parameter study are \SI{0.2}{\meter}, \SI{0.5}{\meter}, \SI{1}{\meter}, \SI{1.5}{\meter} and \SI{2}{\meter}, respectively. 
 
 \begin{figure}
 	\centering
@@ -145,6 +145,7 @@ The goal of this section is to find an appropriate propagation domain size to ac
 		\centering
 		\includegraphics[width=\linewidth]{fig/chap4/simulation_domain/2m.png}
 		\caption{2 m}
+		\label{fig:domain_width_2m}
 	\end{subfigure}
 	\caption{Models with different propagation domain widths. The domain width is defined as the distance between lower edge of the car body wall and the region outer boundary. The acoustic pressure is evaluated at \SI{10}{\centi\meter} away from the car body along the height direction, which is indicated by the vertical red line.}
 	\label{fig:domain_size_variation}
