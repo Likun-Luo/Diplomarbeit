@@ -72,8 +72,18 @@
 \onehalfspacing 
 \setcounter{page}{1}
 
+
 \include{Abstract} % english abstract
+
 \include{Kurzfassung} % german abstract
+
+\clearpage
+\addcontentsline{toc}{chapter}{\listfigurename} %zum Hinzufügen zum Inhaltsverzeichnis
+\listoffigures
+
+\clearpage
+\addcontentsline{toc}{chapter}{\listtablename} %zum Hinzufügen zum Inhaltsverzeichnis
+\listoftables
 
 \tableofcontents   % Inhaltsverzeichnis
 
@@ -98,13 +108,7 @@
 %\include{Kapitel_1}
 %\include{Kapitel_2}
 
-\clearpage
-\addcontentsline{toc}{chapter}{\listfigurename} %zum Hinzufügen zum Inhaltsverzeichnis
-\listoffigures
 
-\clearpage
-\addcontentsline{toc}{chapter}{\listtablename} %zum Hinzufügen zum Inhaltsverzeichnis
-\listoftables
 
 {\changefont
 \include{Literatur}  % Literaturverzeichnis
