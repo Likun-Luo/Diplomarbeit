@@ -51,11 +51,11 @@ After the car section geometry is designed, the actual computational model (see 
 % mesh element type
 Subsequently, a mesh of the model geometry (see \cref{fig:mesh}) was created using the mesh generator Coreform Cubit \cite{cubit}, which offers several advanced semi-automatic meshing techniques that can extensively lower the effort of the meshing process. The sub-region $\Omega_1$ contains complex outlines of the bogie components, and is therefore meshed using tetrahedral elements, which are perfectly suitable for meshing complex geometries but are more computationally expensive than the hexahedral elements at comparable solution accuracy. To lower the computational cost of the model, the main propagation region $\Omega_2$ is meshed using hexahedral elements. For both regions, second-order (quadratic) element type is used (p-refinement) to reduce discretization errors, which is computationally more efficient than using a smaller element size (h-refinement) \cite{Kuo_2007_prefinement}.
 % non-conforming interface
-Special care needs to be taken if a hex-tet mesh combination is used. Thereby, the subregions $\Omega_1$ and $\Omega_2$ are coupled by non-conforming interfaces $\Gamma_\text{NC}$, which allow different element types and sizes to be used in the same mesh. For the simulation, the default setup of the non-conforming interface in openCFS is used, which if of type Nitsche. For detailed information of non-conforming interfaces, one can refer to e.g.\ Roppert et al. 2020 \cite{Roppert_2020_nc_interface}.
+Special care needs to be taken if a hex-tet mesh combination is used. Thereby, the subregions $\Omega_1$ and $\Omega_2$ are coupled by non-conforming interfaces $\Gamma_\text{NC}$, which allow different element types and sizes to be used in the same mesh. For the simulation, the default setup of the non-conforming interface in openCFS is used, which if of type Nitsche. For detailed information of non-conforming interfaces, one can refer to e.g.\ Kaltenbacher et al. \cite{kaltenbacher_nonconforming_2018}.
 % PML region
 For the PML region $\Omega_{\text{PML}}$, Kaltenbacher \cite{KALTENBACHER_PML_2013} recommended using a least four linear elements and two quadratic elements in the PML thickness direction and using the same spatial discretization as of the acoustic domain. For the sake of enhancing the stability of the performance of the PML, three quadratic hexahedral elements are used in the mesh of the finite element model. The damping function used in the PML region is the inverse distance damping (see \cref{eq:inverse_dis}), which is the default option in openCFS.
 % mesh size
-Through a preliminary study of the problem, the frequency analysis range of the simulation is set to \SIrange{100}{2000}{\hertz} in one-third octave bands, resulting 14 frequency bands in the given range, which are shown in \cref{tab:third_octave_bands_used}. As can be read from the table, the lower and the upper limit of the frequency analysis are 89 Hz and 2262 Hz, respectively. Due to the broad range of the analyzed frequencies, using a constant mesh size covering the entire range would be challenging. On the one hand, using a mesh size corresponding to the highest simulation frequency for all frequencies would be computationally too expensive, on the other hand, using a mesh size that is designed for lower frequency bands would increase discretization errors in higher frequency bands, since the wavelength would be resolved insufficiently. The solution to this problem is to choose a mesh discretization depending on the analysis frequency band. For the finite element simulation of the X-Wagen, four different grids as shown in \cref{tab:grid_size} are prepared. The discretization size is chosen so that the wavelength corresponding to the upper cutoff frequency of the analyzed one-third octave band is resolved by at least 6 elements i.e.\ $h = \lambda_{f_u} / 6$, which also means for any lower frequencies, the discretization is getting finer (with respect to the wave length). The bogie components contain complex and, more importantly, small surfaces that require a fine discretization of the surface mesh, which is not fulfilled for low frequency bands like, e.g.\ \SI{100}{\hertz} ($\lambda_{\text{\SI{100}{\hertz}}} / 6 = 0.57\,\text{m}$). It has been shown hat using a discretization size corresponding to the wavelength of 1000 Hz (h = \SI{0.057}{\meter}) could mesh the surfaces adequately. Hence, this grid size is used for the one-third octave bands from \SIrange{100}{800}{\hertz}. Since the upper frequency limit of the \SI{1000}{\hertz} band is greater than \SI{1000}{\hertz}, a finer grid size would be necessary so that the mentioned discretization criteria still hold. Hence, the \SI{1000}{\hertz} band and the \SI{1250}{\hertz} band share the same grid size of \SI{0.036}{\meter}. For the highest frequency bands \SI{1600}{\hertz} and \SI{2000}{\hertz}, individual grid sizes are used, respectively.
+Through a preliminary study of the problem, the frequency analysis range of the simulation is set to \SIrange{100}{2000}{\hertz} in one-third octave bands, resulting 14 frequency bands in the given range, which are shown in \cref{tab:third_octave_bands_used}. As can be read from the table, the lower and the upper limit of the frequency analysis are 89 Hz and 2262 Hz, respectively. Due to the broad range of the analyzed frequencies, using a constant mesh size covering the entire range would be challenging. On the one hand, using a mesh size corresponding to the highest simulation frequency for all frequencies would be computationally too expensive, on the other hand, using a mesh size that is designed for lower frequency bands would increase discretization errors in higher frequency bands, since the wavelength would be resolved insufficiently. The solution to this problem is to choose a mesh discretization depending on the analysis frequency band. For the finite element simulation of the X-Wagen, four different grids as shown in \cref{tab:grid_size} are prepared. The discretization size is chosen so that the wavelength corresponding to the upper cutoff frequency of the analyzed one-third octave band is resolved by at least 6 elements i.e.\ $h = \lambda_{f_u} / 6$, which also means for any lower frequencies, the discretization is getting finer (with respect to the wavelength). The bogie components contain complex and, more importantly, small surfaces that require a fine discretization of the surface mesh, which is not fulfilled for low frequency bands like, e.g.\ \SI{100}{\hertz} ($\lambda_{\text{\SI{100}{\hertz}}} / 6 = 0.57\,\text{m}$). It has been shown hat using a discretization size corresponding to the wavelength of {\SI{1000}{\hertz} (h = \SI{0.057}{\meter}) could mesh the surfaces adequately. Hence, this grid size is used for the one-third octave bands from \SIrange{100}{800}{\hertz}. Since the upper frequency limit of the \SI{1000}{\hertz} band is greater than \SI{1000}{\hertz}, a finer grid size would be necessary so that the mentioned discretization criteria still hold. Hence, the \SI{1000}{\hertz} band and the \SI{1250}{\hertz} band share the same grid size of \SI{0.036}{\meter}. For the highest frequency bands \SI{1600}{\hertz} and \SI{2000}{\hertz}, individual grid sizes are used, respectively.
 The above mentioned parameters of the mesh of the finite element model as well as the material parameters used for the acoustic domain are summarized in \cref{tab:model_parameters}.
 
 \begin{figure}
@@ -108,17 +108,32 @@ The above mentioned parameters of the mesh of the finite element model as well a
 	\caption{One-third octave bands used for the simulation. The quantities $f_{\text{c}}$, $f_{\text{l}}$, $f_{\text{u}}$ denote the center frequency, the lower cutoff frequency and the upper cutoff frequency of the corresponding frequency band, respectively.}
 	\label{tab:third_octave_bands_used}
 	\begin{tabular}{cccccc}
-		\toprule
-		Band & $f_{\text{c}}$ (Hz) & $f_{\text{l}}$ - $f_{\text{u}}$ (Hz) & Band & $f_{\text{c}}$ (Hz) & $f_{\text{l}}$ - $f_{\text{u}}$ (Hz) \\
-		\midrule
-		1 & 100 & 89 - 112 & 8 & 500 & 449 - 565 \\
-		2 & 125 & 112 - 141 & 9 & 630 & 565 - 713 \\
-		3 & 160 & 141 - 178 & 10 & 800 & 713 - 897 \\
-		4 & 200 & 178 - 224 & 11 & 1000 & 897 - 1131 \\
-		5 & 250 & 224 - 283 & 12 & 1250 & 1131 - 1425 \\
-		6 & 315 & 283 - 356 & 13 & 1600 & 1425 - 1796 \\
-		7 & 400 & 356 - 449 & 14 & 2000 & 1796 - 2262 \\
-		\bottomrule
+		\begin{tabular}{ccc}
+			\toprule
+			Band & $f_{\text{c}}$ (Hz) & $f_{\text{l}}$ - $f_{\text{u}}$ (Hz) \\
+			\midrule
+			1 & 100 & 89 - 112 \\
+			2 & 125 & 112 - 141 \\
+			3 & 160 & 141 - 178 \\
+			4 & 200 & 178 - 224 \\
+			5 & 250 & 224 - 283 \\
+			6 & 315 & 283 - 356 \\
+			7 & 400 & 356 - 449 \\
+			\bottomrule
+		\end{tabular} & 
+		\begin{tabular}{ccc}
+			\toprule
+			Band & $f_{\text{c}}$ (Hz) & $f_{\text{l}}$ - $f_{\text{u}}$ (Hz) \\
+			\midrule
+			8 & 500 & 449 - 565 \\
+			9 & 630 & 565 - 713 \\
+			10 & 800 & 713 - 897 \\
+			11 & 1000 & 897 - 1131 \\
+			12 & 1250 & 1131 - 1425 \\
+			13 & 1600 & 1425 - 1796 \\
+			14 & 2000 & 1796 - 2262 \\
+			\bottomrule
+		\end{tabular}
 	\end{tabular}
 \end{table}
 
@@ -326,11 +341,9 @@ where $()^*$ denotes the complex conjugate. By inserting \cref{eq:sound_pressure
 		 &=\frac{1}{2}\frac{|\hat{A}|^2}{r^2Z_0}\,.
 \end{align}
 Furthermore, the acoustic power $W$ of a steady sound source radiating into free field is obtained by integrating the sound intensity $I(r)$ over a surface $\Gamma$ enclosing the sound source and can be found as
-\begin{align}
-	W &= \oint_{\Gamma} I(r) \dif\Gamma \\
-	  &= \bar{I}(r)\,4\pi r^2 \\
-	  &= \frac{2\pi |\hat{A}|^2}{Z_0}\,. \label{eq:acoustic_power}
-\end{align}
+\begin{equation}
+	W = \oint_{\Gamma} I(r) \dif\Gamma = \bar{I}(r)\,4\pi r^2 = \frac{2\pi |\hat{A}|^2}{Z_0}\,. \label{eq:acoustic_power}
+\end{equation}
 As apparent in \cref{eq:acoustic_power}, the acoustic power is independent from the distance to the sound source and can be related to the monopole amplitude $\hat{A}$. Assume a sound source has a radius of $a$, the pressure amplitude on the sound source surface $\hat{p}_s = \hat{p}_a(a)$ can be expressed by the product of the surface normal velocity $\hat{u}_s = \hat{u}_a(a)$ and the specific impedance $Z(a)$ evaluated at the source surface and is found by
 \begin{equation}
 	\hat{p}_s = \hat{p}(a) = \hat{u}_s Z(a) = \frac{\hat{A}}{a}\,e^{-jka}\,.
