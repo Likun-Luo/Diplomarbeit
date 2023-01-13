@@ -1,23 +1,23 @@
 \chapter{Measurements}
 \label{chap:measurement}
 
-In order to be able to validate the results obtained from the latter finite element simulation, specific measurements have been carried out.
-In this chapter, the acoustic power measurement of sound source and the outer pressure field measurement around carbody are presented.
+In order to be able to validate the results obtained from the finite element simulation (see \cref{chap:xxx}), specific measurements have been carried out.
+In this chapter, the acoustic power measurement of the sound source and the outer pressure field measurement around the car body are presented.
 The obtained sound power spectrum of the omnidirectional loudspeaker provides simulation input for the finite element analysis in section \ref{section:boundary_conditions}.
-Furthermore, the measurement results of outer pressure field serve as validation for the finite element model in chapter \ref{chap:results}.
+Furthermore, the measurement results of outer pressure field serve as validation for the finite element model in \cref{chap:results}.
 
 \section{Characterisation of sound source}
 \label{section:SWL_measurement}
 
 Two important characteristics of a sound source are directivity and sound power. For the validation measurement, a dodecahedron loudspeaker of type Brüel \& Kjaer 4292-L is used as excitation, which can be treated as an omnidirectional sound source.
-Hence, only the sound power emmited by the loudspeaker is of interest.
+Hence, only the sound power emitted by the loudspeaker is of interest.
 In the following, the acoustic power spectrum of the sound source is measured following ISO 9614-2 \cite{din19969614}.
 
 \subsection*{Measurement setup}
 
 In \cref{fig:soundpowersetup} the measurement setup for the determination of sound power levels is shown.
-The omnidirectional loudspeaker was placed on a concrete reflective floor and was enveloped by a 1m x 1m x 1m reference box.
-The loudspeaker was driven by a reference amplifier with pink noise as input signal (\cref{fig:signalgenerator}).
+The omnidirectional loudspeaker was placed on a reflective concrete floor and was enveloped by a 1m x 1m x 1m reference box.
+The loudspeaker was driven by a reference amplifier with pink noise as an input signal (\cref{fig:signalgenerator}).
 In order to reduce fluctuations in output power, the amplifier was switched on and warmed up for at least 20 minutes before the start of the measurement.
 % weniger Absätze verbessern den Lesefluss.
 % Ein Absattz sollte zumindest 3 Sätze haben
@@ -31,11 +31,11 @@ This method of intensity measurement is also called two-microphone method or $p-
 Instead of direct measurement, the particle velocity is obtained by a finite-difference approximation to the pressure gradient \cite{jocobsen_2005}\cite{moschioni_2008}.
 % willst du den ganzen Ansatz zitieren? Dann ist [ref] nach . richtig.
 % Ansonsten wäre dies ein Anbsatz mit "2 microphone Intensity measurement" als Thema
-In the following, the basic concept of the sound power measurement using the two-microphone method is shown. The relation between particle velocity $\boldsymbol{u_a}$ and the acoustic pressure $p_a$ is described by the Euler equation of motion
+In the following, the basic concept of sound power measurement using the two-microphone method is shown. The relation between particle velocity $\boldsymbol{u_a}$ and the acoustic pressure $p_a$ is described by the Euler equation of motion
 \begin{equation}
     \rho_0 \frac{\partial \boldsymbol{u_a}}{\partial t} = -\nabla p_a \text{.} \label{eq:euler_equatioin}
 \end{equation}
-In the intensity measurement using two-microphone method (\cref{fig:scanningmethod}), the intensity probe is moved over the measurement surface with a constant speed and is kept perpendicular to scanned area so that only the normal component of the particle velocity is captured. Furthermore, the normal component of the pressure gradient in \cref{eq:euler_equatioin} is approximated by the finite difference of the measured pressures. \Cref{eq:euler_equatioin} for the normal component then reads as
+In the intensity measurement using the two-microphone method (\cref{fig:scanningmethod}), the intensity probe is moved over the measurement surface with a constant speed and is kept perpendicular to the scanned area so that only the normal component of the particle velocity is captured. Furthermore, the normal component of the pressure gradient in \cref{eq:euler_equatioin} is approximated by the finite difference of the measured pressures. \Cref{eq:euler_equatioin} for the normal component then reads as
 \begin{equation}
 	\rho_0\frac{\partial(\boldsymbol{u_a} \cdot \boldsymbol{n})}{\partial t} = -\nabla p_a \cdot \boldsymbol{n} \approx -\frac{p_2 - p_1}{\Delta r}\text{,}
 \end{equation}
@@ -86,14 +86,14 @@ The total sound power of the enclosed sound source is then given by the sum of t
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=12cm]{fig/Sound_power_measurement_2.png}
-\caption{Intensity measurement using two-microphone method according to ISO 9614-2 \cite{din19969614}.}
+\caption{Intensity measurement using the two-microphone method according to ISO 9614-2 \cite{din19969614}.}
 \label{fig:scanningmethod}
 \end{center}
 \end{figure}
 
 \subsection*{Measurement results}
 
-The measurement is post-processed using the Brüel \& Kjaer type 2270 hand-held analyzer and the result is shown in one-third octave band spectra. \Cref{fig:SWL} shows the measured non-weighted (Z-weighting) sound power level (SWL ref \SI{1}{\pico\watt}) from \SIrange{100}{2000}{\hertz}. The measurement was carried out twice, the deviation of both measurements was  within \SI{0.3}{\dB} in total power. For the finite element simulation, the averaged value of both measurements as shown in \cref{fig:average_SWL} is be used.
+The measurement is post-processed using the Brüel \& Kjaer type 2270 hand-held analyzer and the result is shown in one-third octave band spectra. \Cref{fig:SWL} shows the measured non-weighted (Z-weighting) sound power level (SWL ref \SI{1}{\pico\watt}) from \SIrange{100}{2000}{\hertz}. The measurement was carried out twice, and the deviation of both measurements was  within \SI{0.3}{\dB} in total power. For the finite element simulation, the averaged value of both measurements as shown in \cref{fig:average_SWL} was used.
 
 \begin{figure}[H]
      \centering
