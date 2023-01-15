@@ -167,7 +167,7 @@ For our simulation, it would be \SI{1.71}{\meter}, which is the half of the wave
 Hence, the reference solution is computed by using the model with \SI{2}{\meter} width and all errors are evaluated with respect to this reference. For the simulation, a fictitious excitation with uniform normal surface particle velocity of $u_s$ = \SI{1}{\milli\meter\per\second} is applied to the loudspeaker surface. 
 The acoustic pressure is evaluated at \SI{0.1}{\meter} away from the vehicle along the height direction as indicated by the vertical red lines in \cref{fig:domain_width_0pt2m} and \cref{fig:domain_width_2m}. Along the height direction, the evaluation points of the acoustic pressure are \SI{0.05}{\meter} from each other, starting from \SI{0}{\meter} and ending with \SI{4.5}{\meter}, resulting in 91 evaluation positions in total. At each evaluation point, the relative error of the acoustic pressure value $\hat{p}_{a,i}$ (real part and imaginary part) to the reference solution $\hat{p}_{a,\text{ref},i}$ is computed by
 \begin{equation}
-	E_{p_a,i} = \left(\frac{\left| \hat{p}_{a,i} - \hat{p}_{a,\text{ref},i} \right|}{\left|\hat{p}_{a,\text{ref},i}\right|}\right)100\,\% \,,
+	E_{p_a,i} = \frac{\left| \hat{p}_{a,i} - \hat{p}_{a,\text{ref},i} \right|}{\left|\hat{p}_{a,\text{ref},i}\right|}\,,
 \end{equation}
 with $i$ being the evaluation position and $i \in \left[1\dots91\right]$. The simulation is carried out with the one-third octave center frequencies from \SIrange{100}{2000}{\hertz}, using the computational grids as displayed in \cref{tab:grid_size}.
 
@@ -370,9 +370,8 @@ Through \cref{eq:input_velocity}, the required normal velocity at the loudspeake
 	\label{fig:input_SVL}
 \end{figure}
 
-Note that above derivation is only valid for the assumption of free-field radiation ... Specifying a velocity BC on a sphere does not guarantee a certain power for a gneral radiation domain. Explain why ...
+Note that above derivation is only valid for the assumption of free-field radiation of the spherical wave. It aims to find a possible way to incorporate the measured acoustic power into the finite element model. For a general radiation domain, specifying a normal velocity boundary condition on a sphere surface does not guarantee a certain acoustic power as measured in the free field, since the resulted pressure is dependent on the specific acoustic impedance, and the latter one is depending on the acoustic system.
 
-%\section{General simulation setup}
 \newpage
 \section{Parametric study}
 \label{section:parametric_study}
