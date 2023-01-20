@@ -16,7 +16,7 @@ which is also called the continuity equation and the conservation of momentum
 \end{equation}
 Here, $\rho$ denotes the fluid density, $p$ the fluid pressure, $\boldsymbol{u}$ the particle velocity, $\left[\tau\right]$ the viscous stress tensor and $\boldsymbol{f}$ an external force density. If air is used as the medium for sound propagation, it can be considered as an inviscid fluid due to its low viscosity. Hence, $\nabla\cdot\left[\tau\right]$ in \cref{eq:conservation_of_momentum} can be neglected. Moreover, the external force density $\boldsymbol{f}$ will also be neglected.
 
-For linear acoustic wave propagation, the perturbation ansatz for the three acoustic quantities $\rho$, $p$ and $\boldsymbol{u}$ is used
+For linear acoustic wave propagation, the perturbation approach for the three acoustic quantities $\rho$, $p$ and $\boldsymbol{u}$ is used
 \begin{equation}
 	\rho = \rho_0 + \rho_a\text{;}\qquad p = p_0 + p_a\text{;}\qquad \boldsymbol{u} = \boldsymbol{u_0} + \boldsymbol{u_a}\text{,}
 \end{equation}
@@ -24,7 +24,7 @@ whereby the quantities are split up in their mean $\square_0$ and alternating pa
 \begin{equation}
 	\rho_a \ll \rho_0\text{;}\qquad p_a \ll p_0\text{;}\qquad \boldsymbol{u_a} \ll \boldsymbol{u_0}\text{.}
 \end{equation}
-Furthermore, it is assumed that the mean pressure $p_0$ and the mean density $\rho_0$ do not vary over space and time and a quiescent medium with no background flow ($\boldsymbol{u_0} = \boldsymbol{0}$) is considered. Applying the perturbation ansatz and all assumptions above to the conservation equations \cref{eq:conservation_of_mass}, \cref{eq:conservation_of_momentum} and neglecting all second-order terms of the perturbations yields
+Furthermore, it is assumed that the mean pressure $p_0$ and the mean density $\rho_0$ do not vary over space and time and a quiescent medium with no background flow ($\boldsymbol{u_0} = \boldsymbol{0}$) is considered. Applying the perturbation approach and all assumptions above to the conservation equations \cref{eq:conservation_of_mass}, \cref{eq:conservation_of_momentum} and ignoring all second-order terms of the perturbations yields
 \begin{align}
 	\frac{\partial \rho_a}{\partial t} + \rho_0\nabla\cdot\boldsymbol{u_a} &= 0\text{,} \label{eq:linearised_convervation_mass} \\ 
 	\rho_0\frac{\partial \boldsymbol{u_a}}{\partial t} + \nabla p_a &= \boldsymbol{0}\text{,} \label{eq:linearised_convervation_momentum}
@@ -42,7 +42,7 @@ where $c_0$ denotes the speed of sound in the propagation medium and depends on 
 	c_0 = \sqrt{\frac{K_0}{\rho_0}}\text{.}
 \end{equation}
 
-For a sinusoidal wave, which is for example excited by a harmonic source, the solution of \cref{eq:wave_equation} can be represented as
+For a sinusoidal wave, which is, for example, excited by a harmonic source, the solution of \cref{eq:wave_equation} can be represented as
 \begin{equation}
 	p_a(\boldsymbol{x},t) = Re\lbrace\hat{p}_a(\boldsymbol{x})e^{j\omega t}\rbrace \text{,} \label{eq:sinusoidal_wave}
 \end{equation}
@@ -76,15 +76,15 @@ to the last term of \cref{eq:noname_1} and inserting the obtained expression int
 \end{equation}
 where $\partial \Omega$ is the enclosed surface of $\Omega$ and $\boldsymbol{n}$ the outwards facing surface normal vector.
 
-In order to uniquely define the pressure $p_a$ in the domain $\Omega$, at least one boundary condition must be specified on the closed boundary surface $\partial \Omega$. A typical boundary condition in the acoustics is of Neumann type, which prescribes a normal traction
+In order to uniquely define the pressure $p_a$ in the domain $\Omega$, at least one boundary condition must be specified on the closed boundary surface $\partial \Omega$. A typical boundary condition in the acoustics is the Neumann type, which prescribes a normal traction
 \begin{equation}
 	\nabla p_a \cdot \boldsymbol{n} = p_n = -\rho_0\frac{\partial \boldsymbol{u_a}}{\partial t}\cdot\boldsymbol{n} = -\rho_0 a_n \label{eq:neumann_BC}
 \end{equation}
-at boundary $\Gamma_n$, where $a_n$ denotes the particle acceleration normal to $\Gamma_n$. The homogeneous Neumann boundary condition, i.e. $\nabla p_a \cdot \boldsymbol{n} = 0$, is also called sound hard boundary condition and can be used to model acoustic wall. For the inhomogeneous case ($p_n \neq 0$), it acts as an acoustic excitation on the boundary. Another boundary condition is of Dirichlet type, with prescribed pressure
+at boundary $\Gamma_n$, where $a_n$ denotes the particle acceleration normal to $\Gamma_n$. The homogeneous Neumann boundary condition, i.e., $\nabla p_a \cdot \boldsymbol{n} = 0$, is also called sound hard boundary condition and can be used to model acoustic wall. For the inhomogeneous case ($p_n \neq 0$), it acts as an acoustic excitation on the boundary. Another boundary condition is the Dirichlet type, with prescribed pressure
 \begin{equation}
 	p_a = p_i \label{eq:dirichlet_BC}
 \end{equation}
-at boundary $\Gamma_i$. A homogeneous Dirichlet boundary condition ($p_i = 0$) is called sound soft boundary, which occurs mostly at a liquid-gas interface. Noticed that both sound hard and sound soft boundary conditions can lead to reflection of acoustic waves at the boundary.
+at boundary $\Gamma_i$. A homogeneous Dirichlet boundary condition ($p_i = 0$) is called sound soft boundary, which occurs mostly at a liquid-gas interface. Note that both sound hard and sound soft boundary conditions can lead to reflection of acoustic waves at the boundary.
 
 Incorporating the Neumann boundary condition \cref{eq:neumann_BC} into \cref{eq:noname_2}, the final weak form is obtained, reading as
 \begin{equation}
@@ -94,9 +94,9 @@ which must be satisfied for all test functions $p'$ within the computational dom
 
 With the same procedure, the weak form of the Helmholtz equation \cref{eq:helmholtz_equation} can also be obtained
 \begin{equation}
-	\int_{\Omega}k^2\hat{p}_a\,\text{d}\Omega - \int_{\Omega}\nabla p' \cdot \nabla\hat{p}_a\,\text{d}\Omega + \oint_{\partial\Omega} p'\nabla \hat{p}_a \cdot \boldsymbol{n}\,\text{d}\Gamma = 0 \text{,}
+	\int_{\Omega}k^2p'\hat{p}_a\,\text{d}\Omega - \int_{\Omega}\nabla p' \cdot \nabla\hat{p}_a\,\text{d}\Omega + \oint_{\partial\Omega} p'\nabla \hat{p}_a \cdot \boldsymbol{n}\,\text{d}\Gamma = 0 \text{,}
 \end{equation}
-where $k$ is the wave number, being the angular frequency divided by the speed of sound. Again, the Neumann boundary condition
+where $k$ is the wave number, which is the angular frequency divided by the speed of sound. Again, the Neumann boundary condition
 \begin{equation}
 	\nabla\hat{p}_a \cdot\boldsymbol{n} = \hat{p}_n
 \end{equation}
@@ -109,8 +109,8 @@ at boundary $\Gamma_i$ can be incorporated.
 
 \section{Modeling of open domain problem}
 
-To model exterior acoustics problems, in which the acoustic wave propagates in an open unbounded domain, special care needs to be taken.
-A common practice is to truncate the propagation domain at a finite distance from the source and use homogeneous Neumann or Dirichlet boundary conditions, but this will result in an undesired reflection of the outgoing wave at the boundary \cite{nataf_absorbing_2013, kaltenbacher_numerical_2007}. One solution to such an open-domain problem is to apply at the boundary a special condition, the so-called absorbing boundary condition (ABC), which was first introduced by Engquist and Majda in 1977 \cite{Engquist_ABC_1977}. The other commonly used domain truncation technique is the perfectly matched layer (PML), which is an additional acoustic domain surrounding the propagation domain, in which the acoustic waves are damped. The name "perfectly matched" refers to the matching impedances of both domains, and hence no reflections of the impinging wave occur at the domain boundary. Its concept was first introduced by Berenger in 1994 \cite{BERENGER_PML_1994} and was originally designed for the electromagnetic problem. There has been much research work on the PML-technique \cite{kaltenbacher_numerical_2007} and nowadays it is widely used in acoustic, electromagnetic or elastodynamic simulation \cite{nataf_absorbing_2013}. In the following, the basic concept of the PML technique is explained closely following Kaltenbacher \cite{kaltenbacher_numerical_2007, KALTENBACHER_PML_2013}.
+To model exterior acoustics problems in which the acoustic wave propagates in an open unbounded domain, special care needs to be taken.
+A common practice is to truncate the propagation domain at a finite distance from the source and use homogeneous Neumann or Dirichlet boundary conditions, but this will result in an undesired reflection of the outgoing wave at the boundary \cite{nataf_absorbing_2013, kaltenbacher_numerical_2007}. One solution to such an open-domain problem is to apply a special condition at the boundary, the so-called absorbing boundary condition (ABC), which was first introduced by Engquist and Majda in 1977 \cite{Engquist_ABC_1977}. The other commonly used domain truncation technique is the perfectly matched layer (PML), which is an additional acoustic domain surrounding the propagation domain, in which the acoustic waves are damped. The name "perfectly matched" refers to the matching impedances of both domains, and hence no reflections of the impinging wave occur at the domain boundary. Its concept was first introduced by Berenger in 1994 \cite{BERENGER_PML_1994} and was originally designed for the electromagnetic problem. There has been much research work on the PML-technique \cite{kaltenbacher_numerical_2007}, and it is currently widely used in acoustic, electromagnetic or elastodynamic simulation \cite{nataf_absorbing_2013}. In the following, the basic concept of the PML technique is explained closely following Kaltenbacher \cite{kaltenbacher_numerical_2007, KALTENBACHER_PML_2013}.
 
 We consider the linear wave equation \cref{eq:wave_equation} for one dimensional case with spatial coordinate $x$, which reads as 
 \begin{equation}
@@ -121,11 +121,11 @@ For plane wave propagation, the reflection coefficient $R$ at the interface betw
 \begin{equation}
 	R = \frac{Z_{\text{pml}} - Z_{\text{0}}}{Z_{\text{pml}} + Z_{\text{0}}}\text{,} \label{eq:reflection_coefficient_PML}
 \end{equation}
-with $Z_{\text{pml}} = \tilde{\rho}\tilde{c}$ the acoustic impedance in the PML region and $Z_{\text{0}} = \rho_0 c_0$ the specific acoustic impedance of the propagation medium, receptively. In order to make $R = 0$ to achieve zero reflection at the interface, $Z_{\text{pml}}$ has to match $Z_{\text{0}}$. Since the PML is an artificial domain, the two quantities $\tilde{\rho}$ and $\tilde{c}$ are free to be chosen in such a way that just their product equals $\rho_0 c_0$. By choosing complex values like
+with $Z_{\text{pml}} = \tilde{\rho}\tilde{c}$ the acoustic impedance in the PML region and $Z_{\text{0}} = \rho_0 c_0$ the specific acoustic impedance of the propagation medium, respectively. In order to make $R = 0$ achieve zero reflection at the interface, $Z_{\text{pml}}$ has to match $Z_{\text{0}}$. Since the PML is an artificial domain, the two quantities $\tilde{\rho}$ and $\tilde{c}$ are free to be chosen in such a way that just their product equals $\rho_0 c_0$. By choosing complex values like
 \begin{equation}
 	\tilde{\rho} = \rho_0(1 - j\sigma_x)\text{;}\qquad \tilde{c} = \frac{c_0}{1- j\sigma_x}\text{,}
 \end{equation}
-the impedance matching $Z_{\text{pml}} = Z_{\text{0}}$ is still achieved. Here, $\sigma_x$ denotes a damping function in $x$-direction and it will be explained later in more detail. Furthermore, we consider the one dimensional Helmholtz equation, which is the time-harmonic case of \cref{eq:1d_wave_equation} and formulate for the PML region, we obtain
+the impedance matching $Z_{\text{pml}} = Z_{\text{0}}$ is still achieved. Here, $\sigma_x$ denotes a damping function in $x$-direction and will be explained later in more detail. Furthermore, we consider the one dimensional Helmholtz equation, which is the time-harmonic case of \cref{eq:1d_wave_equation} and formulate for the PML region, we obtain
 \begin{equation}
 	\frac{\omega^2}{\tilde{c}^2}\hat{p}_a  +
 	\frac{\partial^2 \hat{p}_a}{\partial x^2} = 0 \text{.} \label{eq:1d_helmholtz_equation}
@@ -140,11 +140,11 @@ The general solution for the pressure in the PML region then reads as
 \end{equation}
 If $\sigma_x$ is chosen as constant, the pressure amplitude is decreased by the real term $e^{-\sigma_0 kx}$ with rising $x$, hence the acoustic wave is damped.
 
-The formulation of PML so far works only for cases, where the impinging wave is normal to the interface between both regions. However, if the wave impinges to the normal vector of the interface at an angle $\phi$, then the acoustic impedances compute by
+The formulation of PML so far works only for cases where the impinging wave is normal to the interface between both regions. However, if the wave impinges to the normal vector of the interface at an angle $\phi$, then the acoustic impedances compute by
 \begin{equation}
 	Z_{\text{0}} = \frac{\rho_0 c_0}{\sin(\phi_1)}\qquad Z_{\text{pml}} = \frac{\tilde{\rho} \tilde{c}}{\sin(\phi_2)} \text{,}
 \end{equation}
-and the method will not be working. Therefore, we need to split up the linearized conservation equations \cref{eq:linearised_convervation_mass} and \cref{eq:linearised_convervation_momentum} into their spatial directions and introduce for each direction an artificial damping individually, which leads to the modified Helmholtz equation
+and the method will not work. Therefore, we need to split the linearized conservation equations \cref{eq:linearised_convervation_mass} and \cref{eq:linearised_convervation_momentum} into their spatial directions and introduce for each direction an artificial damping individually, which leads to the modified Helmholtz equation
 \begin{equation}
 	\eta_y\eta_z\frac{\partial}{\partial x}\left(\frac{1}{\eta_x}\frac{\partial\hat{p}_a}{\partial x}\right) + \eta_x\eta_z\frac{\partial}{\partial y}\left(\frac{1}{\eta_y}\frac{\partial\hat{p}_a}{\partial y}\right) + \eta_x\eta_y\frac{\partial}{\partial z}\left(\frac{1}{\eta_z}\frac{\partial\hat{p}_a}{\partial z}\right) + \eta_x\eta_y\eta_zk^2\hat{p}_a = 0 \text{,} \label{eq:modified_helmholtz_equation}
 \end{equation}
@@ -152,7 +152,7 @@ where the functions
 \begin{equation}
 	\eta_i = 1 - j\frac{\sigma_i}{\omega}\text{,}\,i \in \lbrace x\text{,}y\text{,}z\rbrace
 \end{equation}
-were introduced, with $\sigma_i$ being the damping functions in the spatial direction $i\in\lbrace x\text{,}y\text{,}z\rbrace$. The full derivation of \cref{eq:modified_helmholtz_equation} can be found in \cite{kaltenbacher_numerical_2007}. A second method to derive \cref{eq:modified_helmholtz_equation} is the so-called complex coordinate stretching, which maps the solution of the Helmholtz equation in the real coordinate space to a complex coordinate space. This is done by defining the mapping e.g. for $x$
+were introduced, with $\sigma_i$ being the damping functions in the spatial direction $i\in\lbrace x\text{,}y\text{,}z\rbrace$. The full derivation of \cref{eq:modified_helmholtz_equation} can be found in \cite{kaltenbacher_numerical_2007}. A second method to derive \cref{eq:modified_helmholtz_equation} is the so-called complex coordinate stretching, which maps the solution of the Helmholtz equation in the real coordinate space to a complex coordinate space. This is done by defining the mapping, e.g., for $x$
 \begin{equation}
 	\tilde{x}(x) = x + \frac{1}{j\omega}\int_{0}^{x} \sigma_x(\tilde{x})\,\text{d}\tilde{x}\text{,}
 \end{equation}
@@ -164,13 +164,13 @@ The derivative \cref{eq:derivative_stretched_coordinate} can be transformed as
 \begin{equation}
 	\frac{\partial}{\partial \tilde{x}} = \frac{1}{\eta_x}\frac{\partial}{\partial x}\text{.}
 \end{equation}
-In the case of $\sigma_i = 0$, the stretched and the original coordinates are the same and $\eta_i = 1$ i.e. no mapping. Applying the coordinate stretching to all direction components, we obtain the operator
+In the case of $\sigma_i = 0$, the stretched and the original coordinates are the same and $\eta_i = 1$, i.e., no mapping. Applying the coordinate stretching to all direction components, we obtain the operator
 \begin{equation}
 	\tilde{\nabla} = \left(\frac{1}{\eta_x}\frac{\partial}{\partial x}\text{,}\frac{1}{\eta_y}\frac{\partial}{\partial y}\text{,}\frac{1}{\eta_z}\frac{\partial}{\partial z} \right)^T \text{.} \label{eq:operator}
 \end{equation}
 Inserting the operator \cref{eq:operator} into the Helmholtz equation \cref{eq:helmholtz_equation} leads to the modified Helmholtz equation \cref{eq:modified_helmholtz_equation}.
 
-In the following, the damping function $\sigma_i$ will be discussed in more detail. The performance of the PML is depending on the choice of the damping function. Different damping functions are shown in \cite{kaltenbacher_numerical_2007}. However, it can be proven that using a function that is zero at the interface between the propagation region and PML region and grows towards infinity with $\tilde{x}\rightarrow L$ works optimally for the Helmholtz equation \cite{kaltenbacher_numerical_2007,KALTENBACHER_PML_2013}. Such function is called inverse distance function and can be written as
+In the following, the damping function $\sigma_i$ will be discussed in more detail. The performance of the PML depends on the choice of the damping function. Different damping functions are shown in \cite{kaltenbacher_numerical_2007}. However, it can be proven that using a function that is zero at the interface between the propagation region and PML region and grows towards infinity with $\tilde{x}\rightarrow L$ works optimally for the Helmholtz equation \cite{kaltenbacher_numerical_2007,KALTENBACHER_PML_2013}. Such function is called inverse distance function and can be written as
 \begin{equation}
 	\sigma_x = \frac{c_0}{L - \tilde{x}}\,. \label{eq:inverse_dis}
 \end{equation}
@@ -182,7 +182,7 @@ is to use a quadratic increase damping function like
 \begin{equation}
 	\sigma_x = \sigma_0c_0\frac{\tilde{x}^2}{L^2}\text{,}
 \end{equation}
-in this case, the constant damping factor $\sigma_0$ needs to chosen carefully for the given PML thickness $L$. Setting the damping factor too low could lead to insufficient damping of the acoustic wave in the PML domain, while setting it too high may cause numerical issues \cite{KALTENBACHER_PML_2013}. The tuning of the parameter is not necessary when using the inverse distance damping function, since it is dependent on the PML thickness $L$. A decreased thickness of the PML can be compensated by a higher value of the damping factor, but there is a limit where discretization errors become dominant \cite{KALTENBACHER_PML_2013}. Therefore, even for the optimal damping function, the thickness of the PML has to be chosen properly. Kaltenbacher \cite{KALTENBACHER_PML_2013} achieved good results with a PML thickness $t_\text{PML} = \frac{\lambda}{4}$ and $t_\text{PML} = \frac{\lambda}{8}$ in dependence of the acoustic wavelength $\lambda = \frac{c_0}{f}$ with a total error of $0.1\%$ in the propagation region. Furthermore, using a minimum of 2 linear elements or 1 quadratic element to resolve the PML region and choosing a similar element size for the propagation region and the PML region were suggested.
+in this case, the constant damping factor $\sigma_0$ needs to be chosen carefully for the given PML thickness $L$. Setting the damping factor too low could lead to insufficient damping of the acoustic wave in the PML domain, while setting it too high may cause numerical issues \cite{KALTENBACHER_PML_2013}. The tuning of the parameter is not necessary when using the inverse distance damping function, since it is dependent on the PML thickness $L$. A decreased thickness of the PML can be compensated by a higher value of the damping factor, but there is a limit where discretization errors become dominant \cite{KALTENBACHER_PML_2013}. Therefore, even for the optimal damping function, the thickness of the PML has to be chosen properly. Kaltenbacher \cite{KALTENBACHER_PML_2013} achieved good results with a PML thickness $t_\text{PML} = \frac{\lambda}{4}$ and $t_\text{PML} = \frac{\lambda}{8}$ in dependence of the acoustic wavelength $\lambda = \frac{c_0}{f}$ with a total error of $0.1\%$ in the propagation region. Furthermore, using a minimum of two linear elements or one quadratic element to resolve the PML region and choosing a similar element size for the propagation region and the PML region were suggested.
 
 \newpage
 \section{Fundamentals of noise measurement}
@@ -191,7 +191,7 @@ In this section, the most important terminologies in the noise and sound measure
 
 \subsection{Sound level}
 
-The hearing of humans does not respond linearly to acoustic pressure, hence, a logarithmic scale is introduced when measuring the acoustic quantities \cite{fahy_foundations_2001}. The most commonly measured physical attribute of the sound is the sound pressure. Other important measures are sound particle velocity, sound intensity and sound power. The definitions of the logarithmic measures of the above-mentioned quantities are presented below, following Kaltenbacher \cite{kaltenbacher_computational_2018} and Heutschi \cite{heutschi_lecture_2016}.
+The hearing of humans does not respond linearly to acoustic pressure; hence, a logarithmic scale is introduced when measuring the acoustic quantities \cite{fahy_foundations_2001}. The most commonly measured physical attribute of the sound is the sound pressure. Other important measures are sound particle velocity, sound intensity, and sound power. The definitions of the logarithmic measures of the above-mentioned quantities are presented below, following Kaltenbacher \cite{kaltenbacher_computational_2018} and Heutschi \cite{heutschi_lecture_2016}.
 
 
 \subsubsection*{Sound pressure level}
@@ -225,7 +225,7 @@ The instantaneous acoustic intensity $\boldsymbol{I_a}$ is defined by the produc
 \begin{equation}
 	\boldsymbol{I_a} = p_a \boldsymbol{u_a}\text{.}
 \end{equation} 
-For the sound intensity level (SIL), the averaged value of the instantaneous acoustic intensity is used, which computes by
+For the sound intensity level (SIL), the averaged value of the instantaneous acoustic intensity is used, which is computed as
 \begin{equation}
 	I_a^{\text{ave}} = |\boldsymbol{I_a^{\text{ave}}}| = \left|\frac{1}{T}\int_{t_0}^{t_0 + T} p_a \boldsymbol{u_a}\,\text{d}t\right|\text{.}
 \end{equation}
@@ -245,7 +245,7 @@ with $\boldsymbol{n}$ being the surface normal vector. The sound power level (SW
 \begin{equation}
 	L_W = 10\log_{10}\frac{W_a^{\text{ave}}}{W_\text{ref}}\,\text{dB}\text{,}
 \end{equation}
-with $W_\text{ref} = 10^{-12}\,\text{W}$ being the reference sound power and $W_a^{\text{ave}}$ the averaged value of the acoustic power, which is computed for the time harmonic case by
+with $W_\text{ref} = 10^{-12}\,\text{W}$ being the reference sound power and $W_a^{\text{ave}}$ the averaged value of the acoustic power, which is computed for the time harmonic case using
 \begin{align}
 	W_a^{\text{ave}} &= \int_{\Gamma}\left(\frac{1}{T} \int_{t_0}^{t_0 + T} Re\lbrace\hat{p}_a e^{j\omega t}\rbrace\,Re\lbrace\boldsymbol{\hat{u}_a} \cdot \boldsymbol{n} e^{j\omega t}\rbrace \, \text{d}t  \right)\,\text{d}s \\
 	&= \frac{1}{2} \int_{\Gamma} Re\lbrace\hat{p}_a \boldsymbol{\hat{u}_a}^*\rbrace \cdot \boldsymbol{n}\,\text{d}s \text{,}
@@ -258,7 +258,7 @@ with $()^*$ denoting the complex conjugate.
 A noise signal is often analyzed in the frequency domain in order to assess its frequency content. The frequency spectrum is divided into various frequency bands covering the hearing range of humans, which varies from \SIrange{20}{20000}{\hertz}. The most commonly used frequency bands in acoustic measurement are octave bands and one-third octave bands.
 
 \subsubsection*{Octave band}
-An octave band has a frequency span ratio of 2:1, which means that the upper limit frequency $f_u$ of the band is twice its lower limit frequency $f_l$, i.e.
+An octave band has a frequency span ratio of 2:1, which means that the upper limit frequency $f_u$ of the band is twice its lower limit frequency $f_l$, i.e.,
 \begin{equation}
 	f_u = 2f_l\,.
 \end{equation}
@@ -282,7 +282,7 @@ And the center frequency of 1/n-octave band is given by
 \begin{equation}
 	f_m = \sqrt{f_l f_u} = 2^{^{\frac{1}{2n}}}f_l\,.
 \end{equation}
-One can see that for $n = 1$, the same expressions as for the octave band are obtained.
+One can see that for $n = 1$, the same expressions are obtained as those for the octave band.
 
 \begin{figure}[H]
 	\centering
@@ -310,7 +310,7 @@ One can see that for $n = 1$, the same expressions as for the octave band are ob
 	\label{fig:weighting}
 \end{figure}
 
-The human audible system does not respond equally to sound frequencies. It is more sensitive to frequencies between \SI{500}{\hertz} and \SI{8000}{\hertz} and less sensitive to lower-pitch and higher-pitch noises \cite{weighting_filters}. To match this frequency-dependent perception of sound loudness of the human ear, so-called frequency weighting filters have been defined, which can be seen as correction functions of the measured sound levels. However, the frequency response of the ear also depends on sound pressure level, at lower levels the effect is more pronounced than at higher levels \cite{heutschi_lecture_2016}. Therefore, several weighting filters have been defined. The most commonly used weighting functions are A-weighting and C-weighting, which are designed for low and high sound levels, respectively. If no weighting filter is applied to the measurement, it is also called Z-weighting. The response functions of the A, C and Z-weighting filters are shown in \cref{fig:weighting}.
+The human audible system does not respond equally to sound frequencies. It is more sensitive to frequencies between \SI{500}{\hertz} and \SI{8000}{\hertz} and less sensitive to lower pitch and higher pitch noises \cite{weighting_filters}. To match this frequency-dependent perception of sound loudness of the human ear, frequency weighting filters have been defined, which can be seen as correction functions of the measured sound levels. However, the frequency response of the ear also depends on sound pressure level, at lower levels of pressure the effect is more pronounced than at higher levels \cite{heutschi_lecture_2016}. Therefore, several weighting filters have been defined. The most commonly used weighting functions are A-weighting and C-weighting, which are designed for low and high sound levels, respectively. If no weighting filter is applied to the measurement, it is also called Z-weighting. The response functions of the A, C and Z-weighting filters are shown in \cref{fig:weighting}.
 
 In the ambient noise measurement, the most frequently used weighting is A-weighting. It can be calculated by the weighting function \cite{IEC61672}
 \begin{equation}
@@ -356,7 +356,7 @@ The metro train Type X, also known as the X-Wagen, was developed by Siemens and 
 	\label{fig:ubx_sketup_model}
 \end{figure}
 
-The basic configuration of the train, as shown in \cref{fig:ubx_foto} and \cref{fig:ubx_model_sideview}, consists of two metro cars, a non-motorized head car where the driver's cab is located, and a motorized intermediate car. One section of the metro car is about \SI{2.85}{\meter} in width and \SI{3.6}{\meter} in height and has a length of \SI{19.1}{\meter} for the head car and \SI{18.3}{\meter} for the intermediate car, respectively. The train has a standard track gauge of \SI{1.425}{\meter}, and the car floor is about \SI{0.95}{\meter} over top of the rail. In the operating configuration, the metro train is made up of 6 sections consisting of 2 head cars and 4 intermediate cars with a length of over \SI{110}{\meter}.
+The basic configuration of the train, as shown in \cref{fig:ubx_foto} and \cref{fig:ubx_model_sideview}, consists of two metro cars, a non-motorized head car where the driver's cab is located, and a motorized intermediate car. One section of the metro car is about \SI{2.85}{\meter} in width and \SI{3.6}{\meter} in height and they have lengths of \SI{19.1}{\meter} for the head car and \SI{18.3}{\meter} for the intermediate car, respectively. The train has a standard track gauge of \SI{1.425}{\meter}, and the car floor is about \SI{0.95}{\meter} over top of the rail. In the operating configuration, the metro train is made up of six sections consisting of two head cars and four intermediate cars with a length of over \SI{110}{\meter}.
 
 \begin{figure}[H]
 	\centering
@@ -366,7 +366,7 @@ The basic configuration of the train, as shown in \cref{fig:ubx_foto} and \cref{
 \end{figure}
 
 The main components in the train underfloor are the bogies and other supporting units like air compressors, electrical transformers, etc.
-Each metro car is equipped with two bogies. While the bogies at the front car are non-driven, the intermediate car bogies are driven by traction motors. A non-driven bogie from the front car is shown in \cref{fig:bogie_foto} with the main components numbered. These are the bogie frame with a length of about \SI{3}{\meter}, the wheels with \SI{0.85}{\meter} diameter, and a distance of \SI{2}{\meter} to each other, the axles, and the air suspensions. Each axle is equipped with one brake disk and one brake caliper unit, and the brake components of both axles are arranged in an anti-symmetric order.
+Each metro car is equipped with two bogies. While the bogies at the front car are non-driven, the intermediate car bogies are driven by traction motors. A non-driven bogie from the front car is shown in \cref{fig:bogie_foto} with the main components numbered. These are the bogie frame with a length of about \SI{3}{\meter}, the wheels with \SI{0.85}{\meter} diameter at a distance of \SI{2}{\meter} from each other, the axles, and the air suspensions. Each axle is equipped with one brake disk and one brake caliper unit, and the brake components of both axles are arranged in an anti-symmetric order.
 
 \begin{figure}[H]
 	\centering
